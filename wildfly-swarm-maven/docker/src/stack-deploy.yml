@@ -13,16 +13,7 @@ services:
     networks: [backing-services]
     deploy:
       mode: replicated
-      replicas: 2
-      endpoint_mode: vip
-      resources:
-        reservations:
-          cpus: "0.01"
-          memory: 50M
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        window: 25s
+      replicas: 1
 
 volumes:
   app-data:

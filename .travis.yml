@@ -82,3 +82,8 @@ script:
   - bash docker/bin/test-docker-compose.bash
   - bash docker/bin/test-stack-deploy.bash
   - bash mvnw clean install
+
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle

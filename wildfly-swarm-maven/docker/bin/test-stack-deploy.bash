@@ -8,12 +8,15 @@ docker-compose -f ./docker/src/stack-deploy.yml build --force-rm --no-cache --pu
 docker-compose -f ./docker/src/stack-deploy.yml push
 docker stack deploy --compose-file ./docker/src/stack-deploy.yml java-ee
 
-sequence=2
+sequence=1
 for service_name in java-ee_app; do
   echo "waiting for $service_name bootstrap..."
-  docker stack services --filter name="$service_name" --format="{{.Name}} {{.Replicas}}" java-ee
-  while [ $(docker stack services --filter name="$service_name" --format="{{.Replicas}}" app) != "2/2" ]; do
-    docker service scale --detach=false "$service_name"="$sequence"
+  echo $(docker stack services --filter name="$service_name" --format="{{.Name}} {{.Replicas}}" java-ee)
+  state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" java-ee)
+  while [ "$state" != "$sequence/$sequence" ]; do
+    sleep "$sequence"
+    docker service scale --detach=true "$service_name"="$sequence"
+    state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" java-ee)
   done
   #sequence=$(expr "$sequence" + 1)
 done
