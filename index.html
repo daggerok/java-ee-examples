@@ -511,65 +511,8 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .head .head{color:#f4f}
 </style>
 <style>
-  @media screen and (max-width: 7680px) {
-    body {
-      font-size: 1.75em;
-    }
-  }
-  @media screen and (max-width: 4096px) {
-    body {
-      font-size: 1.5em;
-    }
-  }
-  @media screen and (max-width: 3840px) {
-    body {
-      font-size: 1.25em;
-    }
-  }
-  @media screen and (max-width: 1920px) {
-    body {
-      font-size: 1.2em;
-    }
-  }
-  @media screen and (max-width: 1366px) {
-    body {
-      font-size: 1.15em;
-    }
-  }
-  @media screen and (max-width: 1280px) {
-    body {
-      font-size: 1.1em;
-    }
-  }
-  @media screen and (max-width: 1024px) {
-    body {
-      font-size: 1.05em;
-    }
-  }
-  @media screen and (max-width: 720px) {
-    body {
-      font-size: 1em;
-    }
-  }
-  @media screen and (max-width: 680px) {
-    body {
-      font-size: 0.9em;
-    }
-  }
-  @media screen and (max-width: 576px) {
-    body {
-      font-size: 0.8em;
-    }
-  }
-  @media screen and (max-width: 480px) {
-    body {
-      font-size: 0.7em;
-    }
-  }
-  @media screen and (max-width: 324px) {
-    body {
-      font-size: 0.6em;
-    }
+  body {
+    font-size: 1.25em;
   }
 </style>
 
@@ -663,7 +606,7 @@ docker push 127.0.0.1:5000/app
 #docker-compose -f ./docker/src/stack-deploy.yml push
 docker stack deploy --compose-file ./docker/src/stack-deploy.yml java-ee
 docker stack services --filter name="java-ee_app" --format="{{.Name}} {{.Replicas}}" java-ee
-docker service scale --detach=false "java-ee_app"="2"
+docker service scale --detach=false java-ee_app=2
 
 sleep 15
 docker stack services java-ee
@@ -741,9 +684,9 @@ docker push 127.0.0.1:5000/app
 #docker-compose -f ./docker/src/stack-deploy.yml push
 docker stack deploy --compose-file ./docker/src/stack-deploy.yml java-ee
 docker stack services --filter name="java-ee_app" --format="{{.Name}} {{.Replicas}}" java-ee
-docker service scale --detach=false "java-ee_app"="2"
+docker service scale --detach=false java-ee_app=2
 
-sleep 15
+sleep 30
 docker stack services java-ee
 
 http :8080
