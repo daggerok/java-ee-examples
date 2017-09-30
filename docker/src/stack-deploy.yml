@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+
+  app:
+    image: 127.0.0.1:5000/app
+    restart: unless-stopped
+    build:
+      context: ../..
+      dockerfile: ./docker/src/Dockerfile
+    volumes: ["app-data:/opt/app"]
+    ports: ["8080:8080"]
+    networks: [backing-services]
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: vip
+      resources:
+        reservations:
+          cpus: "0.01"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 25s
+
+volumes:
+  app-data:
+
+networks:
+  backing-services:

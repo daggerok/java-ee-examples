@@ -1,0 +1,61 @@
+group: edge
+dist: trusty
+
+language: java
+jdk:
+  - openjdk8
+  - oraclejdk8
+
+install: true
+before_install:
+  # install docker 17.07.0 read https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository
+  - sudo apt remove docker docker-engine docker.io
+  - sudo apt update
+  - >
+    sudo apt install -y \
+        linux-image-extra-$(uname -r) \
+        linux-image-extra-virtual
+  - >
+    sudo apt install -y \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        software-properties-common
+
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo apt-key fingerprint 0EBFCD88
+  - >
+    sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+
+  - sudo apt update -y
+  - sudo apt install -y docker-ce
+  - sudo apt-cache madison docker-ce
+
+  # docker-compose, httpie
+  - sudo apt install -y docker python-pip jq
+  - sudo pip install docker-compose httpie
+  - sudo usermod -aG docker $(whoami)
+
+  # kill whatever punning on postgres / rabbitmq port
+  - sudo kill $(sudo lsof -t -i:5432) | true
+  - sudo kill $(sudo lsof -t -i:5672) | true
+  - sudo kill $(sudo lsof -t -i:27017) | true
+
+  - docker -v
+  - docker-compose -v
+
+script:
+  - mvn clean install
+  #- mvn -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
+  - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar &
+  - sleep 20
+  - http :8080
+  - sleep 1
+  - killall -9 java | true
+
+  - bash docker/bin/test-dockerfile.bash
+  - bash docker/bin/test-docker-compose.bash
+  - bash docker/bin/test-stack-deploy.bash

@@ -1,0 +1,58 @@
+= java-ee-example image:https://travis-ci.org/daggerok/java-ee-example.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-example"]
+
+This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
+
+.using maven
+----
+mvn -Djava.net.preferIPv4Stack=true wildfly-swarm:run
+http :8080
+----
+
+.using wildfly swarm jar
+----
+mvn clean package
+java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar
+http :8080
+----
+
+.using docker
+----
+docker build --force-rm -f ./docker/src/Dockerfile -t docker-java-ee-example .
+docker run -d -p 8080:8080 --rm --name app docker-java-ee-example
+http :8080
+docker stop app
+----
+
+.using docker-compose
+----
+docker-compose -f ./docker/src/docker-compose.yml up -d
+http :8080
+docker-compose -f ./docker/src/docker-compose.yml down -v
+----
+
+.using docker swarm stack deploy
+----
+docker swarm init
+docker service create --detach=false --name registry --publish 5000:5000 registry:2
+docker build -f ./docker/src/Dockerfile -t 127.0.0.1:5000/app .
+docker push 127.0.0.1:5000/app
+#docker-compose -f ./docker/src/stack-deploy.yml build --force-rm --no-cache --pull
+#docker-compose -f ./docker/src/stack-deploy.yml push
+docker stack deploy --compose-file ./docker/src/stack-deploy.yml java-ee
+docker stack services --filter name="java-ee_app" --format="{{.Name}} {{.Replicas}}" java-ee
+docker service scale --detach=false "java-ee_app"="2"
+
+sleep 15
+docker stack services java-ee
+
+http :8080
+
+docker swarm leave --force
+docker system prune -af
+----
+
+links:
+
+. link:http://wildfly-swarm.io/posts/microprofile-with-wildfly-swarm/[Wildfly Swarm Micro-Profile]
+. link:https://howto.wildfly-swarm.io/[Wildfly Swarm Book]
+. link:https://stackoverflow.com/questions/37273621/fail-to-start-jax-rs-service-on-wildfly-swarm[wildfly-swarm fails on travis-ci]
