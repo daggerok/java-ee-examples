@@ -6,4 +6,4 @@ sleep 20
 http :8080
 docker stop app
 
-bash docker/bin/cleanup.bash
+bash ./docker/bin/cleanup.bash

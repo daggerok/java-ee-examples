@@ -15,7 +15,8 @@ public class AppService {
     return asList(
         "one",
         "two",
-        "three"
+        "three",
+        "maven"
     );
   }
 }

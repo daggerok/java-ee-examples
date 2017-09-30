@@ -56,3 +56,5 @@ links:
 . link:http://wildfly-swarm.io/posts/microprofile-with-wildfly-swarm/[Wildfly Swarm Micro-Profile]
 . link:https://howto.wildfly-swarm.io/[Wildfly Swarm Book]
 . link:https://stackoverflow.com/questions/37273621/fail-to-start-jax-rs-service-on-wildfly-swarm[wildfly-swarm fails on travis-ci]
+. link:https://github.com/takari/maven-wrapper[maven wrapper]
+. link:https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/getting-started/tooling/gradle-plugin.html[wildfly-swarm gradle plugin]

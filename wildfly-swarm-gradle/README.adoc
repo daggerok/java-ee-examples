@@ -1,26 +1,20 @@
-= java-ee-example (maven) image:https://travis-ci.org/daggerok/java-ee-example.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-example"]
+= java-ee-example (gradle) image:https://travis-ci.org/daggerok/java-ee-example.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-example"]
 
 This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
 
-.using maven
+.using gradle / java microprofile
 ----
-mvn -Djava.net.preferIPv4Stack=true wildfly-swarm:run
-http :8080
-----
-
-.using wildfly swarm microprofile
-----
-mvn clean package
-java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar
+bash gradlew clean build
+java -Djava.net.preferIPv4Stack=true -jar build/libs/wildfly-swarm-gradle-swarm.jar
 http :8080
 ----
 
 .using docker
 ----
 docker build --force-rm -f ./docker/src/Dockerfile -t docker-java-ee-example .
-docker run -d -p 8080:8080 --rm --name wildfly-swarm-maven docker-java-ee-example
+docker run -d -p 8080:8080 --rm --name wildfly-swarm-gradle docker-java-ee-example
 http :8080
-docker stop wildfly-swarm-maven
+docker rm -f -v wildfly-swarm-gradle
 ----
 
 .using docker-compose
@@ -56,3 +50,4 @@ links:
 . link:http://wildfly-swarm.io/posts/microprofile-with-wildfly-swarm/[Wildfly Swarm Micro-Profile]
 . link:https://howto.wildfly-swarm.io/[Wildfly Swarm Book]
 . link:https://stackoverflow.com/questions/37273621/fail-to-start-jax-rs-service-on-wildfly-swarm[wildfly-swarm fails on travis-ci]
+. link:https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/getting-started/tooling/gradle-plugin.html[wildfly-swarm gradle plugin]

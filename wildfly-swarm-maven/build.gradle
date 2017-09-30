@@ -1,0 +1,58 @@
+buildscript {
+  ext {
+    wildflySwarmVersion = "2017.9.5"
+  }
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.wildfly.swarm:wildfly-swarm-gradle-plugin:$wildflySwarmVersion"
+  }
+}
+
+plugins {
+  id "ear"
+  id "war"
+  id "java"
+  id "io.spring.dependency-management" version "1.0.3.RELEASE"
+}
+
+apply plugin: "wildfly-swarm"
+
+version = "0.0.0"
+group = "daggerok"
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "org.wildfly.swarm:bom:$wildflySwarmVersion"
+  }
+}
+
+dependencies {
+  compile "org.wildfly.swarm:microprofile"
+  compile "org.wildfly.swarm:jaxrs"
+  compileOnly "javax:javaee-api:8.0"
+  testCompile "org.wildfly.swarm:arquillian"
+}
+
+swarm {
+  properties {
+    swarm.http.port = 8080
+  }
+
+  //executable = true
+  bundleDependencies = true
+}
+
+wrapper {
+  gradleVersion = "4.2"
+  distributionType = "ALL"
+}

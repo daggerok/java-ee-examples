@@ -25,4 +25,4 @@ docker stack services java-ee
 
 http :8080
 
-bash docker/bin/cleanup.bash
+bash ./docker/bin/cleanup.bash

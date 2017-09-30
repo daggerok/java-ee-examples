@@ -52,35 +52,33 @@ script:
 
   - cd $BASE/wildfly-swarm-maven
 
-  - mvn clean install
-  #- mvn -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
+  - bash mvnw clean install
+  #- bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
   - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar &
   - sleep 20
   - http :8080
   - sleep 1
   - killall -9 java | true
 
-  - pwd
   - bash docker/bin/test-dockerfile.bash
-  - pwd
   - bash docker/bin/test-docker-compose.bash
-  - pwd
   - bash docker/bin/test-stack-deploy.bash
+
+  - bash gradlew wildfly-swarm-package
+  - bash gradlew clean build
 
   - cd $BASE/wildfly-swarm-gradle
 
   - gradle -v
-  - mvn clean install
-  #- mvn -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
-  - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar &
+  - bash gradlew wildfly-swarm-package
+  - bash gradlew clean build
+  - java -Djava.net.preferIPv4Stack=true -jar build/libs/wildfly-swarm-gradle-swarm.jar &
   - sleep 20
   - http :8080
   - sleep 1
   - killall -9 java | true
 
-  - pwd
   - bash docker/bin/test-dockerfile.bash
-  - pwd
   - bash docker/bin/test-docker-compose.bash
-  - pwd
   - bash docker/bin/test-stack-deploy.bash
+  - bash mvnw clean install
