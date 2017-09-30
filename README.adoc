@@ -40,9 +40,9 @@ docker push 127.0.0.1:5000/app
 #docker-compose -f ./docker/src/stack-deploy.yml push
 docker stack deploy --compose-file ./docker/src/stack-deploy.yml java-ee
 docker stack services --filter name="java-ee_app" --format="{{.Name}} {{.Replicas}}" java-ee
-docker service scale --detach=false "java-ee_app"="2"
+docker service scale --detach=false java-ee_app=2
 
-sleep 15
+sleep 30
 docker stack services java-ee
 
 http :8080
@@ -53,6 +53,7 @@ docker system prune -af
 
 links:
 
+. link:https://microprofile.io/[Eclipse MicroProfile]
 . link:http://wildfly-swarm.io/posts/microprofile-with-wildfly-swarm/[Wildfly Swarm Micro-Profile]
 . link:https://howto.wildfly-swarm.io/[Wildfly Swarm Book]
 . link:https://stackoverflow.com/questions/37273621/fail-to-start-jax-rs-service-on-wildfly-swarm[wildfly-swarm fails on travis-ci]

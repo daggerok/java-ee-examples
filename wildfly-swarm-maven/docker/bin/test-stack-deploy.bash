@@ -9,8 +9,7 @@ docker-compose -f ./docker/src/stack-deploy.yml push
 docker stack deploy --compose-file ./docker/src/stack-deploy.yml java-ee
 
 sequence=2
-for service_name in app; do
-  service_name="java-ee_$suffix"
+for service_name in java-ee_app; do
   echo "waiting for $service_name bootstrap..."
   docker stack services --filter name="$service_name" --format="{{.Name}} {{.Replicas}}" java-ee
   while [ $(docker stack services --filter name="$service_name" --format="{{.Replicas}}" app) != "2/2" ]; do

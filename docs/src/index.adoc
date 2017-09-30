@@ -1,4 +1,4 @@
-= spring-examples {project-name} ({project-version}) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link={github_url}]
+= JavaEE examples {project-name} ({project-version}) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link={github_url}]
 Maksim Kostromin <daggerok@gmail.com>
 {docdatetime}
 :toc:
