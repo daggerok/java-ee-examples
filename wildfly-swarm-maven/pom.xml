@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>daggerok</groupId>
-  <artifactId>java-ee-example</artifactId>
+  <artifactId>java-ee-examples</artifactId>
   <version>0.0.0</version>
   <packaging>war</packaging>
 
-  <name>java-ee-example</name>
+  <name>java-ee-examples</name>
   <url>http://maven.apache.org</url>
 
   <properties>

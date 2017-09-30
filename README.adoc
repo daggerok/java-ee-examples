@@ -1,4 +1,4 @@
-= java-ee-example image:https://travis-ci.org/daggerok/java-ee-example.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-example"]
+= java-ee-examples image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
 This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
 
@@ -11,14 +11,14 @@ http :8080
 .using wildfly swarm jar
 ----
 mvn clean package
-java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar
+java -Djava.net.preferIPv4Stack=true -jar target/java-ee-examples-0.0.0-swarm.jar
 http :8080
 ----
 
 .using docker
 ----
-docker build --force-rm -f ./docker/src/Dockerfile -t docker-java-ee-example .
-docker run -d -p 8080:8080 --rm --name app docker-java-ee-example
+docker build --force-rm -f ./docker/src/Dockerfile -t docker-java-ee-examples .
+docker run -d -p 8080:8080 --rm --name app docker-java-ee-examples
 http :8080
 docker stop app
 ----

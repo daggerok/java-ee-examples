@@ -19,7 +19,7 @@ for service_name in app; do
   #sequence=$(expr "$sequence" + 1)
 done
 
-sleep 25
+sleep 30
 
 docker stack services java-ee
 

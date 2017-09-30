@@ -54,7 +54,7 @@ script:
 
   - bash mvnw clean install
   #- bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
-  - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar &
+  - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-examples-0.0.0-swarm.jar &
   - sleep 20
   - http :8080
   - sleep 1

@@ -1,6 +1,8 @@
-= java-ee-example (gradle) image:https://travis-ci.org/daggerok/java-ee-example.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-example"]
+= java-ee-examples (gradle) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
 This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
+
+//tag::content[]
 
 .using gradle / java microprofile
 ----
@@ -11,8 +13,8 @@ http :8080
 
 .using docker
 ----
-docker build --force-rm -f ./docker/src/Dockerfile -t docker-java-ee-example .
-docker run -d -p 8080:8080 --rm --name wildfly-swarm-gradle docker-java-ee-example
+docker build --force-rm -f ./docker/src/Dockerfile -t docker-java-ee-examples .
+docker run -d -p 8080:8080 --rm --name wildfly-swarm-gradle docker-java-ee-examples
 http :8080
 docker rm -f -v wildfly-swarm-gradle
 ----
@@ -51,3 +53,5 @@ links:
 . link:https://howto.wildfly-swarm.io/[Wildfly Swarm Book]
 . link:https://stackoverflow.com/questions/37273621/fail-to-start-jax-rs-service-on-wildfly-swarm[wildfly-swarm fails on travis-ci]
 . link:https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/getting-started/tooling/gradle-plugin.html[wildfly-swarm gradle plugin]
+
+//end::content[]

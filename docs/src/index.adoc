@@ -1,0 +1,26 @@
+= spring-examples {project-name} ({project-version}) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link={github_url}]
+Maksim Kostromin <daggerok@gmail.com>
+{docdatetime}
+:toc:
+:revnumber: {project-version}
+:example-caption!:
+:icons: font
+:toc: left
+:numbered:
+:github_url: https://github.com/daggerok/java-ee-examples
+:github_branch_prefix: {github_url}/tree
+
+[discrete]
+== Introduction
+include::includes/Introduction.adoc[]
+
+== JavaEE Wildfly-Swarm Micro-Profile using Gradle
+include::../../wildfly-swarm-gradle/README.adoc[tags=content]
+
+== JavaEE Wildfly-Swarm Micro-Profile using Maven
+include::../../wildfly-swarm-maven/README.adoc[tags=content]
+
+== links
+include::includes/Links.adoc[]
+
+== Enjoy! :)

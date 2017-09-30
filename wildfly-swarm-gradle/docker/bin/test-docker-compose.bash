@@ -2,7 +2,7 @@
 set -x
 docker-compose -f ./docker/src/docker-compose.yml build --force-rm --no-cache --pull
 docker-compose -f ./docker/src/docker-compose.yml up -d
-sleep 25
+sleep 30
 http :8080
 docker-compose -f ./docker/src/docker-compose.yml down -v
 
