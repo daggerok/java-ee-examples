@@ -5,3 +5,5 @@ target/
 *.ipr
 .DS_Store
 *.log
+.gradle/
+build/

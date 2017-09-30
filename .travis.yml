@@ -48,6 +48,10 @@ before_install:
   - docker-compose -v
 
 script:
+  - export BASE=$PWD
+
+  - cd $BASE/wildfly-swarm-maven
+
   - mvn clean install
   #- mvn -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
   - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar &
@@ -56,6 +60,27 @@ script:
   - sleep 1
   - killall -9 java | true
 
+  - pwd
   - bash docker/bin/test-dockerfile.bash
+  - pwd
   - bash docker/bin/test-docker-compose.bash
+  - pwd
+  - bash docker/bin/test-stack-deploy.bash
+
+  - cd $BASE/wildfly-swarm-gradle
+
+  - gradle -v
+  - mvn clean install
+  #- mvn -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
+  - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-example-0.0.0-swarm.jar &
+  - sleep 20
+  - http :8080
+  - sleep 1
+  - killall -9 java | true
+
+  - pwd
+  - bash docker/bin/test-dockerfile.bash
+  - pwd
+  - bash docker/bin/test-docker-compose.bash
+  - pwd
   - bash docker/bin/test-stack-deploy.bash
