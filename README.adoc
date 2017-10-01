@@ -2,54 +2,7 @@
 
 This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
 
-.using maven
-----
-mvn -Djava.net.preferIPv4Stack=true wildfly-swarm:run
-http :8080
-----
-
-.using wildfly swarm jar
-----
-mvn clean package
-java -Djava.net.preferIPv4Stack=true -jar target/java-ee-examples-0.0.0-swarm.jar
-http :8080
-----
-
-.using docker
-----
-docker build --force-rm -f ./docker/src/Dockerfile -t docker-java-ee-examples .
-docker run -d -p 8080:8080 --rm --name app docker-java-ee-examples
-http :8080
-docker stop app
-----
-
-.using docker-compose
-----
-docker-compose -f ./docker/src/docker-compose.yml up -d
-http :8080
-docker-compose -f ./docker/src/docker-compose.yml down -v
-----
-
-.using docker swarm stack deploy
-----
-docker swarm init
-docker service create --detach=false --name registry --publish 5000:5000 registry:2
-docker build -f ./docker/src/Dockerfile -t 127.0.0.1:5000/app .
-docker push 127.0.0.1:5000/app
-#docker-compose -f ./docker/src/stack-deploy.yml build --force-rm --no-cache --pull
-#docker-compose -f ./docker/src/stack-deploy.yml push
-docker stack deploy --compose-file ./docker/src/stack-deploy.yml java-ee
-docker stack services --filter name="java-ee_app" --format="{{.Name}} {{.Replicas}}" java-ee
-docker service scale --detach=false java-ee_app=2
-
-sleep 30
-docker stack services java-ee
-
-http :8080
-
-docker swarm leave --force
-docker system prune -af
-----
+link:https://daggerok.github.io/java-ee-examples[Documentation]
 
 links:
 
