@@ -48,6 +48,8 @@ before_install:
   - docker-compose -v
 
 script:
+  - bash gradlew clean build asciidoctor
+
   - export BASE=$PWD
 
   - cd $BASE/wildfly-swarm-maven
@@ -67,21 +69,33 @@ script:
   - bash gradlew wildfly-swarm-package
   - bash gradlew clean build
 
-  - cd $BASE/wildfly-swarm-gradle
+  - >
+    for path in \
 
-  - gradle -v
-  - bash gradlew wildfly-swarm-package
-  - bash gradlew clean build
-  - java -Djava.net.preferIPv4Stack=true -jar build/libs/wildfly-swarm-gradle-swarm.jar &
-  - sleep 20
-  - http :8080
-  - sleep 1
-  - killall -9 java | true
+      java-kube-ee \
+      wildfly-swarm-gradle \
 
-  - bash docker/bin/test-dockerfile.bash
-  - bash docker/bin/test-docker-compose.bash
-  - bash docker/bin/test-stack-deploy.bash
-  - bash mvnw clean install
+    ; do
+
+      export TARGET="$BASE/$path"
+      cd $TARGET
+      bash gradlew wildfly-swarm-package
+
+      gradle -v
+      bash gradlew wildfly-swarm-package
+      bash gradlew clean build
+      java -Djava.net.preferIPv4Stack=true -jar build/libs/wildfly-swarm-gradle-swarm.jar &
+      sleep 20
+      http :8080
+      sleep 1
+      killall -9 java | true
+
+      bash docker/bin/test-dockerfile.bash
+      bash docker/bin/test-docker-compose.bash
+      bash docker/bin/test-stack-deploy.bash
+      bash mvnw clean install
+
+    done;
 
 cache:
   directories:

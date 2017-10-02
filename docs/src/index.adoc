@@ -20,6 +20,9 @@ include::../../wildfly-swarm-gradle/README.adoc[tags=content]
 == JavaEE Wildfly-Swarm Micro-Profile using Maven
 include::../../wildfly-swarm-maven/README.adoc[tags=content]
 
+== JavaEE Kubernetes
+include::../../java-kube-ee/README.adoc[tags=content]
+
 == links
 include::includes/Links.adoc[]
 

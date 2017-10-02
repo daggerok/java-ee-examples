@@ -1,0 +1,71 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>daggerok</groupId>
+  <artifactId>java-ee-examples</artifactId>
+  <version>0.0.0</version>
+  <packaging>war</packaging>
+
+  <name>java-ee-examples</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <version.wildfly.swarm>2017.9.5</version.wildfly.swarm>
+    <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>bom-all</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- latest java ee -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>LATEST</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- wildfly swarm -->
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>microprofile</artifactId>
+    </dependency>
+    <!-- tests -->
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>arquillian</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
