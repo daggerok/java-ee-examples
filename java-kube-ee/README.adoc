@@ -20,4 +20,8 @@ bash ./docker/bin/test-docker-compose.bash # docker compose
 bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster
 ----
 
+links
+
+. link:https://www.youtube.com/watch?v=kNZmxFcggjM[like so]
+
 //end::content[]

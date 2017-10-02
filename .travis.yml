@@ -53,7 +53,6 @@ script:
   - export BASE=$PWD
 
   - cd $BASE/wildfly-swarm-maven
-
   - bash mvnw clean install
   #- bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
   - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-examples-0.0.0-swarm.jar &
@@ -101,3 +100,4 @@ cache:
   directories:
     - $HOME/.m2
     - $HOME/.gradle
+

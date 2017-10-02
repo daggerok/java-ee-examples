@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -x
 
+bash ./gradlew clean build
+
 stack_name="java-ee"
 
 docker swarm init

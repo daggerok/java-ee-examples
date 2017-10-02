@@ -14,7 +14,6 @@ buildscript {
 }
 
 plugins {
-  id "ear"
   id "war"
   id "java"
   id "io.spring.dependency-management" version "1.0.3.RELEASE"
