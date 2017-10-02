@@ -12,3 +12,4 @@ links:
 . link:https://stackoverflow.com/questions/37273621/fail-to-start-jax-rs-service-on-wildfly-swarm[wildfly-swarm fails on travis-ci]
 . link:https://github.com/takari/maven-wrapper[maven wrapper]
 . link:https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/getting-started/tooling/gradle-plugin.html[wildfly-swarm gradle plugin]
+. link:https://blog.sebastian-daschner.com/entries/rest_with_java_video_course[Java EE & JAX-RS - REST as in Hypermedia with Java]
