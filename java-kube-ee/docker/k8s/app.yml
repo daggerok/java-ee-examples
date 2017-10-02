@@ -1,0 +1,62 @@
+# docker run -d --rm --name registry -p 5000:5000 registry:2
+# docker build -t 127.0.0.1:5000/8080 -f ./Dockerfile .
+# docker push 127.0.0.1:5000/8080
+# kubectl create -f ./app.yml --validate=false
+# curl (minikube service app --url)
+# kubectl delete service app; kubectl delete deployment app
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app
+  #clusterIP: None
+  type: NodePort
+---
+#apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      restartPolicy: Always
+      containers:
+      - image: 127.0.0.1:5000/app
+      #- image: 127.0.0.1:5000/app:v2
+        name: app
+        env:
+        - name: MY_ENV_VARIABLE
+          value: "my-env-variable-value"
+        ports:
+        - containerPort: 8080
+          name: app
+        livenessProbe:
+          httpGet:
+            path: /
+            port: app
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          restartPolicy: Always
+        redinessProbe:
+          httpGet:
+            path: /
+            port: app
+          initialDelaySeconds: 1
+          timeoutSeconds: 1
+          restartPolicy: Always

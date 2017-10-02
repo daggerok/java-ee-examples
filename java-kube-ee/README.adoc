@@ -4,7 +4,122 @@ This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile exampl
 
 //tag::content[]
 
-_TODO..._
+.prepare kubernetes cluster, build docker image, push into local registry
+----
+minikube start --cpus=4 --memory=4096
+eval (minikube docker-env)
+docker run -d --rm --name registry -p 5000:5000 registry:2
+docker build -t 127.0.0.1:5000/app -f ./docker/src/Dockerfile .
+docker push 127.0.0.1:5000/app
+----
+
+.create kubernete yaml file
+----
+vim ./docker/k8s/app.yml
+
+kubectl apply -f ./docker/k8s/app.yml --validate=false
+
+kubectl get svc -o wide                                               23:51:57
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE       SELECTOR
+app          NodePort    10.0.0.189   <none>        8080:32464/TCP   3m        app=app
+
+curl 192.168.99.100:32464
+# or
+http (minikube service app --url)                                                                               22:21:09
+
+[
+    "one",
+    "two",
+    "three",
+    "kubeee"
+]
+----
+
+now update code and redeploy app
+
+.deploy app
+----
+bash gradlew clean build
+docker build -t 127.0.0.1:5000/app:v2 -f ./docker/src/Dockerfile .
+docker push 127.0.0.1:5000/app:v2
+vim ./docker/k8s/app.yml # update image: 127.0.0.1:5000/app:v2
+kubectl apply -f ./docker/k8s --validate=false
+----
+
+.terminal 1
+----
+kubectl get pods -w                 23:59:35
+NAME                   READY     STATUS    RESTARTS   AGE
+app-1515935557-411m1   1/1       Running   0          10m
+app-1515935557-4d3gf   1/1       Terminating   0         4m
+app-1515935557-4d3gf   0/1       Terminating   0         4m
+app-3366916455-bw6m9   0/1       Pending   0         0s
+app-3366916455-bw6m9   0/1       ContainerCreating   0         0s
+app-3366916455-bw6m9   1/1       Running   0         1s
+----
+
+.terminal 2
+----
+while true; curl (minikube service app --url); echo""; sleep 1; end
+["one","two","three","kubeee"]
+["one","two","three","kubeee"]
+Waiting, endpoint for service is not ready yet...
+["one","two","three","kubeee","2017-10-02T21:12:34.095Z"]
+["one","two","three","kubeee","2017-10-02T21:12:36.182Z"]
+----
+
+second test but using ip, not minikube service
+
+.redeploy app prev version
+----
+vim ./docker/k8s/app.yml # update image: 127.0.0.1:5000/app
+kubectl apply -f ./docker/k8s --validate=false
+----
+
+.terminal 1
+----
+kubectl get pods -w                 23:59:35
+NAME                   READY     STATUS    RESTARTS   AGE
+app-1515935557-411m1   1/1       Running   0          10m
+...
+app-1515935557-4d3gf   1/1       Terminating   0         4m
+app-1515935557-4d3gf   0/1       Terminating   0         4m
+...
+app-3366916455-bw6m9   0/1       Pending   0         0s
+app-3366916455-bw6m9   0/1       ContainerCreating   0         0s
+app-3366916455-bw6m9   1/1       Running   0         1s
+----
+
+.terminal 2
+----
+while true; curl 192.168.99.100:32161; echo""; sleep 1; end
+["one","two","three","kubeee"]
+["one","two","three","kubeee"]
+Waiting, endpoint for service is not ready yet...
+["one","two","three","kubeee","172.17.0.5"]
+["one","two","three","kubeee","172.17.0.6"]
+----
+
+.autoscale
+----
+kubectl autoscale deployment app --min=2 --max=3
+----
+
+.scale down
+----
+kubectl scale deployment app --replicas=3
+----
+
+.cleanup
+----
+kubectl delete all -l name=app
+# or
+kubectl delete service app; kubectl delete deployment app
+
+minikube stop; minikube delete
+----
+
+=== old
 
 .using gradle / java microprofile
 ----
