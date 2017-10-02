@@ -735,21 +735,11 @@ http :8080</pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">using docker (e2e test bash script)</div>
+<div class="title">e2e tests using bash scripts)</div>
 <div class="content">
-<pre>bash ./docker/bin/test-dockerfile.bash</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">using docker-compose (e2e test bash script)</div>
-<div class="content">
-<pre>bash ./docker/bin/test-docker-compose.bash</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">using docker swarm stack deploy (e2e test bash script)</div>
-<div class="content">
-<pre>bash ./docker/bin/test-stack-deploy.bash</pre>
+<pre>bash ./docker/bin/test-dockerfile.bash     # docker
+bash ./docker/bin/test-docker-compose.bash # docker compose
+bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster</pre>
 </div>
 </div>
 </div>
