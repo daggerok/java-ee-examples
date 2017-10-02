@@ -551,7 +551,11 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel1">
 <li><a href="#javaee-wildfly-swarm-micro-profile-using-gradle">1. JavaEE Wildfly-Swarm Micro-Profile using Gradle</a></li>
 <li><a href="#javaee-wildfly-swarm-micro-profile-using-maven">2. JavaEE Wildfly-Swarm Micro-Profile using Maven</a></li>
-<li><a href="#javaee-kubernetes">3. JavaEE Kubernetes</a></li>
+<li><a href="#javaee-kubernetes">3. JavaEE Kubernetes</a>
+<ul class="sectlevel2">
+<li><a href="#old">3.1. old</a></li>
+</ul>
+</li>
 <li><a href="#links">4. links</a></li>
 <li><a href="#enjoy">5. Enjoy! :)</a></li>
 </ul>
@@ -723,9 +727,136 @@ docker system prune -af</pre>
 <div class="sect1">
 <h2 id="javaee-kubernetes">3. JavaEE Kubernetes</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><em>TODO&#8230;&#8203;</em></p>
+<div class="listingblock">
+<div class="title">prepare kubernetes cluster, build docker image, push into local registry</div>
+<div class="content">
+<pre>minikube start --cpus=4 --memory=4096
+eval (minikube docker-env)
+docker run -d --rm --name registry -p 5000:5000 registry:2
+docker build -t 127.0.0.1:5000/app -f ./docker/src/Dockerfile .
+docker push 127.0.0.1:5000/app</pre>
 </div>
+</div>
+<div class="listingblock">
+<div class="title">create kubernete yaml file</div>
+<div class="content">
+<pre>vim ./docker/k8s/app.yml
+
+kubectl apply -f ./docker/k8s/app.yml --validate=false
+
+kubectl get svc -o wide                                               23:51:57
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE       SELECTOR
+app          NodePort    10.0.0.189   &lt;none&gt;        8080:32464/TCP   3m        app=app
+
+curl 192.168.99.100:32464
+# or
+http (minikube service app --url)                                                                               22:21:09
+
+[
+    "one",
+    "two",
+    "three",
+    "kubeee"
+]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>now update code and redeploy app</p>
+</div>
+<div class="listingblock">
+<div class="title">deploy app</div>
+<div class="content">
+<pre>bash gradlew clean build
+docker build -t 127.0.0.1:5000/app:v2 -f ./docker/src/Dockerfile .
+docker push 127.0.0.1:5000/app:v2
+vim ./docker/k8s/app.yml # update image: 127.0.0.1:5000/app:v2
+kubectl apply -f ./docker/k8s --validate=false</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">terminal 1</div>
+<div class="content">
+<pre>kubectl get pods -w                 23:59:35
+NAME                   READY     STATUS    RESTARTS   AGE
+app-1515935557-411m1   1/1       Running   0          10m
+app-1515935557-4d3gf   1/1       Terminating   0         4m
+app-1515935557-4d3gf   0/1       Terminating   0         4m
+app-3366916455-bw6m9   0/1       Pending   0         0s
+app-3366916455-bw6m9   0/1       ContainerCreating   0         0s
+app-3366916455-bw6m9   1/1       Running   0         1s</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">terminal 2</div>
+<div class="content">
+<pre>while true; curl (minikube service app --url); echo""; sleep 1; end
+["one","two","three","kubeee"]
+["one","two","three","kubeee"]
+Waiting, endpoint for service is not ready yet...
+["one","two","three","kubeee","2017-10-02T21:12:34.095Z"]
+["one","two","three","kubeee","2017-10-02T21:12:36.182Z"]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>second test but using ip, not minikube service</p>
+</div>
+<div class="listingblock">
+<div class="title">redeploy app prev version</div>
+<div class="content">
+<pre>vim ./docker/k8s/app.yml # update image: 127.0.0.1:5000/app
+kubectl apply -f ./docker/k8s --validate=false</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">terminal 1</div>
+<div class="content">
+<pre>kubectl get pods -w                 23:59:35
+NAME                   READY     STATUS    RESTARTS   AGE
+app-1515935557-411m1   1/1       Running   0          10m
+...
+app-1515935557-4d3gf   1/1       Terminating   0         4m
+app-1515935557-4d3gf   0/1       Terminating   0         4m
+...
+app-3366916455-bw6m9   0/1       Pending   0         0s
+app-3366916455-bw6m9   0/1       ContainerCreating   0         0s
+app-3366916455-bw6m9   1/1       Running   0         1s</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">terminal 2</div>
+<div class="content">
+<pre>while true; curl 192.168.99.100:32161; echo""; sleep 1; end
+["one","two","three","kubeee"]
+["one","two","three","kubeee"]
+Waiting, endpoint for service is not ready yet...
+["one","two","three","kubeee","172.17.0.5"]
+["one","two","three","kubeee","172.17.0.6"]</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">autoscale</div>
+<div class="content">
+<pre>kubectl autoscale deployment app --min=2 --max=3</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">scale down</div>
+<div class="content">
+<pre>kubectl scale deployment app --replicas=3</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">cleanup</div>
+<div class="content">
+<pre>kubectl delete all -l name=app
+# or
+kubectl delete service app; kubectl delete deployment app
+
+minikube stop; minikube delete</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="old">3.1. old</h3>
 <div class="listingblock">
 <div class="title">using gradle / java microprofile</div>
 <div class="content">
@@ -740,6 +871,17 @@ http :8080</pre>
 <pre>bash ./docker/bin/test-dockerfile.bash     # docker
 bash ./docker/bin/test-docker-compose.bash # docker compose
 bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>links</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://www.youtube.com/watch?v=kNZmxFcggjM">like so</a></p>
+</li>
+</ol>
 </div>
 </div>
 </div>
