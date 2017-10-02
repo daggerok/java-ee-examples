@@ -544,15 +544,16 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.0,</span>
-<span id="revdate">2017-09-30 22:30:50 EEST</span>
+<span id="revdate">2017-10-02 14:38:12 EEST</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#javaee-wildfly-swarm-micro-profile-using-gradle">1. JavaEE Wildfly-Swarm Micro-Profile using Gradle</a></li>
 <li><a href="#javaee-wildfly-swarm-micro-profile-using-maven">2. JavaEE Wildfly-Swarm Micro-Profile using Maven</a></li>
-<li><a href="#links">3. links</a></li>
-<li><a href="#enjoy">4. Enjoy! :)</a></li>
+<li><a href="#javaee-kubernetes">3. JavaEE Kubernetes</a></li>
+<li><a href="#links">4. links</a></li>
+<li><a href="#enjoy">5. Enjoy! :)</a></li>
 </ul>
 </div>
 </div>
@@ -720,7 +721,41 @@ docker system prune -af</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="links">3. links</h2>
+<h2 id="javaee-kubernetes">3. JavaEE Kubernetes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>TODO&#8230;&#8203;</em></p>
+</div>
+<div class="listingblock">
+<div class="title">using gradle / java microprofile</div>
+<div class="content">
+<pre>bash gradlew clean build
+java -Djava.net.preferIPv4Stack=true -jar build/libs/java-kube-ee-swarm.jar
+http :8080</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">using docker (e2e test bash script)</div>
+<div class="content">
+<pre>bash ./docker/bin/test-dockerfile.bash</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">using docker-compose (e2e test bash script)</div>
+<div class="content">
+<pre>bash ./docker/bin/test-docker-compose.bash</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">using docker swarm stack deploy (e2e test bash script)</div>
+<div class="content">
+<pre>bash ./docker/bin/test-stack-deploy.bash</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="links">4. links</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -732,7 +767,7 @@ docker system prune -af</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="enjoy">4. Enjoy! :)</h2>
+<h2 id="enjoy">5. Enjoy! :)</h2>
 <div class="sectionbody">
 
 </div>
@@ -741,7 +776,7 @@ docker system prune -af</pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.0<br>
-Last updated 2017-09-30 22:30:50 EEST
+Last updated 2017-10-02 14:38:12 EEST
 </div>
 </div>
 </body>
