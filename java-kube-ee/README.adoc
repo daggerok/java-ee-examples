@@ -13,19 +13,11 @@ java -Djava.net.preferIPv4Stack=true -jar build/libs/java-kube-ee-swarm.jar
 http :8080
 ----
 
-.using docker (e2e test bash script)
+.e2e tests using bash scripts)
 ----
-bash ./docker/bin/test-dockerfile.bash
-----
-
-.using docker-compose (e2e test bash script)
-----
-bash ./docker/bin/test-docker-compose.bash
-----
-
-.using docker swarm stack deploy (e2e test bash script)
-----
-bash ./docker/bin/test-stack-deploy.bash
+bash ./docker/bin/test-dockerfile.bash     # docker
+bash ./docker/bin/test-docker-compose.bash # docker compose
+bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster
 ----
 
 //end::content[]
