@@ -7,3 +7,4 @@ target/
 *.log
 .gradle/
 build/
+payara-micro/
