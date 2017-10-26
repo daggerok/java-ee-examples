@@ -10,7 +10,6 @@ docker-compose -f ./docker/src/stack-deploy.yml build --force-rm --no-cache --pu
 docker-compose -f ./docker/src/stack-deploy.yml push
 docker stack deploy --compose-file ./docker/src/stack-deploy.yml "$stack_name"
 
-delay=1
 # put apps in right order
 for name in app; do
   service_name="${stack_name}_${name}"
@@ -20,18 +19,11 @@ for name in app; do
   echo $(docker stack services --filter name="$service_name" --format="{{.Name}} {{.Replicas}}" "$stack_name")
   state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" "$stack_name")
 
-  echo "scale down first..."
-  while [ "$state" != "0/0" ]; do
-    docker service scale --detach=true "$service_name"=0
-    state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" "$stack_name")
-    sleep "$delay"
-  done
-
   echo "scale up in right order"
   while [ "$state" != "1/1" ]; do
     docker service scale --detach=false "$service_name"=1
     state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" "$stack_name")
-    sleep "$delay"
+    sleep 1
   done
 done
 

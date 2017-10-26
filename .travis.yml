@@ -60,35 +60,23 @@ script:
   - http :8080
   - sleep 1
   - killall -9 java | true
-
   - bash docker/bin/test-dockerfile.bash
   - bash docker/bin/test-docker-compose.bash
   - bash docker/bin/test-stack-deploy.bash
-
   - bash gradlew clean build wildfly-swarm-package
 
-  - >
-    for path in \
-      java-kube-ee \
-      wildfly-swarm-gradle \
-    ; do
-
-      export TARGET="$BASE/$path"
-      cd $TARGET
-      gradle -v
-      bash gradlew clean build wildfly-swarm-package
-      java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-      sleep 20
-      http :8080
-      sleep 1
-      killall -9 java | true
-
-      bash docker/bin/test-dockerfile.bash
-      bash docker/bin/test-docker-compose.bash
-      bash docker/bin/test-stack-deploy.bash
-      bash mvnw clean install
-
-    done;
+  - cd $BASE/wildfly-swarm-gradle
+  - gradle -v
+  - bash gradlew clean build wildfly-swarm-package
+  - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
+  - sleep 20
+  - http :8080
+  - sleep 1
+  - killall -9 java | true
+  - bash docker/bin/test-dockerfile.bash
+  - bash docker/bin/test-docker-compose.bash
+  - bash docker/bin/test-stack-deploy.bash
+  - bash mvnw clean install
 
 cache:
   directories:
