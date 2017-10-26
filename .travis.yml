@@ -55,7 +55,7 @@ script:
   - cd $BASE/wildfly-swarm-maven
   - bash mvnw clean install
   #- bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
-  - java -Djava.net.preferIPv4Stack=true -jar target/java-ee-examples-0.0.0-swarm.jar &
+  - java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
   - sleep 20
   - http :8080
   - sleep 1
@@ -81,7 +81,7 @@ script:
       gradle -v
       bash gradlew wildfly-swarm-package
       bash gradlew clean build
-      java -Djava.net.preferIPv4Stack=true -jar build/libs/wildfly-swarm-gradle-swarm.jar &
+      java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
       sleep 20
       http :8080
       sleep 1
