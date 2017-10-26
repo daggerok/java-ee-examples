@@ -65,8 +65,7 @@ script:
   - bash docker/bin/test-docker-compose.bash
   - bash docker/bin/test-stack-deploy.bash
 
-  - bash gradlew wildfly-swarm-package
-  - bash gradlew clean build
+  - bash gradlew clean build wildfly-swarm-package
 
   - >
     for path in \
@@ -76,11 +75,8 @@ script:
 
       export TARGET="$BASE/$path"
       cd $TARGET
-      bash gradlew wildfly-swarm-package
-
       gradle -v
-      bash gradlew wildfly-swarm-package
-      bash gradlew clean build
+      bash gradlew clean build wildfly-swarm-package
       java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
       sleep 20
       http :8080
