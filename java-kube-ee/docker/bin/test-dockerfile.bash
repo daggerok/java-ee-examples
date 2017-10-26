@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+
 bash ./gradlew clean build
 image_name="docker-java-ee-examples"
 app_name="app"

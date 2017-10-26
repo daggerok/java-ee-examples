@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x
 
 bash ./gradlew clean build
 

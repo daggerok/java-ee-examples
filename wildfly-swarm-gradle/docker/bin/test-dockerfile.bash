@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+
 docker build --force-rm -f ./docker/src/Dockerfile -t docker-java-ee-examples .
 docker run -d -p 8080:8080 --rm --name app docker-java-ee-examples
 sleep 30

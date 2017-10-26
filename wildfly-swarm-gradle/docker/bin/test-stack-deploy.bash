@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+
 docker swarm init
 docker service create --detach=false --name registry --publish 5000:5000 registry:2
 #docker build -f ./docker/src/Dockerfile -t 127.0.0.1:5000/app .
