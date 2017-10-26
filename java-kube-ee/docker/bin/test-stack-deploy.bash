@@ -20,14 +20,14 @@ for name in app; do
   echo $(docker stack services --filter name="$service_name" --format="{{.Name}} {{.Replicas}}" "$stack_name")
   state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" "$stack_name")
 
-  # scale down first...
+  echo "scale down first..."
   while [ "$state" != "0/0" ]; do
     docker service scale --detach=true "$service_name"=0
     state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" "$stack_name")
     sleep "$delay"
   done
 
-  # scale up in right order
+  echo "scale up in right order"
   while [ "$state" != "1/1" ]; do
     docker service scale --detach=false "$service_name"=1
     state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" "$stack_name")
