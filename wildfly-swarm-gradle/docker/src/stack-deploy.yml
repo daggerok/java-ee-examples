@@ -10,13 +10,9 @@ services:
       dockerfile: ./docker/src/Dockerfile
     volumes: ["app-data:/opt/app"]
     ports: ["8080:8080"]
-    networks: [backing-services]
     deploy:
       mode: replicated
       replicas: 1
 
 volumes:
   app-data:
-
-networks:
-  backing-services:

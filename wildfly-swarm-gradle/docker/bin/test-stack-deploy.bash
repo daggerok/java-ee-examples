@@ -6,24 +6,25 @@ docker service create --detach=false --name registry --publish 5000:5000 registr
 #docker push 127.0.0.1:5000/app
 docker-compose -f ./docker/src/stack-deploy.yml build --force-rm --no-cache --pull
 docker-compose -f ./docker/src/stack-deploy.yml push
-docker stack deploy --compose-file ./docker/src/stack-deploy.yml java-ee
+stack_name="java-ee"
+docker stack deploy --compose-file ./docker/src/stack-deploy.yml ${stack_name}
 
-sequence=1
-for service_name in java-ee_app; do
+for name in app; do
+  service_name="${stack_name}_${name}"
   echo "waiting for $service_name bootstrap..."
-  echo $(docker stack services --filter name="$service_name" --format="{{.Name}} {{.Replicas}}" java-ee)
-  state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" java-ee)
-  while [ "$state" != "$sequence/$sequence" ]; do
-    sleep "$sequence"
-    docker service scale --detach=true "$service_name"="$sequence"
-    state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" java-ee)
+  echo $(docker stack services --filter name="$service_name" --format="{{.Name}} {{.Replicas}}" ${stack_name})
+  state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" ${stack_name})
+  while [ "$state." != "1/1." ]; do
+    sleep 1
+    docker stack services "$stack_name"
+    docker service scale --detach=false "$service_name=1"
+    state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" ${stack_name})
+    echo "state: $state"
   done
-  #sequence=$(expr "$sequence" + 1)
 done
 
 sleep 30
-
-docker stack services java-ee
+docker stack services ${stack_name}
 
 http :8080
 
