@@ -52,27 +52,27 @@ script:
 
   - export parent=$(pwd)
 
-#  - cd $BASE/java-kube-ee
-#  - cd $BASE/wildfly-swarm-gradle
-
-  - >
-    for gradle_subproject in \
-      java-kube-ee \
-      wildfly-swarm-gradle \
-    ; do
-
-      cd ${parent}/${gradle_subproject}
-      bash gradlew clean build wildfly-swarm-package
-      java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-      sleep 20
-      http :8080
-      sleep 1
-      killall -9 java
-      bash docker/bin/test-dockerfile.bash
-      bash docker/bin/test-docker-compose.bash
-      bash docker/bin/test-stack-deploy.bash
-      bash mvnw clean install
-    done
+##  - cd $BASE/java-kube-ee
+##  - cd $BASE/wildfly-swarm-gradle
+#
+#  - >
+#    for gradle_subproject in \
+#      java-kube-ee \
+#      wildfly-swarm-gradle \
+#    ; do
+#
+#      cd ${parent}/${gradle_subproject}
+#      bash gradlew clean build wildfly-swarm-package
+#      java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
+#      sleep 20
+#      http :8080
+#      sleep 1
+#      killall -9 java
+#      bash docker/bin/test-dockerfile.bash
+#      bash docker/bin/test-docker-compose.bash
+#      bash docker/bin/test-stack-deploy.bash
+#      bash mvnw clean install
+#    done
 
   - >
     for maven_subproject in \
@@ -89,8 +89,8 @@ script:
       killall -9 java
       bash docker/bin/test-dockerfile.bash
       bash docker/bin/test-docker-compose.bash
-      ## docker swarm for some reasons not working here as 2nd, 3rd, ...
-      #bash docker/bin/test-stack-deploy.bash
+      # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
+      bash docker/bin/test-stack-deploy.bash
       bash gradlew clean build wildfly-swarm-package
     done
 
