@@ -7,7 +7,7 @@ services:
     build:
       context: ../..
       dockerfile: ./docker/src/Dockerfile
-    volumes: ["app-data:/opt/app"]
+    volumes: ["app-data:/var/app"]
     ports: ["8080:8080"]
     networks: [backing-services]
 

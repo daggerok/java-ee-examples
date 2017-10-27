@@ -18,7 +18,7 @@ for name in app; do
   while [ "$state." != "1/1." ]; do
     sleep 1
     docker stack services "$stack_name"
-    docker service scale --detach=true "$service_name=1"
+    docker service scale --detach=false "$service_name=1"
     state=$(docker stack services --filter name="$service_name" --format="{{.Replicas}}" ${stack_name})
   done
 done

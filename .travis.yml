@@ -50,17 +50,17 @@ before_install:
 script:
   - bash gradlew clean build asciidoctor
 
-  - export BASE=$PWD
+  - export parent=$(pwd)
 
 #  - cd $BASE/java-kube-ee
 #  - cd $BASE/wildfly-swarm-gradle
 
   - >
-    for project in \
+    for gradle_subproject in \
       java-kube-ee \
     ; do
 
-      cd $BASE/$project
+      cd ${parent}/${gradle_subproject}
       bash gradlew clean build wildfly-swarm-package
       java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
       sleep 20
@@ -73,18 +73,24 @@ script:
       bash mvnw clean install
     done
 
-  - cd $BASE/wildfly-swarm-maven
-  - bash mvnw clean install
-  #- bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
-  - java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
-  - sleep 20
-  - http :8080
-  - sleep 1
-  - killall -9 java
-  - bash docker/bin/test-dockerfile.bash
-  - bash docker/bin/test-docker-compose.bash
-  - bash docker/bin/test-stack-deploy.bash
-  - bash gradlew clean build wildfly-swarm-package
+  - >
+    for maven_subproject in \
+      wildfly-swarm-maven \
+    ; do
+
+      cd ${parent}/${maven_subproject}
+      bash mvnw clean install
+      #bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
+      java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
+      sleep 20
+      http :8080
+      sleep 1
+      killall -9 java
+      bash docker/bin/test-dockerfile.bash
+      bash docker/bin/test-docker-compose.bash
+      bash docker/bin/test-stack-deploy.bash
+      bash gradlew clean build wildfly-swarm-package
+    done
 
 cache:
   directories:
