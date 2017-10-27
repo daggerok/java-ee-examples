@@ -7,7 +7,7 @@ docker service create --detach=false --name registry --publish 5000:5000 registr
 docker-compose -f ./docker/src/stack-deploy.yml build --force-rm --no-cache --pull
 docker-compose -f ./docker/src/stack-deploy.yml push
 
-stack_name="java-ee"
+stack_name="wildfly-swarm-maven"
 docker stack deploy --compose-file ./docker/src/stack-deploy.yml ${stack_name}
 
 for name in app; do
