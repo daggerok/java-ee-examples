@@ -52,6 +52,15 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $BASE/kotlin-plugins-java-ee
+  - bash gradlew clean build
+  - java -jar build/libs/*-swarm.jar
+  - sleep 30
+  - http :8080
+  - http :8080/hi
+  - http :8080/max
+  - sudo killall -9 java | sudo kill $(sudo lsof -t -i:8080) | true
+
   - cd $BASE/kotlin-java-ee
   - bash gradlew clean build
   - java -jar build/libs/*-swarm.jar
@@ -65,6 +74,8 @@ script:
 #
 #  - >
 #    for gradle_subproject in \
+#      kotlin-plugins-java-ee \
+#      kotlin-java-ee \
 #      java-kube-ee \
 #      wildfly-swarm-gradle \
 #    ; do
@@ -84,6 +95,8 @@ script:
 
   - >
     for maven_subproject in \
+      kotlin-plugins-java-ee \
+      kotlin-java-ee \
       wildfly-swarm-maven \
     ; do
 

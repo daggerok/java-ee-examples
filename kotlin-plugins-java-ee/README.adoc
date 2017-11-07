@@ -1,0 +1,9 @@
+= java-ee-examples image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+----
+bash gradlew clean build
+bash build/libs/*-swarm.jar
+
+http :8080
+http :8080/max
+----

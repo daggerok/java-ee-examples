@@ -8,6 +8,7 @@ link:https://daggerok.github.io/java-ee-examples[Documentation]
 . link:./wildfly-swarm-gradle[wildfly-swarm micro-profile with gradle]
 . link:./java-kube-ee[deploy java-ee on kubernetes]
 . link:./kotlin-java-ee[JavaEE using Kotlin]
+. link:./kotlin-plugins-java-ee[java-ee with kotlin plugins]
 
 links:
 
