@@ -1,0 +1,73 @@
+buildscript {
+  ext {
+    kotlinVersion = "1.1.60-eap-43"
+    wildflySwarmVersion = "2017.10.1"
+  }
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
+  }
+  dependencies {
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
+    classpath "org.wildfly.swarm:wildfly-swarm-gradle-plugin:$wildflySwarmVersion"
+  }
+}
+
+plugins {
+  id "war"
+  id "java"
+  id "idea"
+  id "eclipse"
+}
+
+apply plugin: "kotlin"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "wildfly-swarm"
+
+dependencyManagement {
+  imports {
+    mavenBom "org.wildfly.swarm:bom:$wildflySwarmVersion"
+  }
+}
+
+version = "0.0.1"
+group = "daggerok"
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+compileKotlin {
+  kotlinOptions.jvmTarget = "1.8"//JavaVersion.VERSION_1_8
+}
+
+compileTestKotlin {
+  kotlinOptions.jvmTarget = "1.8"//JavaVersion.VERSION_1_8
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.3"
+  distributionType = "ALL"
+}
+
+dependencies {
+  compileOnly("javax:javaee-api:8.0")
+  compile("org.wildfly.swarm:microprofile")
+  compile("org.wildfly.swarm:jaxrs")
+  compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
+  compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+  testCompile "org.wildfly.swarm:arquillian"
+}
+
+swarm {
+  executable = true
+//  properties {
+//    swarm.http.port = 8080
+//  }
+//  bundleDependencies = true
+}

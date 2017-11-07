@@ -52,6 +52,14 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $BASE/kotlin-java-ee
+  - bash gradlew clean build
+  - java -jar build/libs/*-swarm.jar
+  - sleep 30
+  - http :8080
+  - http :8080/max
+  - sudo killall -9 java | sudo kill $(sudo lsof -t -i:8080) | true
+
 ##  - cd $BASE/java-kube-ee
 ##  - cd $BASE/wildfly-swarm-gradle
 #
