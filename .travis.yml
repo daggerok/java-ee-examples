@@ -1,6 +1,10 @@
 group: edge
 dist: trusty
 
+env:
+  global:
+    TERM=dumb
+
 language: java
 jdk:
   - openjdk8
@@ -8,7 +12,7 @@ jdk:
 
 install: true
 before_install:
-  # install docker 17.07.0 read https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository
+  # install latest docker
   - sudo apt remove docker docker-engine docker.io
   - sudo apt update
   - >
@@ -34,15 +38,16 @@ before_install:
   - sudo apt install -y docker-ce
   - sudo apt-cache madison docker-ce
 
-  # docker-compose, httpie
+  # docker-compose, curl, jq and httpie
   - sudo apt install -y docker python-pip jq
   - sudo pip install docker-compose httpie
   - sudo usermod -aG docker $(whoami)
 
-  # kill whatever punning on postgres / rabbitmq port
+  # kill whatever ports is running
   - sudo kill $(sudo lsof -t -i:5432) | true
   - sudo kill $(sudo lsof -t -i:5672) | true
   - sudo kill $(sudo lsof -t -i:27017) | true
+  - sudo kill $(sudo lsof -t -i:8080) | true
 
   - docker -v
   - docker-compose -v
@@ -52,25 +57,25 @@ script:
 
   - export parent=$(pwd)
 
-  - cd $BASE/kotlin-plugins-java-ee
+  - cd $parent/kotlin-plugins-java-ee
   - bash gradlew clean build
-  - java -jar build/libs/*-swarm.jar
+  - docker-compose up --force-recreate -d --build --remove-orphans
   - sleep 30
   - http :8080
   - http :8080/hi
   - http :8080/max
-  - sudo killall -9 java | sudo kill $(sudo lsof -t -i:8080) | true
+  - docker-compose down -v
 
-  - cd $BASE/kotlin-java-ee
+  - cd $parent/kotlin-java-ee
   - bash gradlew clean build
-  - java -jar build/libs/*-swarm.jar
+  - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
   - sleep 30
   - http :8080
   - http :8080/max
   - sudo killall -9 java | sudo kill $(sudo lsof -t -i:8080) | true
 
-##  - cd $BASE/java-kube-ee
-##  - cd $BASE/wildfly-swarm-gradle
+##  - cd $parent/java-kube-ee
+##  - cd $parent/wildfly-swarm-gradle
 #
 #  - >
 #    for gradle_subproject in \
