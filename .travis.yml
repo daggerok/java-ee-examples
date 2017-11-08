@@ -71,15 +71,7 @@ script:
   - http :8080
   - http :8080/api
   - http :8080/api/max
-  - docker-compose down -v
-
-  - cd $parent/java-ee-main-swarm-rest
-  - bash gradlew clean build
-  - docker-compose up --force-recreate -d --build --remove-orphans
-  - sleep 30
-  - http :8080
-  - http :8080/api
-  - http :8080/api/max
+  - http post :8080/api/cors max=max
   - docker-compose down -v
 
   - cd $parent/kotlin-plugins-java-ee
