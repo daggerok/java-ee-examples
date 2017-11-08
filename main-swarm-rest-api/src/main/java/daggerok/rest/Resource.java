@@ -2,10 +2,13 @@ package daggerok.rest;
 
 import javax.ejb.Stateless;
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonPointer;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
@@ -19,6 +22,7 @@ public class Resource {
   private static final Logger log = Logger.getLogger(Resource.class.getName());
 
   @GET
+  @Path("/")
   public Response api() {
     /*
     asList(
@@ -34,6 +38,9 @@ public class Resource {
     return Response.ok(Json.createObjectBuilder()
                            .add("api", Json.createArrayBuilder()
                                            .add(Json.createObjectBuilder()
+                                                    .add("GET", "/api/jsonp/json-pointer")
+                                                    .build())
+                                           .add(Json.createObjectBuilder()
                                                     .add("GET", "/api/{name}")
                                                     .build())
                                            .add(Json.createObjectBuilder()
@@ -48,7 +55,7 @@ public class Resource {
   }
 
   @GET
-  @Path("api")
+  @Path("/api")
   public Response hiAll() {
 
     return Response.ok(Json.createObjectBuilder()
@@ -58,7 +65,7 @@ public class Resource {
   }
 
   @GET
-  @Path("api/{name}")
+  @Path("/api/{name}")
   public Response getMessage(@PathParam("name") final String name) {
 
     return Response.ok(Json.createObjectBuilder()
@@ -68,13 +75,37 @@ public class Resource {
   }
 
   @POST
-  @Path("api/cors")
+  @Path("/api/cors")
   @Consumes(APPLICATION_JSON)
   public Response postMessage(final HashMap requestBody) {
 
     log.info(requestBody.toString());
 
     return Response.accepted()
+                   .build();
+  }
+
+  @POST
+  @Path("/api/jsonp/json-pointer")
+  @Consumes(APPLICATION_JSON)
+  public Response jsonPointer(final HashMap<String, Map<String, String>> requestBody) {
+
+    final Map<String, String> users = requestBody.getOrDefault("users", new HashMap<>());
+
+    if (users.isEmpty()) return Response.status(Response.Status.BAD_REQUEST)
+                                        .build();
+
+    final JsonArrayBuilder builder = Json.createArrayBuilder();
+    users.forEach((k, v) -> builder.add(Json.createObjectBuilder()
+                                            .add(k, v)
+                                            .build()));
+    final JsonArray in = builder.build();
+    log.info("in: " + in);
+    final JsonPointer jsonPointer = Json.createPointer("/0/users/username");
+    final JsonArray out = jsonPointer.replace(in, Json.createValue("Fax!"));
+    log.info("out: " + out);
+
+    return Response.ok(out)
                    .build();
   }
 }

@@ -11,4 +11,4 @@ ENV JAVA_OPTS=${java_opts}
 ENTRYPOINT java ${JAVA_OPTS} -jar ./app.jar
 EXPOSE 8080
 HEALTHCHECK --timeout=5s --retries=15 CMD curl -f http://127.0.0.1:8080/ || exit 1
-COPY ./build/libs/*-swarm.jar ./app.jar
+COPY ./target/*-swarm.jar ./app.jar

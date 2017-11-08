@@ -57,21 +57,23 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/main-swarm-rest-api
+  - bash mvnw clean package
+  - docker-compose build --force-rm --no-cache
+  - docker-compose up --remove-orphans
+  - sleep 30
+  - http :8080
+  - http :8080/api
+  - http :8080/api/max
+  - echo '{"users":{"username": "Max"}}' | http post :8080/api/jsonp/json-pointer
+  - http post :8080/api/cors max=max
+  - docker-compose down -v
+
   - cd $parent/main-swarm-static-content
   - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
   - sleep 30
   - http :8080
-  - docker-compose down -v
-
-  - cd $parent/main-swarm-rest-api
-  - bash gradlew clean build
-  - docker-compose up --force-recreate -d --build --remove-orphans
-  - sleep 30
-  - http :8080
-  - http :8080/api
-  - http :8080/api/max
-  - http post :8080/api/cors max=max
   - docker-compose down -v
 
   - cd $parent/kotlin-plugins-java-ee

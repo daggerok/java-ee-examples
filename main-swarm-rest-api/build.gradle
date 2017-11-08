@@ -1,6 +1,7 @@
 buildscript {
   ext {
     wildflySwarmVersion = "2017.11.0"
+    jsonpVersion = "1.1.2"
   }
 
   repositories {
@@ -14,7 +15,6 @@ buildscript {
 }
 
 plugins {
-  id "ear"
   id "war"
   id "java"
   id "io.spring.dependency-management" version "1.0.3.RELEASE"
@@ -28,6 +28,7 @@ group = "daggerok"
 repositories {
   mavenLocal()
   mavenCentral()
+  jcenter()
 }
 
 dependencyManagement {
@@ -38,18 +39,27 @@ dependencyManagement {
 
 dependencies {
   compile "org.wildfly.swarm:microprofile"
+  //compile "org.wildfly.swarm:transactions"
+  compile "javax.json:javax.json-api:$jsonpVersion"
+  compile "org.glassfish:json:$jsonpVersion"
   compileOnly "javax:javaee-api:8.0"
 }
 
 swarm {
-  executable = true
-  mainClassName = "daggerok.App"
+//  executable = true
+  // mainClassName = "daggerok.App"
   /*
   properties {
     swarm.http.port = 8080
   }
   bundleDependencies = true
   */
+}
+
+clean {
+  ["build", "out"].each {
+    delete "$projectDir/$it"
+  }
 }
 
 task wrapper(type: Wrapper) {
