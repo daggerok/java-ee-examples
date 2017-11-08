@@ -1,7 +1,6 @@
 buildscript {
   ext {
     wildflySwarmVersion = "2017.11.0"
-    jsonpVersion = "1.1.2"
   }
 
   repositories {
@@ -39,15 +38,12 @@ dependencyManagement {
 
 dependencies {
   compile "org.wildfly.swarm:microprofile"
-  //compile "org.wildfly.swarm:transactions"
-  compile "javax.json:javax.json-api:$jsonpVersion"
-  compile "org.glassfish:json:$jsonpVersion"
   compileOnly "javax:javaee-api:8.0"
 }
 
 swarm {
-//  executable = true
-  // mainClassName = "daggerok.App"
+  executable = true
+  mainClassName = "daggerok.App"
   /*
   properties {
     swarm.http.port = 8080

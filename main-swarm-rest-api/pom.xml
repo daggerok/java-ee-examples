@@ -16,7 +16,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <version.wildfly.swarm>2017.11.0</version.wildfly.swarm>
-    <jsonp.version>1.1.2</jsonp.version>
     <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
   </properties>
 
@@ -43,11 +42,9 @@
             <goals>
               <goal>package</goal>
             </goals>
-            <!--
             <configuration>
               <mainClass>daggerok.App</mainClass>
             </configuration>
-            -->
           </execution>
         </executions>
       </plugin>
@@ -66,22 +63,6 @@
     <dependency>
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>microprofile</artifactId>
-    </dependency>
-    <!--
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>transactions</artifactId>
-    </dependency>
-    -->
-    <dependency>
-      <groupId>javax.json</groupId>
-      <artifactId>javax.json-api</artifactId>
-      <version>${jsonp.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.json</artifactId>
-      <version>${jsonp.version}</version>
     </dependency>
   </dependencies>
 </project>

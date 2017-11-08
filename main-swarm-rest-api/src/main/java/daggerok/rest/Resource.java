@@ -4,7 +4,6 @@ import javax.ejb.Stateless;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonPointer;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
@@ -100,12 +99,13 @@ public class Resource {
                                             .add(k, v)
                                             .build()));
     final JsonArray in = builder.build();
-    log.info("in: " + in);
-    final JsonPointer jsonPointer = Json.createPointer("/0/users/username");
-    final JsonArray out = jsonPointer.replace(in, Json.createValue("Fax!"));
-    log.info("out: " + out);
-
-    return Response.ok(out)
+//    log.info("in: " + in);
+//    final JsonPointer jsonPointer = Json.createPointer("/0/users/username");
+//    final JsonArray out = jsonPointer.replace(in, Json.createValue("Fax!"));
+//    log.info("out: " + out);
+//
+//    return Response.ok(out)
+    return Response.ok(in)
                    .build();
   }
 }
