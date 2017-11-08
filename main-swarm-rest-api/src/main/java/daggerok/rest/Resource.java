@@ -2,11 +2,11 @@ package daggerok.rest;
 
 import javax.ejb.Stateless;
 import javax.json.Json;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+
+import java.util.HashMap;
+import java.util.logging.Logger;
 
 import static java.lang.String.format;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -15,6 +15,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Stateless
 @Produces(APPLICATION_JSON)
 public class Resource {
+
+  private static final Logger log = Logger.getLogger(Resource.class.getName());
 
   @GET
   public Response api() {
@@ -62,6 +64,17 @@ public class Resource {
     return Response.ok(Json.createObjectBuilder()
                            .add("message", format("hey, %s!", name))
                            .build())
+                   .build();
+  }
+
+  @POST
+  @Path("api/cors")
+  @Consumes(APPLICATION_JSON)
+  public Response postMessage(final HashMap requestBody) {
+
+    log.info(requestBody.toString());
+
+    return Response.accepted()
                    .build();
   }
 }

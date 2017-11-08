@@ -1,9 +1,12 @@
 package daggerok;
 
+import daggerok.rest.CORSFilter;
 import daggerok.rest.Resource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.wildfly.swarm.Swarm;
 import org.wildfly.swarm.jaxrs.JAXRSArchive;
+
+import java.util.stream.Stream;
 
 public class App {
   public static void main(String[] args) throws Exception {
@@ -13,7 +16,8 @@ public class App {
     final boolean recursive = true;
 
     deployment.addPackages(recursive, App.class.getPackage());
-    deployment.addClass(Resource.class);
+    Stream.of(Resource.class, CORSFilter.class)
+          .forEach(deployment::addClass);
     swarm.start(deployment);
   }
 }
