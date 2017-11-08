@@ -4,12 +4,4 @@
 
 This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using kotlin
 
-----
-bash gradlew clean build
-bash build/libs/*-swarm.jar
-
-http :8080
-http :8080/max
-----
-
 //end::content[]

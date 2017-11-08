@@ -1,5 +1,7 @@
 = java-ee-examples image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
+//tag::content[]
+
 This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
@@ -21,3 +23,6 @@ links:
 . link:https://github.com/takari/maven-wrapper[maven wrapper]
 . link:https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/getting-started/tooling/gradle-plugin.html[wildfly-swarm gradle plugin]
 . link:https://blog.sebastian-daschner.com/entries/rest_with_java_video_course[Java EE & JAX-RS - REST as in Hypermedia with Java]
+
+//end::content[]
+
