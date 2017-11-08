@@ -1,0 +1,58 @@
+buildscript {
+  ext {
+    wildflySwarmVersion = "2017.11.0"
+  }
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.wildfly.swarm:wildfly-swarm-gradle-plugin:$wildflySwarmVersion"
+  }
+}
+
+plugins {
+  id "ear"
+  id "war"
+  id "java"
+  id "io.spring.dependency-management" version "1.0.3.RELEASE"
+}
+
+apply plugin: "wildfly-swarm"
+
+version = "0.0.0"
+group = "daggerok"
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "org.wildfly.swarm:bom:$wildflySwarmVersion"
+  }
+}
+
+dependencies {
+  compile "org.wildfly.swarm:microprofile"
+  compileOnly "javax:javaee-api:8.0"
+}
+
+swarm {
+  executable = true
+  mainClassName = "daggerok.App"
+  /*
+  properties {
+    swarm.http.port = 8080
+  }
+  bundleDependencies = true
+  */
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.3"
+  distributionType = "ALL"
+}

@@ -57,6 +57,31 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/main-swarm-static-content
+  - bash gradlew clean build
+  - docker-compose up --force-recreate -d --build --remove-orphans
+  - sleep 30
+  - http :8080
+  - docker-compose down -v
+
+  - cd $parent/main-swarm-rest-api
+  - bash gradlew clean build
+  - docker-compose up --force-recreate -d --build --remove-orphans
+  - sleep 30
+  - http :8080
+  - http :8080/api
+  - http :8080/api/max
+  - docker-compose down -v
+
+  - cd $parent/java-ee-main-swarm-rest
+  - bash gradlew clean build
+  - docker-compose up --force-recreate -d --build --remove-orphans
+  - sleep 30
+  - http :8080
+  - http :8080/api
+  - http :8080/api/max
+  - docker-compose down -v
+
   - cd $parent/kotlin-plugins-java-ee
   - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
@@ -79,8 +104,6 @@ script:
 #
 #  - >
 #    for gradle_subproject in \
-#      kotlin-plugins-java-ee \
-#      kotlin-java-ee \
 #      java-kube-ee \
 #      wildfly-swarm-gradle \
 #    ; do
@@ -100,7 +123,6 @@ script:
 
   - >
     for maven_subproject in \
-      kotlin-plugins-java-ee \
       kotlin-java-ee \
       wildfly-swarm-maven \
     ; do

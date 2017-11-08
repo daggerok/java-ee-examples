@@ -9,6 +9,8 @@ link:https://daggerok.github.io/java-ee-examples[Documentation]
 . link:./java-kube-ee[deploy java-ee on kubernetes]
 . link:./kotlin-java-ee[JavaEE using Kotlin]
 . link:./kotlin-plugins-java-ee[java-ee with kotlin plugins]
+. link:./main-swarm-rest-api[wildfly-swarm main entrypoint]
+. link:./main-swarm-static-content[serve static content with java-ee]
 
 links:
 
