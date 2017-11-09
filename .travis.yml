@@ -39,7 +39,7 @@ before_install:
   - sudo apt-cache madison docker-ce
 
   # docker-compose, curl, jq and httpie
-  - sudo apt install -y docker python-pip jq
+  - sudo apt install -y docker python-pip jq curl
   - sudo pip install docker-compose httpie
   - sudo usermod -aG docker $(whoami)
 
@@ -60,12 +60,12 @@ script:
   - cd $parent/main-swarm-rest-api
   - bash mvnw clean package
   - docker-compose build --force-rm --no-cache
-  - docker-compose up --remove-orphans
+  - docker-compose up --remove-orphans -d
   - sleep 30
   - http :8080
   - http :8080/api
   - http :8080/api/max
-  - echo '{"users":{"username": "Max"}}' | http post :8080/api/jsonp/json-pointer
+  - echo '{"users":{"username":"Max"}}' | http :8080/api/jsonp/json-pointer
   - http post :8080/api/cors max=max
   - docker-compose down -v
 
