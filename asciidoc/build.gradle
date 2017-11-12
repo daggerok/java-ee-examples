@@ -1,11 +1,16 @@
+buildscript {
+  ext {
+    ghPagesFolder = "$projectDir.parent/docs"
+  }
+}
+
 plugins {
-  id "idea"
-  id "org.asciidoctor.convert" version "1.5.3"
-  id "org.ajoberstar.git-publish" version "0.3.0"
+  id "base"
+  id "org.asciidoctor.convert" version "1.5.6"
 }
 
 group "daggerok"
-version "0.0.0"
+version "0.0.1"
 
 asciidoctorj {
   version = "1.5.5"
@@ -29,18 +34,22 @@ asciidoctor {
       "endpoint-url": "https://daggerok.github.io/java-ee-examples"
 }
 
-asciidoctor.shouldRunAfter clean
-
-// read more: https://github.com/ajoberstar/gradle-git-publish
-gitPublish {
-  repoUri = "git@github.com:daggerok/java-ee-examples.git"
-  branch = "gh-pages"
-  contents {
-    from "$buildDir/asciidoc/html5"
-    from "$projectDir/src/static"
-    into "."
-  }
+task docs(type: Copy) {
+  from "$buildDir/asciidoc/html5"
+  from "$projectDir/src/static"
+  into ghPagesFolder
+  dependsOn asciidoctor
+  shouldRunAfter clean, asciidoctor, build
 }
 
-gitPublishPush.dependsOn asciidoctor
-gitPublishPush.shouldRunAfter clean, asciidoctor
+clean.doFirst {
+  delete ghPagesFolder
+}
+
+assemble.dependsOn asciidoctor
+asciidoctor.shouldRunAfter clean
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.3.1"
+  distributionType = "ALL"
+}

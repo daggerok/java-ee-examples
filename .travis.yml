@@ -53,7 +53,7 @@ before_install:
   - docker-compose -v
 
 script:
-  - bash gradlew clean build asciidoctor
+  - bash gradlew clean build docs
 
   - export parent=$(pwd)
 
