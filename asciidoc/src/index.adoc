@@ -23,6 +23,13 @@ include::../../wildfly-swarm-maven/README.adoc[tags=content]
 == JavaEE Kubernetes
 include::../../java-kube-ee/README.adoc[tags=content]
 
+== JavaEE using Kotlin
+include::../../java-kube-ee/README.adoc[tags=content]
+include::../../kotlin-plugins-java-ee/README.adoc[tags=content]
+include::../../main-swarm-rest-api/README.adoc[tags=content]
+include::../../main-swarm-static-content/README.adoc[tags=content]
+include::../../kotlin-java-ee-2/README.adoc[tags=content]
+
 == links
 include::includes/Links.adoc[]
 

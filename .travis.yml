@@ -74,10 +74,9 @@ script:
 
   - cd $parent/main-swarm-rest-api
   - bash mvnw clean package
-  - docker-compose build --force-rm --no-cache
-  - docker-compose up --remove-orphans -d
+  - docker-compose up --force-recreate -d --build --remove-orphans
   - wait_for 8080
-  - sleep 5
+  - sleep 10
   - http :8080
   - http :8080/api
   - http :8080/api/max
