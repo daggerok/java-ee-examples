@@ -4,4 +4,12 @@
 
 This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using kotlin
 
+----
+./gradlew clean war
+docker-compose up --force-recreate --build --remove-orphans
+http :8080/payara-app/
+http :8080/payara-app/max
+docker-compose down -v
+----
+
 //end::content[]

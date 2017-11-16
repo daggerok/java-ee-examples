@@ -56,27 +56,19 @@ script:
 
   - export parent=$(pwd)
 
-  - cd $parent/kotlin-java-ee-2
-  - bash gradlew clean build
-  - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-  - wait_for 8080
-  - sleep 5
-  - http :8080
-  - http :8080/max
+  - cd $parent/kotlin-java-ee-payara-docker
+  - bash gradlew clean war
   - stop_any 8080
-  - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
-  - wait_for 8080
-  - sleep 5
-  - http :8080
-  - http :8080/max
+  - sleep 30
+  - http :8080/payara-app/
+  - http :8080/payara-app/max
   - docker-compose down -v
 
   - cd $parent/main-swarm-rest-api
   - bash mvnw clean package
   - docker-compose up --force-recreate -d --build --remove-orphans
-  - wait_for 8080
-  - sleep 10
+  - sleep 30
   - http :8080
   - http :8080/api
   - http :8080/api/max
@@ -87,16 +79,14 @@ script:
   - cd $parent/main-swarm-static-content
   - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
-  - wait_for 8080
-  - sleep 5
+  - sleep 30
   - http :8080
   - docker-compose down -v
 
   - cd $parent/kotlin-plugins-java-ee
   - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
-  - wait_for 8080
-  - sleep 5
+  - sleep 30
   - http :8080
   - http :8080/hi
   - http :8080/max
@@ -105,8 +95,7 @@ script:
   - cd $parent/kotlin-java-ee
   - bash gradlew clean build
   - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-  - wait_for 8080
-  - sleep 5
+  - sleep 30
   - http :8080
   - http :8080/max
   - stop_any 8080
@@ -135,17 +124,11 @@ script:
 #    done
 
   - >
-    for maven_subproject in \
-      java-kube-ee \
-      wildfly-swarm-maven \
-    ; do
-
-      cd ${parent}/${maven_subproject}
+      cd ${parent}/wildfly-swarm-maven
       bash mvnw clean install
       #bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
       java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
-      wait_for 8080
-      sleep 5
+      sleep 30
       http :8080
       sleep 1
       stop_any 8080
@@ -154,7 +137,6 @@ script:
       # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
       bash docker/bin/test-stack-deploy.bash
       bash gradlew clean build wildfly-swarm-package
-    done
 
 cache:
   directories:

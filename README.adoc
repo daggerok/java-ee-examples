@@ -13,7 +13,7 @@ link:https://daggerok.github.io/java-ee-examples[Documentation]
 . link:./kotlin-plugins-java-ee[java-ee with kotlin plugins]
 . link:./main-swarm-rest-api[wildfly-swarm main entrypoint]
 . link:./main-swarm-static-content[serve static content with java-ee]
-. link:./kotlin-java-ee-2[more Java EE with Kotlin]
+. link:./kotlin-java-ee-payara-docker[Java EE on Kotlin on Payara on Docker]
 
 links:
 

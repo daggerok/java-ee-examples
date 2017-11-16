@@ -13,7 +13,6 @@ interface JavaEeService {
 }
 
 @Stateless
-@ApplicationScoped
 open class JavaEeServiceImpl : JavaEeService {
   override fun hi(name: String) = "hello, $name!"
 }
@@ -39,13 +38,16 @@ open class JavaEeResource {
 @ApplicationScoped
 @ApplicationPath("")
 open class RestApplication : Application() {
+
   private val classes = setOf(
       JavaEeResource::class.java
   )
+
   override fun getClasses() = classes
 
   private val singletons = setOf(
       JavaEeServiceImpl()
   )
+
   override fun getSingletons() = singletons
 }
