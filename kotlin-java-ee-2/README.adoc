@@ -1,0 +1,7 @@
+= java-ee-examples (kotlin) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using kotlin
+
+//end::content[]

@@ -43,11 +43,10 @@ before_install:
   - sudo pip install docker-compose httpie
   - sudo usermod -aG docker $(whoami)
 
+  - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+
   # kill whatever ports is running
-  - sudo kill $(sudo lsof -t -i:5432) | true
-  - sudo kill $(sudo lsof -t -i:5672) | true
-  - sudo kill $(sudo lsof -t -i:27017) | true
-  - sudo kill $(sudo lsof -t -i:8080) | true
+  - stop_any 5432 5672 27017 8080
 
   - docker -v
   - docker-compose -v
@@ -57,11 +56,28 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/kotlin-java-ee-2
+  - bash gradlew clean build
+  - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
+  - wait_for 8080
+  - sleep 5
+  - http :8080
+  - http :8080/max
+  - stop_any 8080
+  - bash gradlew clean build
+  - docker-compose up --force-recreate -d --build --remove-orphans
+  - wait_for 8080
+  - sleep 5
+  - http :8080
+  - http :8080/max
+  - docker-compose down -v
+
   - cd $parent/main-swarm-rest-api
   - bash mvnw clean package
   - docker-compose build --force-rm --no-cache
   - docker-compose up --remove-orphans -d
-  - sleep 30
+  - wait_for 8080
+  - sleep 5
   - http :8080
   - http :8080/api
   - http :8080/api/max
@@ -72,14 +88,16 @@ script:
   - cd $parent/main-swarm-static-content
   - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
-  - sleep 30
+  - wait_for 8080
+  - sleep 5
   - http :8080
   - docker-compose down -v
 
   - cd $parent/kotlin-plugins-java-ee
   - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
-  - sleep 30
+  - wait_for 8080
+  - sleep 5
   - http :8080
   - http :8080/hi
   - http :8080/max
@@ -88,10 +106,11 @@ script:
   - cd $parent/kotlin-java-ee
   - bash gradlew clean build
   - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-  - sleep 30
+  - wait_for 8080
+  - sleep 5
   - http :8080
   - http :8080/max
-  - sudo killall -9 java | sudo kill $(sudo lsof -t -i:8080) | true
+  - stop_any 8080
 
 ##  - cd $parent/java-kube-ee
 ##  - cd $parent/wildfly-swarm-gradle
@@ -105,10 +124,11 @@ script:
 #      cd ${parent}/${gradle_subproject}
 #      bash gradlew clean build wildfly-swarm-package
 #      java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-#      sleep 20
+#      wait_for 8080
+#      sleep 5
 #      http :8080
 #      sleep 1
-#      killall -9 java
+#      stop_any 8080
 #      bash docker/bin/test-dockerfile.bash
 #      bash docker/bin/test-docker-compose.bash
 #      bash docker/bin/test-stack-deploy.bash
@@ -117,7 +137,7 @@ script:
 
   - >
     for maven_subproject in \
-      kotlin-java-ee \
+      java-kube-ee \
       wildfly-swarm-maven \
     ; do
 
@@ -125,10 +145,11 @@ script:
       bash mvnw clean install
       #bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
       java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
-      sleep 20
+      wait_for 8080
+      sleep 5
       http :8080
       sleep 1
-      killall -9 java
+      stop_any 8080
       bash docker/bin/test-dockerfile.bash
       bash docker/bin/test-docker-compose.bash
       # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
