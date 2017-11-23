@@ -56,6 +56,15 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/jboss-eap-ext.js
+  - bash mvnw clean install
+  - stop_any 8080
+  - docker build --force-rm --rm -t eap-6.4 .
+  - docker run --rm -d -p 8080:8080 --name java-ee-app eap-6.4
+  - sleep 15
+  - http :8080/app/
+  - docker rm -v -f java-ee-app
+
   - cd $parent/kotlin-java-ee-payara-docker
   - bash gradlew clean war
   - stop_any 8080

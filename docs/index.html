@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2017-11-16 07:01:29 EET</span>
+<span id="revdate">2017-11-24 00:43:22 CET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -561,8 +561,9 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#old-2">4.1. old</a></li>
 </ul>
 </li>
-<li><a href="#links">5. links</a></li>
-<li><a href="#enjoy">6. Enjoy! :)</a></li>
+<li><a href="#jboss-eap-in-docker">5. JBoss EAP in Docker</a></li>
+<li><a href="#links">6. links</a></li>
+<li><a href="#enjoy">7. Enjoy! :)</a></li>
 </ul>
 </div>
 </div>
@@ -1096,7 +1097,21 @@ docker-compose down -v</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="links">5. links</h2>
+<h2 id="jboss-eap-in-docker">5. JBoss EAP in Docker</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Using JBoss EAP 6.4 in docker</div>
+<div class="content">
+<pre>bash mvnw clean install
+docker build --force-rm --rm -t eap-6.4 .
+docker run --rm -it -p 8080:8080 --name java-ee-app eap-6.4
+docker rmi -v -f eap-6.4</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="links">6. links</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -1108,7 +1123,7 @@ docker-compose down -v</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="enjoy">6. Enjoy! :)</h2>
+<h2 id="enjoy">7. Enjoy! :)</h2>
 <div class="sectionbody">
 
 </div>
@@ -1117,7 +1132,7 @@ docker-compose down -v</pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2017-11-16 07:01:29 EET
+Last updated 2017-11-24 00:43:22 CET
 </div>
 </div>
 </body>

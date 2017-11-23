@@ -8,3 +8,5 @@ target/
 .gradle/
 build/
 payara-micro/
+jboss-eap-*.zip
+.eap6/

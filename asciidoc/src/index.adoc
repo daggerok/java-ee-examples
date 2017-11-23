@@ -30,6 +30,9 @@ include::../../main-swarm-rest-api/README.adoc[tags=content]
 include::../../main-swarm-static-content/README.adoc[tags=content]
 include::../../kotlin-java-ee-payara-docker/README.adoc[tags=content]
 
+== JBoss EAP in Docker
+include::../../jboss-eap-ext.js/README.adoc[tags=content]
+
 == links
 include::includes/Links.adoc[]
 

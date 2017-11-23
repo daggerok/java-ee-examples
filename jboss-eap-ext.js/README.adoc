@@ -1,0 +1,13 @@
+= java-ee-examples (jboss eap in docker) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+.Using JBoss EAP 6.4 in docker
+----
+bash mvnw clean install
+docker build --force-rm --rm -t eap-6.4 .
+docker run --rm -it -p 8080:8080 --name java-ee-app eap-6.4
+docker rmi -v -f eap-6.4
+----
+
+//end::content[]
