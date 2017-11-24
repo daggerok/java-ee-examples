@@ -9,6 +9,7 @@
 <html>
 <head>
   <title>Hey!</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 </head>
 <body>
 <p>Hola!</p>
