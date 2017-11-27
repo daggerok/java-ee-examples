@@ -56,6 +56,13 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/kumuluzee-microprofile-1.0
+  - bash mvnw clean install
+  - docker-compose up -d --build
+  - sleep 15
+  - http :8080/
+  - docker-compose down -v
+
   - cd $parent/jboss-eap-ext.js
   - bash mvnw clean install
   - stop_any 8080

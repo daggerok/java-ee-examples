@@ -2,19 +2,35 @@
 
 //tag::content[]
 
-This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
+This repository contains simple JavaEE Micro-profile examples
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+_Deploy to k8s_
+
+. link:./java-kube-ee[deploy java-ee on kubernetes]
+
+_JBoss EAP in Docker_
+
+. link:./jboss-eap-ext.js[JBoss EAP in Docker]
+
+_MicroProfile 1.0_
+
 . link:./wildfly-swarm-maven[wildfly-swarm micro-profile with maven]
 . link:./wildfly-swarm-gradle[wildfly-swarm micro-profile with gradle]
-. link:./java-kube-ee[deploy java-ee on kubernetes]
 . link:./kotlin-java-ee[JavaEE using Kotlin]
 . link:./kotlin-plugins-java-ee[java-ee with kotlin plugins]
 . link:./main-swarm-rest-api[wildfly-swarm main entrypoint]
 . link:./main-swarm-static-content[serve static content with java-ee]
 . link:./kotlin-java-ee-payara-docker[Java EE on Kotlin on Payara on Docker]
-. link:./jboss-eap-ext.js[JBoss EAP in Docker]
+
+_MicroProfile 1.1.0_
+
+link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
+
+_MicroProfile 1.2_
+
+link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
 
 links:
 
@@ -25,6 +41,7 @@ links:
 . link:https://github.com/takari/maven-wrapper[maven wrapper]
 . link:https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/getting-started/tooling/gradle-plugin.html[wildfly-swarm gradle plugin]
 . link:https://blog.sebastian-daschner.com/entries/rest_with_java_video_course[Java EE & JAX-RS - REST as in Hypermedia with Java]
+. link:https://www.youtube.com/watch?v=2ofbA00gsUk[Eclipse MicroProfile 1.0, 1.10, 1.2]
 
 //end::content[]
 

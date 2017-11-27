@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>micro-vue</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<div id="app">
+  <input type="text" v-model="name"/>
+  <button @click.prevent="onSave"></button>
+  <p v-if="savedName != 'Guest' && savedName.trim() != '!'">hello, {{ savedName }}</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.9/vue.min.js"></script>
+<script src="./main.js"></script>
+</body>
+</html>

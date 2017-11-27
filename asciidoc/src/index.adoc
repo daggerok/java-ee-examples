@@ -14,6 +14,21 @@ Maksim Kostromin <daggerok@gmail.com>
 == Introduction
 include::includes/Introduction.adoc[]
 
+._MicroProfile 1.0 (CDI + JAX-RS + JSON-P)_
+----
+<dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>bom-all</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+----
+
 == JavaEE Wildfly-Swarm Micro-Profile using Gradle
 include::../../wildfly-swarm-gradle/README.adoc[tags=content]
 
@@ -30,8 +45,18 @@ include::../../main-swarm-rest-api/README.adoc[tags=content]
 include::../../main-swarm-static-content/README.adoc[tags=content]
 include::../../kotlin-java-ee-payara-docker/README.adoc[tags=content]
 
+_Just JBoss EAR in Docker_
+
 == JBoss EAP in Docker
 include::../../jboss-eap-ext.js/README.adoc[tags=content]
+
+_MicroProfile 1.1.0 (CDI + JAX-RS + JSON-P)_
+
+TODO
+
+_MicroProfile 1.2 (CDI + JAX-RS + JSON-P)_
+
+TODO
 
 == links
 include::includes/Links.adoc[]
