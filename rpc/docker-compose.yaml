@@ -1,0 +1,17 @@
+version: "2.1"
+
+services:
+
+  rpc:
+    restart: unless-stopped
+    build: ./rpc-app
+    volumes: ["rpc-data:/home/app"]
+    ports: ["8080:8080"]
+    networks: [backing-services]
+
+volumes:
+  rpc-data: {}
+
+networks:
+  backing-services:
+    driver: bridge

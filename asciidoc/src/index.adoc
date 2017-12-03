@@ -35,6 +35,9 @@ include::../../wildfly-swarm-gradle/README.adoc[tags=content]
 == JavaEE Wildfly-Swarm Micro-Profile using Maven
 include::../../wildfly-swarm-maven/README.adoc[tags=content]
 
+== Kumuluzee MicroProfile 1.0
+include::../../kumuluzee-microprofile-1.0/README.adoc[tags=content]
+
 == JavaEE Kubernetes
 include::../../java-kube-ee/README.adoc[tags=content]
 
@@ -56,7 +59,8 @@ TODO
 
 _MicroProfile 1.2 (CDI + JAX-RS + JSON-P)_
 
-TODO
+== Kumuluzee MicroProfile 2.0 (config.yaml)
+include::../../rpc/README.adoc[tags=content]
 
 == links
 include::includes/Links.adoc[]

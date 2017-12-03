@@ -1,0 +1,14 @@
+= java-ee-examples | RPC image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+Remote procedure calls
+
+.up and running
+----
+./mvnw clean package -U; java -jar rpc/target/*.jar
+http :8080/config
+----
+
+//end::content[]
+

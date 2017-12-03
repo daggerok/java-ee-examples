@@ -23,12 +23,15 @@ _MicroProfile 1.0_
 . link:./main-swarm-rest-api[wildfly-swarm main entrypoint]
 . link:./main-swarm-static-content[serve static content with java-ee]
 . link:./kotlin-java-ee-payara-docker[Java EE on Kotlin on Payara on Docker]
+. link:./kumuluzee-microprofile-1.0[Kumuluzee MicroProfile 1.0]
 
 _MicroProfile 1.1.0_
 
 link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
 
 _MicroProfile 1.2_
+
+. link:./rpc[Kumuluzee (Java EE on Jetty) - MiroProfile 2.0 (Config)]
 
 link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
 

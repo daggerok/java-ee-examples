@@ -1,0 +1,4 @@
+app-cfg:
+  strng: ololo
+  intgr: 42
+  bln: true

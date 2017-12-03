@@ -56,6 +56,17 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/rpc
+  - bash mvnw clean install
+  - java -jar rpc-app/target/*.jar &
+  - wait_for 8080
+  - http :8080/config
+  - stop_any 8080
+  - docker-compose up -d --build
+  - sleep 15
+  - http :8080/config
+  - docker-compose down -v
+
   - cd $parent/kumuluzee-microprofile-1.0
   - bash mvnw clean install
   - docker-compose up -d --build
