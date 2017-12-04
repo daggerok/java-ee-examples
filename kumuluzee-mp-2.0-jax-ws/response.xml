@@ -1,0 +1,16 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <ns3:GetUsersResponse
+        xmlns:ns3="http://daggerok.github.io/javaee/jax-ws/api/v1/users">
+      <output>
+        <users>
+          <users>
+            <id>859ad21f-38d3-4dd8-b33d-c44d0cf38b14</id>
+            <firstName>Maksim</firstName>
+            <lastName>Kostromin</lastName>
+          </users>
+        </users>
+      </output>
+    </ns3:GetUsersResponse>
+  </S:Body>
+</S:Envelope>

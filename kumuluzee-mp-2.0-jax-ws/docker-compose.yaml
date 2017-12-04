@@ -1,0 +1,17 @@
+version: "2.1"
+
+services:
+
+  kumuluzee-mp-2.0-jax-ws:
+    restart: unless-stopped
+    build: .
+    volumes: ["kumuluzee-mp-2.0-jax-ws-data:/home/app"]
+    ports: ["8000:8000"]
+    networks: [backing-services]
+
+volumes:
+  kumuluzee-mp-2.0-jax-ws-data: {}
+
+networks:
+  backing-services:
+    driver: bridge

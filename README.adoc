@@ -32,6 +32,7 @@ link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
 _MicroProfile 1.2_
 
 . link:./rpc[Kumuluzee (Java EE on Jetty) - MiroProfile 2.0 (Config)]
+. link:./kumuluzee-mp-2.0-jax-ws[Kumuluzee MP 2.0 JAX-WS]
 
 link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
 

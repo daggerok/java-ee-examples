@@ -1,0 +1,18 @@
+= java-ee-examples | JAX-WS image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+in progress...
+
+.up and running
+----
+./mvnw clean package -U; java -jar target/*.jar
+
+http :8000
+http :8000/api/v1/ws
+http :8000/api/v1/ws?WSDL
+
+curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d @./request.xml  | xmllint --format -
+----
+
+//end::content[]

@@ -39,7 +39,7 @@ before_install:
   - sudo apt-cache madison docker-ce
 
   # docker-compose, curl, jq and httpie
-  - sudo apt install -y docker python-pip jq curl
+  - sudo apt install -y docker python-pip jq curl libxml2-utils
   - sudo pip install docker-compose httpie
   - sudo usermod -aG docker $(whoami)
 
@@ -56,15 +56,21 @@ script:
 
   - export parent=$(pwd)
 
-  - cd $parent/rpc
+  - cd $parent/kumuluzee-mp-2.0-jax-ws
   - bash mvnw clean install
   - java -jar rpc-app/target/*.jar &
-  - wait_for 8080
-  - http :8080/config
-  - stop_any 8080
+  - wait_for 8000
+  - http :8000/
+  - http :8000/api/v1/ws
+  - http :8000/api/v1/ws\?wsdl
+  - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
+  - stop_any 8000
   - docker-compose up -d --build
   - sleep 15
-  - http :8080/config
+  - curl -sS localhost:8000 | jq
+  - curl -sS localhost:8000/api/v1/ws
+  - curl -sS "localhost:8000/api/v1/ws?WSDL" | xmllint --format -
+  - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
   - docker-compose down -v
 
   - cd $parent/kumuluzee-microprofile-1.0

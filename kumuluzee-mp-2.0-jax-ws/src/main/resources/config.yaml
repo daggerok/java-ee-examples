@@ -1,0 +1,13 @@
+app-cfg:
+  strng: ololo
+  intgr: 42
+  bln: true
+
+kumuluzee:
+  name: kumuluzee-mp-2.0-jax-ws
+  env:
+    name: test
+  version: 0.0.1
+  server:
+    http:
+      port: 8000

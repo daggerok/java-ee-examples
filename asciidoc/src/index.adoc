@@ -62,6 +62,9 @@ _MicroProfile 1.2 (CDI + JAX-RS + JSON-P)_
 == Kumuluzee MicroProfile 2.0 (config.yaml)
 include::../../rpc/README.adoc[tags=content]
 
+== Kumuluzee MicroProfile 2.0 (JAX-WS)
+include::../../kumuluzee-mp-2.0-jax-ws/README.adoc[tags=content]
+
 == links
 include::includes/Links.adoc[]
 
