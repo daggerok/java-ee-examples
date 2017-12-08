@@ -1,0 +1,8 @@
+= java-ee-examples image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+. link:https://www.youtube.com/watch?v=rBt8CaxaBiw[Java EE 7 One]
+
+//end::content[]
+

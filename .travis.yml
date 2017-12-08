@@ -65,7 +65,7 @@ script:
 
   - cd $parent/kumuluzee-mp-2.0-jax-ws
   - bash mvnw clean install
-  - java -jar rpc-app/target/*.jar &
+  - java -jar ./target/*.jar &
   - wait_for 8000
   - http :8000/
   - http :8000/api/v1/ws
