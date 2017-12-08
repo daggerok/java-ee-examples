@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>daggerok</groupId>
+  <artifactId>java-ee-7-docker-jboss-eap-6.4-quickstart</artifactId>
+  <version>0.0.1</version>
+
+  <packaging>war</packaging>
+
+  <properties>
+    <maven.compile.source>1.7</maven.compile.source>
+    <maven.compile.target>1.7</maven.compile.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>1.0.4</version><!-- @Produces(APPLICATION_JSON) require -->
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>app</finalName>
+
+    <defaultGoal>clean package</defaultGoal>
+
+    <plugins>
+      <plugin><!-- WEB-INF/web.xml do not needed: failOnMissingWebXml -->
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.0</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

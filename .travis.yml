@@ -56,6 +56,13 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/java-ee-7-docker-jboss-eap-6.4-quickstart
+  - bash mvnw -U
+  - docker-compose up -d --build
+  - sleep 20
+  - curl -sS localhost:8080/app/
+  - docker-compose down -v
+
   - cd $parent/kumuluzee-mp-2.0-jax-ws
   - bash mvnw clean install
   - java -jar rpc-app/target/*.jar &

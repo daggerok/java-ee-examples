@@ -12,6 +12,7 @@ _Deploy to k8s_
 
 _JBoss EAP in Docker_
 
+. link:./java-ee-7-docker-jboss-eap-6.4-quickstart[java ee 7 docker jboss-eap-6.4 boilerplate]
 . link:./jboss-eap-ext.js[JBoss EAP in Docker]
 
 _MicroProfile 1.0_
