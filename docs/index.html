@@ -1170,7 +1170,7 @@ mvn -N io.takari:maven:wrapper</pre>
 <div class="listingblock">
 <div class="title">build</div>
 <div class="content">
-<pre>./mvnw clean package -U</pre>
+<pre>./mvnw clean package -U -T 4</pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1179,6 +1179,13 @@ mvn -N io.takari:maven:wrapper</pre>
 <pre>docker-compose up --build --force-recreate --remove-orphans
 docker-compose down -v
 # docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">testing using httpe</div>
+<div class="content">
+<pre>http :8080/app/v1/api
+http :8080/app/UserService\?wsdl</pre>
 </div>
 </div>
 <div class="paragraph">
