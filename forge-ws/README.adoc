@@ -1,0 +1,33 @@
+= jboss forge (maven)
+
+//tag::content[]
+
+.init new maven project using forge cli
+----
+forge
+project-new \
+  --named forge-ws2 \
+  --top-level-package daggerok \
+  --final-name forge-ws \
+  --type war
+----
+
+.add maven wrapper
+----
+cd maven-forge-project/
+mvn -N io.takari:maven:wrapper
+----
+
+.build
+----
+./mvnw clean package -U
+----
+
+.docker - see docker-compose and src/main/docker/Dockerfile
+----
+docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')
+----
+
+//end::content[]

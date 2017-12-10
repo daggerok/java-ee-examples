@@ -53,6 +53,9 @@ _Just JBoss EAR in Docker_
 == JBoss EAP in Docker
 include::../../jboss-eap-ext.js/README.adoc[tags=content]
 
+== JBoss WildFly (mvnw / gradlew) in Docker
+include::../../forge-ws/README.adoc[tags=content]
+
 _MicroProfile 1.1.0 (CDI + JAX-RS + JSON-P)_
 
 TODO

@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2017-12-04 03:58:40 CET</span>
+<span id="revdate">2017-12-10 23:52:15 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -563,10 +563,11 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#jboss-eap-in-docker">6. JBoss EAP in Docker</a></li>
-<li><a href="#kumuluzee-microprofile-2-0-config-yaml">7. Kumuluzee MicroProfile 2.0 (config.yaml)</a></li>
-<li><a href="#kumuluzee-microprofile-2-0-jax-ws">8. Kumuluzee MicroProfile 2.0 (JAX-WS)</a></li>
-<li><a href="#links">9. links</a></li>
-<li><a href="#enjoy">10. Enjoy! :)</a></li>
+<li><a href="#jboss-wildfly-mvnw-gradlew-in-docker">7. JBoss WildFly (mvnw / gradlew) in Docker</a></li>
+<li><a href="#kumuluzee-microprofile-2-0-config-yaml">8. Kumuluzee MicroProfile 2.0 (config.yaml)</a></li>
+<li><a href="#kumuluzee-microprofile-2-0-jax-ws">9. Kumuluzee MicroProfile 2.0 (JAX-WS)</a></li>
+<li><a href="#links">10. links</a></li>
+<li><a href="#enjoy">11. Enjoy! :)</a></li>
 </ul>
 </div>
 </div>
@@ -1143,6 +1144,43 @@ docker run --rm -it -p 8080:8080 --name java-ee-app eap-6.4
 docker rmi -v -f eap-6.4</pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jboss-wildfly-mvnw-gradlew-in-docker">7. JBoss WildFly (mvnw / gradlew) in Docker</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">init new maven project using forge cli</div>
+<div class="content">
+<pre>forge
+project-new \
+  --named forge-ws2 \
+  --top-level-package daggerok \
+  --final-name forge-ws \
+  --type war</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">add maven wrapper</div>
+<div class="content">
+<pre>cd maven-forge-project/
+mvn -N io.takari:maven:wrapper</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>./mvnw clean package -U</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">docker - see docker-compose and src/main/docker/Dockerfile</div>
+<div class="content">
+<pre>docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')</pre>
+</div>
+</div>
 <div class="paragraph">
 <p><em>MicroProfile 1.1.0 (CDI + JAX-RS + JSON-P)</em></p>
 </div>
@@ -1155,7 +1193,7 @@ docker rmi -v -f eap-6.4</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="kumuluzee-microprofile-2-0-config-yaml">7. Kumuluzee MicroProfile 2.0 (config.yaml)</h2>
+<h2 id="kumuluzee-microprofile-2-0-config-yaml">8. Kumuluzee MicroProfile 2.0 (config.yaml)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>in progress&#8230;&#8203;</p>
@@ -1173,7 +1211,7 @@ http :8080/config</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="kumuluzee-microprofile-2-0-jax-ws">8. Kumuluzee MicroProfile 2.0 (JAX-WS)</h2>
+<h2 id="kumuluzee-microprofile-2-0-jax-ws">9. Kumuluzee MicroProfile 2.0 (JAX-WS)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>in progress&#8230;&#8203;</p>
@@ -1193,7 +1231,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 </div>
 </div>
 <div class="sect1">
-<h2 id="links">9. links</h2>
+<h2 id="links">10. links</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -1205,7 +1243,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 </div>
 </div>
 <div class="sect1">
-<h2 id="enjoy">10. Enjoy! :)</h2>
+<h2 id="enjoy">11. Enjoy! :)</h2>
 <div class="sectionbody">
 
 </div>
@@ -1214,7 +1252,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2017-12-04 03:58:40 CET
+Last updated 2017-12-10 23:52:15 EET
 </div>
 </div>
 </body>

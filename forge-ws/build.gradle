@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
+
+group = 'daggerok'
+version = '1.0.0-SNAPSHOT'
+
+sourceCompatibility = targetCompatibility = 1.7
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  providedCompile 'javax:javaee-api:7.0'
+}

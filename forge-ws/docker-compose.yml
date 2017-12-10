@@ -1,0 +1,21 @@
+version: "2.1"
+
+services:
+
+  ws-app:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile
+    volumes: ["ws-data:/opt/jboss/wildfly/standalone"]
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    networks: [backing-services]
+
+volumes:
+  ws-data: {}
+
+networks:
+  backing-services:
+    driver: bridge

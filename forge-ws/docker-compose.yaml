@@ -1,0 +1,33 @@
+version: "2.1"
+
+services:
+
+  ws-maven-app:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: src/main/docker/maven/Dockerfile
+    volumes: ["ws-maven-data:/opt/jboss/wildfly/standalone"]
+    ports:
+      - "8001:8080"
+      - "9991:9990"
+    networks: [backing-services]
+
+  ws-gradle-app:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: src/main/docker/gradle/Dockerfile
+    volumes: ["ws-gradle-data:/opt/jboss/wildfly/standalone"]
+    ports:
+      - "8002:8080"
+      - "9992:9990"
+    networks: [backing-services]
+
+volumes:
+  ws-maven-data: {}
+  ws-gradle-data: {}
+
+networks:
+  backing-services:
+    driver: bridge

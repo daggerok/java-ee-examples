@@ -56,6 +56,14 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/forge-ws
+  - bash mvnw clean package -U
+  - bash gradlew clean build
+  - docker-compose up --build --force-recreate --remove-orphans -d
+  - sleep 20
+  - http :8080/app/v1/api
+  - docker-compose down -v
+
   - cd $parent/java-ee-7-docker-jboss-eap-6.4-quickstart
   - bash mvnw -U
   - docker-compose up -d --build
