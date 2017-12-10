@@ -1,4 +1,4 @@
-= jboss forge (maven)
+= jboss forge (maven) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
 //tag::content[]
 
@@ -20,7 +20,7 @@ mvn -N io.takari:maven:wrapper
 
 .build
 ----
-./mvnw clean package -U
+./mvnw clean package -U -T 4
 ----
 
 .docker - see docker-compose and src/main/docker/Dockerfile
@@ -28,6 +28,12 @@ mvn -N io.takari:maven:wrapper
 docker-compose up --build --force-recreate --remove-orphans
 docker-compose down -v
 # docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')
+----
+
+.testing using httpe
+----
+http :8080/app/v1/api
+http :8080/app/UserService\?wsdl
 ----
 
 //end::content[]

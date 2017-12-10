@@ -62,6 +62,7 @@ script:
   - docker-compose up --build --force-recreate --remove-orphans -d
   - sleep 20
   - http :8080/app/v1/api
+  - http ":8080/app/UserService?wsdl"
   - docker-compose down -v
 
   - cd $parent/java-ee-7-docker-jboss-eap-6.4-quickstart
