@@ -1190,6 +1190,25 @@ curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @
 curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -</pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">lombok for java 7 (maven)</div>
+<div class="content">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+  &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+  &lt;version&gt;1.14.2&lt;/version&gt;
+  &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">lombok for java 7 (gradle)</div>
+<div class="content">
+<pre>dependencies {
+  compileOnly 'org.projectlombok:lombok:1.14.2'
+}</pre>
+</div>
+</div>
 <div class="paragraph">
 <p>links:</p>
 </div>
@@ -1197,6 +1216,9 @@ curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @
 <ol class="arabic">
 <li>
 <p><a href="https://docs.oracle.com/javaee/7/tutorial/jaxws001.htm#BNAYW">jax-ws oracle tutorial</a></p>
+</li>
+<li>
+<p><a href="https://forge.jboss.org/document/jboss-forge-2,-java-ee-easily,-so-easily">JBoss Forge 2, Java EE easily, so easily</a></p>
 </li>
 </ol>
 </div>
