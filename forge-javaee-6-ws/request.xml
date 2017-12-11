@@ -1,0 +1,6 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://daggerok.github.io/javaee/jax-ws/api/v1">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <v1:GetUsers/>
+  </soapenv:Body>
+</soapenv:Envelope>

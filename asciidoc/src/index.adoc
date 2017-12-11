@@ -56,6 +56,9 @@ include::../../jboss-eap-ext.js/README.adoc[tags=content]
 == JBoss WildFly (mvnw / gradlew) in Docker
 include::../../forge-ws/README.adoc[tags=content]
 
+== JBoss forge / WildFly Java EE 6 / JAX-WS
+include::../../forge-javaee-6-ws/README.adoc[tags=content]
+
 _MicroProfile 1.1.0 (CDI + JAX-RS + JSON-P)_
 
 TODO

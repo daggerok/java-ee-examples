@@ -16,6 +16,10 @@ _JBoss EAP in Docker_
 . link:./jboss-eap-ext.js[JBoss EAP in Docker]
 . link:./forge-ws[java-ee jboss-wildfly gradle]
 
+_JBoss Wildfly in Docker_
+
+. link:./forge-javaee-6-ws[Java EE 6 / JAX-WS | JBoss Forge / Wildfly]
+
 _MicroProfile 1.0_
 
 . link:./wildfly-swarm-maven[wildfly-swarm micro-profile with maven]
@@ -50,4 +54,3 @@ links:
 . link:https://www.youtube.com/watch?v=2ofbA00gsUk[Eclipse MicroProfile 1.0, 1.10, 1.2]
 
 //end::content[]
-

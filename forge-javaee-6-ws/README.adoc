@@ -1,0 +1,15 @@
+= JBoss forge | JavaEE 6 JAX-WS image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+.up and running
+----
+./mvnw clean package -U -T 2; docker-compose up --build --force-recreate --remove-orphans
+
+http :8080/app/health
+http :8080/app/AppEndpoint\?wsdl
+
+curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xml" -d @request.xml | xmllint --format -
+----
+
+//end::content[]
