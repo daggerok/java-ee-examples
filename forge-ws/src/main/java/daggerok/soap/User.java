@@ -6,7 +6,7 @@ import javax.jws.WebService;
 import static java.lang.String.format;
 
 @WebService
-public class UserService {
+public class User {
 
   @WebMethod
   public String hey(final String name) {

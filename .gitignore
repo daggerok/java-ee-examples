@@ -11,3 +11,6 @@ payara-micro/
 jboss-eap-*.zip
 .eap6/
 overlays
+.classpath
+.project
+.settings
