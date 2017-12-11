@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://soap.daggerok/">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <soap:hey>
+      <!--Optional:-->
+      <arg0>Maksimko</arg0>
+    </soap:hey>
+  </soapenv:Body>
+</soapenv:Envelope>

@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
   providedCompile 'javax:javaee-api:7.0'
+  compileOnly 'org.projectlombok:lombok:1.14.2'
 }
 
 // TODO: wsgen / wsimport

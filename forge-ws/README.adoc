@@ -38,8 +38,26 @@ curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @
 curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
 ----
 
+.lombok for java 7 (maven)
+----
+<dependency>
+  <groupId>org.projectlombok</groupId>
+  <artifactId>lombok</artifactId>
+  <version>1.14.2</version>
+  <scope>provided</scope>
+</dependency>
+----
+
+.lombok for java 7 (gradle)
+----
+dependencies {
+  compileOnly 'org.projectlombok:lombok:1.14.2'
+}
+----
+
 links:
 
 . link:https://docs.oracle.com/javaee/7/tutorial/jaxws001.htm#BNAYW[jax-ws oracle tutorial]
+. link:https://forge.jboss.org/document/jboss-forge-2,-java-ee-easily,-so-easily[JBoss Forge 2, Java EE easily, so easily]
 
 //end::content[]
