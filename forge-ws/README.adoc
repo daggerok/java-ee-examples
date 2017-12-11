@@ -30,10 +30,12 @@ docker-compose down -v
 # docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')
 ----
 
-.testing using httpe
+.testing
 ----
 http :8080/app/v1/api
 http :8080/app/UserService\?wsdl
+curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @./src/test/resources/empty-request.xml | xmllint --format -
+curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
 ----
 
 //end::content[]

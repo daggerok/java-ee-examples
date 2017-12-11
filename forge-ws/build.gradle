@@ -18,3 +18,5 @@ repositories {
 dependencies {
   providedCompile 'javax:javaee-api:7.0'
 }
+
+// TODO: wsgen / wsimport

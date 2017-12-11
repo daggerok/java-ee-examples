@@ -3,13 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>daggerok</groupId>
-  <artifactId>forge-gradle-ws</artifactId>
+  <artifactId>forge-ws</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
-
-  <build>
-    <finalName>forge-ws</finalName>
-  </build>
 
   <properties>
     <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -33,4 +29,55 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <finalName>forge-ws</finalName>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>jaxws-maven-plugin</artifactId>
+          <version>2.5</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+          <execution>
+            <id>wsgen</id>
+            <goals>
+              <goal>wsgen</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <!--<resourceDestDir>${project.build.directory}/classes/wsdl</resourceDestDir>-->
+              <!--<useJdkToolchainExecutable>true</useJdkToolchainExecutable>-->
+              <!--<encoding>${project.build.sourceEncoding}</encoding>-->
+              <!--<inlineSchemas>true</inlineSchemas>-->
+              <sei>daggerok.soap.User</sei>
+              <genWsdl>true</genWsdl>
+              <verbose>true</verbose>
+              <!--<destDir />-->
+            </configuration>
+          </execution>
+          <execution>
+            <id>wsimport</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <phase>generate-sources</phase>
+            <configuration>
+              <packageName>daggerok.soap.wsimport</packageName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
