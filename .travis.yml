@@ -84,7 +84,7 @@ script:
   - docker-compose down -v
 
   - cd $parent/kumuluzee-mp-2.0-jax-ws
-  - bash mvnw clean install
+  - bash mvnw clean package -U -T 4
   - java -jar ./target/*.jar &
   - wait_for 8000
   - http :8000/
@@ -92,12 +92,15 @@ script:
   - http :8000/api/v1/ws\?wsdl
   - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
   - stop_any 8000
-  - docker-compose up -d --build
+  - docker-compose up -d --build --force-recreate --remove-orphans
   - sleep 15
   - curl -sS localhost:8000 | jq
-  - curl -sS localhost:8000/api/v1/ws
+  - curl -sS localhost:8000/api/v1/ws | xmllint --format -
   - curl -sS "localhost:8000/api/v1/ws?WSDL" | xmllint --format -
   - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
+  - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+  - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+  - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
   - docker-compose down -v
 
   - cd $parent/kumuluzee-microprofile-1.0

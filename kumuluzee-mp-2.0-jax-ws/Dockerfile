@@ -10,5 +10,5 @@ ARG java_opts=" -Djava.net.preferIPv4Stack=true "
 ENV JAVA_OPTS=${java_opts}
 ENTRYPOINT java ${JAVA_OPTS} -jar ./app.jar
 EXPOSE 8000
-HEALTHCHECK --timeout=1s --retries=35 CMD curl -f http://127.0.0.1:8000/health || exit 1
+HEALTHCHECK --timeout=2s --retries=30 CMD curl -f http://127.0.0.1:8000/ || exit 1
 COPY ./target/*.jar ./app.jar
