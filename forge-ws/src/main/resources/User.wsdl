@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://soap.daggerok/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="UserService" targetNamespace="http://soap.daggerok/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap.daggerok/" elementFormDefault="unqualified" targetNamespace="http://soap.daggerok/" version="1.0">
+
+  <xs:element name="hey" type="tns:hey"/>
+
+  <xs:element name="heyResponse" type="tns:heyResponse"/>
+
+  <xs:complexType name="hey">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="heyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="hey">
+    <wsdl:part element="tns:hey" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="heyResponse">
+    <wsdl:part element="tns:heyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="User">
+    <wsdl:operation name="hey">
+      <wsdl:input message="tns:hey" name="hey">
+    </wsdl:input>
+      <wsdl:output message="tns:heyResponse" name="heyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserServiceSoapBinding" type="tns:User">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="hey">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="hey">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="heyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserService">
+    <wsdl:port binding="tns:UserServiceSoapBinding" name="UserPort">
+      <soap:address location="http://127.0.0.1:8080/app/User"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
