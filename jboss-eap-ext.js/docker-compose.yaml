@@ -1,0 +1,19 @@
+version: "2.1"
+
+services:
+
+  jboss-eap-extjs:
+    restart: unless-stopped
+    build: .
+    volumes: ["jboss-eap-extjs-data:/home"]
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    networks: [backing-services]
+
+volumes:
+  jboss-eap-extjs-data: {}
+
+networks:
+  backing-services:
+    driver: bridge

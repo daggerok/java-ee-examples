@@ -111,13 +111,13 @@ script:
   - docker-compose down -v
 
   - cd $parent/jboss-eap-ext.js
-  - bash mvnw clean install
+  - bash mvnw clean package -U -T 4
   - stop_any 8080
-  - docker build --force-rm --rm -t eap-6.4 .
-  - docker run --rm -d -p 8080:8080 --name java-ee-app eap-6.4
-  - sleep 25
-  - http :8080/app/
-  - docker rm -v -f java-ee-app
+  - docker-compose up --build --force-recreate
+  - sleep 30
+  - http :8080/ui/
+  - http :8080/reat-api/health
+  - docker-compose down -v
 
   - cd $parent/kotlin-java-ee-payara-docker
   - bash gradlew clean war

@@ -10,12 +10,14 @@
 <head>
   <title>Hey!</title>
   <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="stylesheet" href="./webjars/extjs/3.4.0/resources/css/ext-all.css">
   <%--<link rel="stylesheet" href="./webjars/extjs/6.2.0/build/modern/theme-material/resources/theme-material-all.css">--%>
 </head>
 <body>
-<p>Hola!</p>
 <%--<script src="./webjars/extjs/6.2.0/build/ext-modern-all.js"></script>--%>
-<script src="./webjars/extjs/6.2.0/build/ext-all-debug.js"></script>
+<%--<script src="./webjars/extjs/6.2.0/build/ext-modern-all-debug.js"></script>--%>
+<script src="./webjars/extjs/3.4.0/adapter/ext/ext-base-debug.js"></script>
+<script src="./webjars/extjs/3.4.0/ext-all-debug-w-comments.js"></script>
 <script src="./app/main.js"></script>
 </body>
 </html>

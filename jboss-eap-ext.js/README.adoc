@@ -2,12 +2,15 @@
 
 //tag::content[]
 
+packaging two WARs into jboss AS
+
 .Using JBoss EAP 6.4 in docker
 ----
-bash mvnw clean install
-docker build --force-rm --rm -t eap-6.4 .
-docker run --rm -it -p 8080:8080 --name java-ee-app eap-6.4
-docker rmi -v -f eap-6.4
+./mvnw clean install -U -T 4; docker-compose up --build --force-recreate
+
+open localhost:8080/ui/
+
+docker-compose down -v
 ----
 
 //end::content[]

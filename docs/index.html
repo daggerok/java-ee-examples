@@ -1136,13 +1136,17 @@ docker-compose down -v</pre>
 <div class="sect1">
 <h2 id="jboss-eap-in-docker">6. JBoss EAP in Docker</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>packaging two WARs into jboss AS</p>
+</div>
 <div class="listingblock">
 <div class="title">Using JBoss EAP 6.4 in docker</div>
 <div class="content">
-<pre>bash mvnw clean install
-docker build --force-rm --rm -t eap-6.4 .
-docker run --rm -it -p 8080:8080 --name java-ee-app eap-6.4
-docker rmi -v -f eap-6.4</pre>
+<pre>./mvnw clean install -U -T 4; docker-compose up --build --force-recreate
+
+open localhost:8080/ui/
+
+docker-compose down -v</pre>
 </div>
 </div>
 </div>
