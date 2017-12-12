@@ -116,7 +116,7 @@ script:
   - docker-compose up --build --force-recreate &
   - sleep 30
   - http :8080/ui/
-  - http :8080/reat-api/health
+  - http :8080/rest-api/health
   - docker-compose down -v
 
   - cd $parent/kotlin-java-ee-payara-docker
