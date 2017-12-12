@@ -3,8 +3,7 @@
 # docker run --rm -it -p 8080:8080 --name java-ee-app eap-6.4
 # docker rmi -v -f eap-6.4
 FROM centos:7.4.1708
-
-MAINTAINER Maksim Kostromin <daggerok@gmail.com>
+MAINTAINER Maksim Kostromin https://github.com/daggerok/docker
 
 ARG JBOS_UID="1025"
 ARG JBOSS_USER="jboss"
