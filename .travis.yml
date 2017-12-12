@@ -113,7 +113,7 @@ script:
   - cd $parent/jboss-eap-ext.js
   - bash mvnw clean package -U -T 4
   - stop_any 8080
-  - docker-compose up --build --force-recreate &
+  - docker-compose up -d --build --force-recreate --remove-orphans
   - sleep 30
   - http :8080/ui/
   - http :8080/rest-api/health
@@ -161,7 +161,7 @@ script:
   - sleep 30
   - http :8080
   - http :8080/max
-  - stop_any 8080
+  - stop_any 8080 8080 8080
 
 ##  - cd $parent/java-kube-ee
 ##  - cd $parent/wildfly-swarm-gradle
