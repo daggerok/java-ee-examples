@@ -53,6 +53,9 @@ _Just JBoss EAR in Docker_
 == JBoss EAP in Docker
 include::../../jboss-eap-ext.js/README.adoc[tags=content]
 
+== TomEE in Docker
+include::../../tomee-ext.js/README.adoc[tags=content]
+
 == Glassfisg in Docker
 include::../../glassfish-ext.js/README.adoc[tags=content]
 

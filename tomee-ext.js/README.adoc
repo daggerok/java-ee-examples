@@ -1,0 +1,18 @@
+= java-ee-examples (TomEE in docker) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+packaging two WARs in TomEE in Docker
+
+.Using TomEE in docker
+----
+./mvnw clean package -U -T 2
+docker-compose up --build
+
+open localhost:8080/ui/
+open localhost:8080/rest-api/health
+
+docker-compose down -v
+----
+
+//end::content[]

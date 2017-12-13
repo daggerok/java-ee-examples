@@ -14,6 +14,7 @@ _Deploy with Docker_
 
 . link:./java-ee-7-docker-jboss-eap-6.4-quickstart[java ee 7 docker jboss-eap-6.4 boilerplate]
 . link:./jboss-eap-ext.js[JBoss EAP 6.4 in Docker]
+. link:./tomee-ext.js[TomEE in Docker]
 . link:./glassfish-ext.js[Glassfish 5.0 in Docker]
 . link:./forge-ws[java-ee jboss-wildfly gradle]
 

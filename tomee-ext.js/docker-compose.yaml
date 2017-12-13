@@ -1,0 +1,19 @@
+version: "2.1"
+
+services:
+
+  tomee-extjs:
+    restart: unless-stopped
+    build: .
+    volumes: ["tomee-extjs-data:/usr/local/tomee"]
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    networks: [backing-services]
+
+volumes:
+  tomee-extjs-data: {}
+
+networks:
+  backing-services:
+    driver: bridge
