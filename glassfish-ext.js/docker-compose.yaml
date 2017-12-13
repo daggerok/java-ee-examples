@@ -2,17 +2,17 @@ version: "2.1"
 
 services:
 
-  jboss-eap-extjs:
+  glassfish-extjs:
     restart: unless-stopped
     build: .
-    volumes: ["jboss-eap-extjs-data:/home"]
+    volumes: ["glassfish-extjs-data:/home"]
     ports:
       - "8080:8080"
       - "9990:9990"
     networks: [backing-services]
 
 volumes:
-  jboss-eap-extjs-data: {}
+  glassfish-extjs-data: {}
 
 networks:
   backing-services:
