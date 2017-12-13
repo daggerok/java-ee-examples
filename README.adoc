@@ -10,10 +10,11 @@ _Deploy to k8s_
 
 . link:./java-kube-ee[deploy java-ee on kubernetes]
 
-_JBoss EAP in Docker_
+_Deploy with Docker_
 
 . link:./java-ee-7-docker-jboss-eap-6.4-quickstart[java ee 7 docker jboss-eap-6.4 boilerplate]
-. link:./jboss-eap-ext.js[JBoss EAP in Docker]
+. link:./jboss-eap-ext.js[JBoss EAP 6.4 in Docker]
+. link:./glassfish-ext.js[Glassfish 5.0 in Docker]
 . link:./forge-ws[java-ee jboss-wildfly gradle]
 
 _JBoss Wildfly in Docker_

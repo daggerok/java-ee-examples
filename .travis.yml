@@ -1,5 +1,8 @@
 #group: edge
 #dist: trusty
+#group: deprecated-2017Q4
+
+sudo: required
 group: travis_lts
 
 env:
@@ -56,6 +59,15 @@ script:
   - bash gradlew clean build docs
 
   - export parent=$(pwd)
+
+  - cd $parent/glassfish-ext.js
+  - bash mvnw clean package -U -T 4
+  - stop_any 8080
+  - docker-compose up -d --build --force-recreate --remove-orphans
+  - sleep 30
+  - http :8080/ui/
+  - http :8080/rest-api/health
+  - docker-compose down -v
 
   - cd $parent/forge-javaee-6-ws
   - bash mvnw clean package -U -T 2

@@ -1,0 +1,17 @@
+= java-ee-examples (glassfish in docker) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+packaging two WARs in glassfish in Docker
+
+.Using Glassfish 5.0 in docker (alpine)
+----
+./mvnw clean package -U -T 2
+docker-compose up --build
+
+open localhost:8080/ui/
+
+docker-compose down -v
+----
+
+//end::content[]
