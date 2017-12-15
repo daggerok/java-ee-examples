@@ -52,6 +52,7 @@ _Just JBoss EAR in Docker_
 
 == JBoss EAP in Docker
 include::../../jboss-eap-ext.js/README.adoc[tags=content]
+include::../../xmlrpc/README.adoc[tags=content]
 
 == TomEE in Docker
 include::../../tomee-ext.js/README.adoc[tags=content]
@@ -72,7 +73,7 @@ TODO
 _MicroProfile 1.2 (CDI + JAX-RS + JSON-P)_
 
 == Kumuluzee MicroProfile 2.0 (config.yaml)
-include::../../rpc/README.adoc[tags=content]
+include::../../kumuluzee-config/README.adoc[tags=content]
 
 == Kumuluzee MicroProfile 2.0 (JAX-WS)
 include::../../kumuluzee-mp-2.0-jax-ws/README.adoc[tags=content]

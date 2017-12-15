@@ -1,0 +1,8 @@
+= java-ee-examples | kumuluzee-config image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+link:rpc-app/[see rpc-app module]
+
+//end::content[]
+

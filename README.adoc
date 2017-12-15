@@ -17,6 +17,7 @@ _Deploy with Docker_
 . link:./tomee-ext.js[TomEE in Docker]
 . link:./glassfish-ext.js[Glassfish 5.0 in Docker]
 . link:./forge-ws[java-ee jboss-wildfly gradle]
+. link:./xmlrpx[XML-RPC (apache-xmlrpc) inside JavaEE | JBoss EAP]
 
 _JBoss Wildfly in Docker_
 

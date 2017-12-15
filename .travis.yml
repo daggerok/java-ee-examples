@@ -60,6 +60,14 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/kumuluzee-config
+  - bash mvnw clean package -U -T 4
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans &
+  - sleep 30
+  - http :8080/client/v1/greet/Max
+  - docker-compose down -v
+
   - cd $parent/tomee-ext.js
   - bash mvnw clean package -U -T 4
   - stop_any 8080

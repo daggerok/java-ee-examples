@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WEB webapp/WEB-INF/web.xml -->
+<!-- J2EE 1.2: http://www.oracle.com/webfolder/technetwork/jsc/j2ee/dtds/index.html -->
+<!-- J2EE 1.3: http://www.oracle.com/webfolder/technetwork/jsc/dtd/index.html -->
+<!-- J2EE 1.4: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/j2ee/index.html -->
+<!-- Java EE 5: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#5 -->
+<!-- Java EE 6: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#6 -->
+<!-- Java EE 7: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#7 -->
+<!-- Java EE 8: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#8 -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+  <display-name>xml-rpc-example</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <servlet>
+    <servlet-name>xmlrpc</servlet-name>
+    <servlet-class>org.apache.xmlrpc.webserver.XmlRpcServlet</servlet-class>
+    <init-param>
+      <param-name>enabledForExtensions</param-name>
+      <param-value>true</param-value>
+
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>xmlrpc</servlet-name>
+    <url-pattern>/xmlrpc</url-pattern>
+  </servlet-mapping>
+
+</web-app>

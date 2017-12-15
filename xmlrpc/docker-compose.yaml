@@ -1,0 +1,21 @@
+version: "2.1"
+
+services:
+
+  app:
+    restart: unless-stopped
+    build: .
+    volumes: ["app-data:/home/app"]
+    ports:
+      - "5005:5005"
+      - "8080:8080"
+      - "8081:8081"
+      - "9990:9990"
+    networks: [backing-services]
+
+volumes:
+  app-data: {}
+
+networks:
+  backing-services:
+    driver: bridge
