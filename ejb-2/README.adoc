@@ -14,10 +14,13 @@ docker-compose down -v
 # docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')
 ----
 
-.testing
+.testing (remote ejb call)
 ----
-http :8080/greeter-local-ejb-client/
 http :8080/greeter-remote-ejb-client/
 ----
+
+links:
+
+. link:https://docs.oracle.com/cd/E16439_01/doc.1013/e13981/ses21imp001.htm[EJB 2.1 deployment descriptor]
 
 //end::content[]

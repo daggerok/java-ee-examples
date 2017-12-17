@@ -5,26 +5,24 @@
 
   <parent>
     <groupId>daggerok</groupId>
-    <artifactId>ejb-2-parent</artifactId>
+    <artifactId>ejb-modules</artifactId>
     <version>0.0.1</version>
   </parent>
 
-  <artifactId>ear</artifactId>
-  <packaging>ear</packaging>
-
+  <artifactId>greeter-impl</artifactId>
+  <packaging>ejb</packaging>
+  
   <dependencies>
     <dependency>
       <groupId>daggerok</groupId>
-      <artifactId>greeter-impl</artifactId>
+      <artifactId>greeter-local-api</artifactId>
       <version>0.0.1</version>
-      <type>ejb</type>
     </dependency>
 
     <dependency>
       <groupId>daggerok</groupId>
-      <artifactId>greeter-remote-client</artifactId>
+      <artifactId>greeter-remote-api</artifactId>
       <version>0.0.1</version>
-      <type>war</type>
     </dependency>
   </dependencies>
 </project>

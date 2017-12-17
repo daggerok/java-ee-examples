@@ -5,19 +5,10 @@
 
   <parent>
     <groupId>daggerok</groupId>
-    <artifactId>ejb-2-parent</artifactId>
+    <artifactId>ejb-modules</artifactId>
     <version>0.0.1</version>
   </parent>
 
-  <artifactId>ejb-modules</artifactId>
-  <packaging>pom</packaging>
-
-  <modules>
-    <module>greeter-remote-api</module>
-    <module>greeter-local-api</module>
-
-    <module>greeter-impl</module>
-
-    <module>greeter-remote-client</module>
-  </modules>
+  <artifactId>greeter-remote-api</artifactId>
+  <packaging>jar</packaging>
 </project>

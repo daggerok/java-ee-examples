@@ -65,7 +65,6 @@ script:
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &
   - sleep 20
-  - http :8080/greeter-local-ejb-client/
   - http :8080/greeter-remote-ejb-client/
   - docker-compose down -v
 
