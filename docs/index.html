@@ -1210,10 +1210,66 @@ docker-compose down -v
 # docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')</pre>
 </div>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Classic EJB 2.1 Local + Remote interfaces:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>ejb-modules/greeter-impl</p>
+</li>
+<li>
+<p>ejb-modules/greeter-local-api</p>
+</li>
+<li>
+<p>ejb-modules/greeter-remote-api</p>
+</li>
+<li>
+<p>client-modules/greeter-remote-client</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Using remote EJB interface only:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>ejb-modules/remote-only-api</p>
+</li>
+<li>
+<p>ejb-modules/remote-only-impl</p>
+</li>
+<li>
+<p>client-modules/remote-only-client</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Access EJB locally:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>ejb-modules/goodbyer-impl</p>
+</li>
+<li>
+<p>ejb-modules/goodbyer-local-api</p>
+</li>
+<li>
+<p>client-modules/goodbyer-local-client</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
 <div class="listingblock">
 <div class="title">testing (remote ejb call)</div>
 <div class="content">
 <pre>http :8080/greeter-remote-client/
+http :8080/remote-only-client/
 http :8080/goodbyer-local-client/</pre>
 </div>
 </div>

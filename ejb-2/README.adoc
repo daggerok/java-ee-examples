@@ -14,9 +14,29 @@ docker-compose down -v
 # docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')
 ----
 
+1. Classic EJB 2.1 Local + Remote interfaces:
+
+. ejb-modules/greeter-impl
+. ejb-modules/greeter-local-api
+. ejb-modules/greeter-remote-api
+. client-modules/greeter-remote-client
+
+2. Using remote EJB interface only:
+
+. ejb-modules/remote-only-api
+. ejb-modules/remote-only-impl
+. client-modules/remote-only-client
+
+3. Access EJB locally:
+
+. ejb-modules/goodbyer-impl
+. ejb-modules/goodbyer-local-api
+. client-modules/goodbyer-local-client
+
 .testing (remote ejb call)
 ----
 http :8080/greeter-remote-client/
+http :8080/remote-only-client/
 http :8080/goodbyer-local-client/
 ----
 

@@ -15,8 +15,10 @@
   <modules>
     <module>greeter-remote-api</module>
     <module>greeter-local-api</module>
-
     <module>greeter-impl</module>
+
+    <module>remote-only-api</module>
+    <module>remote-only-impl</module>
 
     <module>goodbyer-local-api</module>
     <module>goodbyer-impl</module>
