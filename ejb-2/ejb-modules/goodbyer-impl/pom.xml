@@ -5,15 +5,18 @@
 
   <parent>
     <groupId>daggerok</groupId>
-    <artifactId>ejb-2-parent</artifactId>
+    <artifactId>ejb-modules</artifactId>
     <version>0.0.1</version>
   </parent>
 
-  <artifactId>client-modules</artifactId>
-  <packaging>pom</packaging>
-
-  <modules>
-    <module>greeter-remote-client</module>
-    <module>goodbyer-local-client</module>
-  </modules>
+  <artifactId>goodbyer-impl</artifactId>
+  <packaging>ejb</packaging>
+  
+  <dependencies>
+    <dependency>
+      <groupId>daggerok</groupId>
+      <artifactId>goodbyer-local-api</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+  </dependencies>
 </project>

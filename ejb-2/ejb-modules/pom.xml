@@ -17,5 +17,8 @@
     <module>greeter-local-api</module>
 
     <module>greeter-impl</module>
+
+    <module>goodbyer-local-api</module>
+    <module>goodbyer-impl</module>
   </modules>
 </project>

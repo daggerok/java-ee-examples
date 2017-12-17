@@ -16,7 +16,8 @@ docker-compose down -v
 
 .testing (remote ejb call)
 ----
-http :8080/greeter-remote-ejb-client/
+http :8080/greeter-remote-client/
+http :8080/goodbyer-local-client/
 ----
 
 links:
