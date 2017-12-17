@@ -66,6 +66,8 @@ script:
   - docker-compose up --force-recreate --remove-orphans &
   - sleep 20
   - http :8080/module-1/
+  - http :8080/module-2/
+  - http :8080/module-3/
   - docker-compose down -v
 
   - cd $parent/xmlrpc
