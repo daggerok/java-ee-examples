@@ -1,0 +1,39 @@
+= EAR example image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+.build
+----
+./mvnw clean package -U
+----
+
+.docker
+----
+docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')
+----
+
+.testing
+----
+http :8080/module-1/
+----
+
+.lombok for java 7 (maven)
+----
+<dependency>
+  <groupId>org.projectlombok</groupId>
+  <artifactId>lombok</artifactId>
+  <version>1.14.2</version>
+  <scope>provided</scope>
+</dependency>
+----
+
+.lombok for java 7 (gradle)
+----
+dependencies {
+  compileOnly 'org.projectlombok:lombok:1.14.2'
+}
+----
+
+//end::content[]

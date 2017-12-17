@@ -60,6 +60,14 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/ear-example
+  - bash mvnw clean package -U -T 4
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans &
+  - sleep 20
+  - http :8080/module-1/
+  - docker-compose down -v
+
   - cd $parent/xmlrpc
   - bash mvnw clean package -U -T 4
   - docker-compose build --force-rm --no-cache --pull

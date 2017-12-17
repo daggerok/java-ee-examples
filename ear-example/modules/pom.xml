@@ -1,0 +1,17 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>daggerok</groupId>
+  <artifactId>modules</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0.1</version>
+
+  <parent>
+    <groupId>daggerok</groupId>
+    <artifactId>ear-example</artifactId>
+    <version>0.0.1</version>
+  </parent>
+
+  <modules>
+    <module>module-1</module>
+  </modules>
+</project>
