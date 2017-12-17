@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EJB resources/META-INF/ejb-jar.xml -->
+<!-- J2EE 1.2: http://www.oracle.com/webfolder/technetwork/jsc/j2ee/dtds/index.html -->
+<!-- J2EE 1.3: http://www.oracle.com/webfolder/technetwork/jsc/dtd/index.html -->
+<!-- J2EE 1.4: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/j2ee/index.html -->
+<!-- Java EE 5: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#5 -->
+<!-- Java EE 6: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#6 -->
+<!-- Java EE 7: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#7 -->
+<!-- Java EE 8: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#8 -->
+
+<!-- 3.0
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+         version="3.0">
+</ejb-jar>
+-->
+
+<ejb-jar xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
+         version="3.2">
+</ejb-jar>
