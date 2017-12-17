@@ -60,6 +60,15 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/ejb-2
+  - bash mvnw clean package -U -T 4
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans &
+  - sleep 20
+  - http :8080/greeter-local-ejb-client/
+  - http :8080/greeter-remote-ejb-client/
+  - docker-compose down -v
+
   - cd $parent/ear
   - bash mvnw clean package -U -T 4
   - docker-compose build --force-rm --no-cache --pull

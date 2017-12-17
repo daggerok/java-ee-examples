@@ -48,11 +48,13 @@ include::../../main-swarm-rest-api/README.adoc[tags=content]
 include::../../main-swarm-static-content/README.adoc[tags=content]
 include::../../kotlin-java-ee-payara-docker/README.adoc[tags=content]
 
-_Just JBoss EAR in Docker_
+_Just JBoss EAP in Docker_
 
 == JBoss EAP in Docker
 include::../../jboss-eap-ext.js/README.adoc[tags=content]
 include::../../xmlrpc/README.adoc[tags=content]
+include::../../ear/README.adoc[tags=content]
+include::../../ejb-2/README.adoc[tags=content]
 
 == TomEE in Docker
 include::../../tomee-ext.js/README.adoc[tags=content]

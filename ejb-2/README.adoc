@@ -1,0 +1,23 @@
+= EJB 2.x example image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+.build
+----
+./mvnw clean package -U
+----
+
+.docker
+----
+docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')
+----
+
+.testing
+----
+http :8080/greeter-local-ejb-client/
+http :8080/greeter-remote-ejb-client/
+----
+
+//end::content[]

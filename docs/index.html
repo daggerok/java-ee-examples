@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2017-12-15 03:48:36 EET</span>
+<span id="revdate">2017-12-17 21:06:48 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1130,7 +1130,7 @@ docker-compose down -v</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><em>Just JBoss EAR in Docker</em></p>
+<p><em>Just JBoss EAP in Docker</em></p>
 </div>
 </div>
 </div>
@@ -1153,6 +1153,69 @@ docker-compose down -v</pre>
 </div>
 <div class="paragraph">
 <p>Unresolved directive in index.adoc - include::../../xmlrpc/README.adoc[tags=content]</p>
+</div>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>./mvnw clean package -U</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">docker</div>
+<div class="content">
+<pre>docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">testing</div>
+<div class="content">
+<pre>http :8080/module-1/
+http :8080/module-2/
+http :8080/module-3/
+http :8080/module-4/</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">lombok for java 7 (maven)</div>
+<div class="content">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+  &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+  &lt;version&gt;1.14.2&lt;/version&gt;
+  &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">lombok for java 7 (gradle)</div>
+<div class="content">
+<pre>dependencies {
+  compileOnly 'org.projectlombok:lombok:1.14.2'
+}</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>./mvnw clean package -U</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">docker</div>
+<div class="content">
+<pre>docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">testing</div>
+<div class="content">
+<pre>http :8080/greeter-local-ejb-client/
+http :8080/greeter-remote-ejb-client/</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1348,7 +1411,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2017-12-15 03:48:36 EET
+Last updated 2017-12-17 21:06:48 EET
 </div>
 </div>
 </body>
