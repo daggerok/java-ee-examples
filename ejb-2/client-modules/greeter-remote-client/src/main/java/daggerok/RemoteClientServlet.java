@@ -1,9 +1,12 @@
 package daggerok;
 
 import daggerok.api.ejb.remote.GreeterRemote;
+import lombok.SneakyThrows;
 import lombok.val;
 
 import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +21,25 @@ public class RemoteClientServlet extends HttpServlet {
 
   private static final long serialVersionUID = 6621759119315184794L;
 
-  @EJB
-  GreeterRemote greeter;
+//  // way 1:
+//  @EJB(lookup = "java:global/ear-0.0.1/greeter-impl-0.0.1/GreeterImpl!daggerok.api.ejb.remote.GreeterRemote")
+//  GreeterRemote greeter;
+
+//  // way 2:
+//  @EJB(beanName = "GreeterImpl")
+//  GreeterRemote greeter;
+
+//  // way 3:
+//  @EJB(name = "GreeterImpl")
+//  GreeterRemote greeter;
+
+//  // way 4:
+//  @EJB(name = "greet")
+//  GreeterRemote greeter;
+
+//  // way 5 (new):
+//  @EJB
+//  GreeterRemote greeter;
 
   @Override
   public void init() throws ServletException {
@@ -28,8 +48,14 @@ public class RemoteClientServlet extends HttpServlet {
   }
 
   @Override
+  @SneakyThrows
   protected void service(final HttpServletRequest request,
                          final HttpServletResponse response) throws ServletException, IOException {
+
+    // way 6 (old):
+    Context context = new InitialContext();
+    GreeterRemote greeter = (GreeterRemote) context.lookup(
+        "java:global/ear-0.0.1/greeter-impl-0.0.1/GreeterImpl!daggerok.api.ejb.remote.GreeterRemote");
 
     val writer = response.getWriter();
 

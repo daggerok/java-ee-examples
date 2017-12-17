@@ -5,7 +5,7 @@
 
   <parent>
     <groupId>daggerok</groupId>
-    <artifactId>ejb-modules</artifactId>
+    <artifactId>client-modules</artifactId>
     <version>0.0.1</version>
   </parent>
 

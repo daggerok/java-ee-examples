@@ -10,6 +10,7 @@
 
   <modules>
     <module>ejb-modules</module>
+    <module>client-modules</module>
     <module>ear</module>
   </modules>
 
