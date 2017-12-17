@@ -18,7 +18,7 @@ _Deploy with Docker_
 . link:./glassfish-ext.js[Glassfish 5.0 in Docker]
 . link:./forge-ws[java-ee jboss-wildfly gradle]
 . link:./xmlrpx[XML-RPC (apache-xmlrpc) inside JavaEE | JBoss EAP]
-. link:./ear-example[JavaEE EAR example]
+. link:./ear[JavaEE EAR example]
 
 _JBoss Wildfly in Docker_
 

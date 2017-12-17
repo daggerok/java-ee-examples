@@ -60,7 +60,7 @@ script:
 
   - export parent=$(pwd)
 
-  - cd $parent/ear-example
+  - cd $parent/ear
   - bash mvnw clean package -U -T 4
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &

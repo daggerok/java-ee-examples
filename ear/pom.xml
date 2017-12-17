@@ -5,7 +5,7 @@
 
   <groupId>daggerok</groupId>
   <version>0.0.1</version>
-  <artifactId>ear-example</artifactId>
+  <artifactId>parent</artifactId>
   <packaging>pom</packaging>
 
   <modules>

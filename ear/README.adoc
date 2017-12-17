@@ -17,6 +17,9 @@ docker-compose down -v
 .testing
 ----
 http :8080/module-1/
+http :8080/module-2/
+http :8080/module-3/
+http :8080/module-4/
 ----
 
 .lombok for java 7 (maven)

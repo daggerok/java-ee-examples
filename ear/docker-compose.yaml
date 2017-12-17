@@ -2,10 +2,10 @@ version: "2.1"
 
 services:
 
-  ear-example:
+  ear:
     restart: unless-stopped
     build: .
-    volumes: ["ear-example-data:/home/app"]
+    volumes: ["ear-data:/home/app"]
     ports:
       - "5005:5005"
       - "8080:8080"
@@ -14,7 +14,7 @@ services:
     networks: [backing-services]
 
 volumes:
-  ear-example-data: {}
+  ear-data: {}
 
 networks:
   backing-services:
