@@ -35,6 +35,13 @@
       <version>0.0.1</version>
       <type>war</type>
     </dependency>
+
+    <dependency>
+      <groupId>daggerok</groupId>
+      <artifactId>module-4</artifactId>
+      <version>0.0.1</version>
+      <type>war</type>
+    </dependency>
   </dependencies>
 
   <build>

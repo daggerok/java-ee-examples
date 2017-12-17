@@ -68,6 +68,7 @@ script:
   - http :8080/module-1/
   - http :8080/module-2/
   - http :8080/module-3/
+  - http :8080/module-4/
   - docker-compose down -v
 
   - cd $parent/xmlrpc
