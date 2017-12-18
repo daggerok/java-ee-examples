@@ -56,6 +56,7 @@ include::../../xmlrpc/README.adoc[tags=content]
 include::../../ear/README.adoc[tags=content]
 include::../../ejb-2/README.adoc[tags=content]
 include::../../timer/README.adoc[tags=content]
+include::../../timer-async-ejb/README.adoc[tags=content]
 
 == TomEE in Docker
 include::../../tomee-ext.js/README.adoc[tags=content]

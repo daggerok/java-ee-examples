@@ -21,6 +21,7 @@ _Deploy with Docker_
 . link:./ear[JavaEE EAR example]
 . link:./ejb-2[JavaEE EJB 2.x example]
 . link:./timer[JavaEE Timer]
+. link:./timer-async-ejb[JavaEE Async EJB method execution]
 
 _JBoss Wildfly in Docker_
 

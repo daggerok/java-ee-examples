@@ -1,0 +1,11 @@
+= Async (EJB) Timer image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+.build and test
+----
+docker-compose down -v; ./mvnw; docker-compose up --build
+http :8080/client/start; sleep 3; http :8080/client/stop
+----
+
+//end::content[]
