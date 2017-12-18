@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/stop", loadOnStartup = 2)
+@WebServlet(urlPatterns = "/stop/*", loadOnStartup = 2)
 public class StopJobServlet extends HttpServlet {
 
   @EJB

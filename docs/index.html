@@ -1295,7 +1295,10 @@ http :8080/client/stop</pre>
 <div class="title">build and test</div>
 <div class="content">
 <pre>docker-compose down -v; ./mvnw; docker-compose up --build
-http :8080/client/start; sleep 3; http :8080/client/stop</pre>
+http :8080/client/start; sleep 3; http :8080/client/stop
+http :8080/client/max\?name=bax
+http :8080/client/max
+http :8080/client</pre>
 </div>
 </div>
 </div>

@@ -2,10 +2,10 @@ version: "2.1"
 
 services:
 
-  timer:
+  timer-async-ejb:
     restart: unless-stopped
     build: .
-    volumes: ["timer-data:/home/app"]
+    volumes: ["timer-async-ejb-data:/home/app"]
     ports:
       - "5005:5005"
       - "8080:8080"
@@ -14,7 +14,7 @@ services:
     networks: [backing-services]
 
 volumes:
-  timer-data: {}
+  timer-async-ejb-data: {}
 
 networks:
   backing-services:

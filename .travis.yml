@@ -69,6 +69,9 @@ script:
   - sleep 3
   - http :8080/client/stop
   - sleep 5
+  - http :8080/client/was\?name=max
+  - http :8080/client/haked-by
+  - http :8080/client
   - docker-compose down -v
 
   - cd $parent/timer
