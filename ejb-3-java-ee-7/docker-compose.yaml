@@ -1,0 +1,21 @@
+version: "2.1"
+
+services:
+
+  java-ee-7-ejb-3:
+    restart: unless-stopped
+    build: .
+    volumes: ["java-ee-7-ejb-3-data:/home/app"]
+    ports:
+      - "5005:5005"
+      - "8080:8080"
+      - "8081:8081"
+      - "9990:9990"
+    networks: [backing-services]
+
+volumes:
+  java-ee-7-ejb-3-data: {}
+
+networks:
+  backing-services:
+    driver: bridge

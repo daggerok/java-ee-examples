@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2017-12-18 23:16:11 EET</span>
+<span id="revdate">2017-12-19 01:11:16 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1301,6 +1301,16 @@ http :8080/client/max
 http :8080/client</pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre>docker-compose down -v; ./mvnw; docker-compose up --build
+http :8080/client/start; sleep 3; http :8080/client/stop
+http :8080/client/fax\?name=max
+http :8080/client/bax
+http :8080/client</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1495,7 +1505,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2017-12-18 23:16:11 EET
+Last updated 2017-12-19 01:11:16 EET
 </div>
 </div>
 </body>
