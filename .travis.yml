@@ -60,10 +60,21 @@ script:
 
   - export parent=$(pwd)
 
-  - cd $parent/ejb-starter
+  - cd $parent/timer
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &
+  - sleep 20
+  - http :8080/client/start
+  - sleep 5
+  - http :8080/client/stop
+  - sleep 2
+  - docker-compose down -v
+
+  - cd $parent/ejb-starter
+  - bash mvnw
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans -d
   - sleep 20
   - http :8080/client/
   - docker-compose down -v

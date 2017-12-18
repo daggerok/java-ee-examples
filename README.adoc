@@ -20,6 +20,7 @@ _Deploy with Docker_
 . link:./xmlrpx[XML-RPC (apache-xmlrpc) inside JavaEE | JBoss EAP]
 . link:./ear[JavaEE EAR example]
 . link:./ejb-2[JavaEE EJB 2.x example]
+. link:./timer[JavaEE Timer]
 
 _JBoss Wildfly in Docker_
 
