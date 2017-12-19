@@ -2,10 +2,10 @@ version: "2.1"
 
 services:
 
-  timer:
+  ejb-2-starter:
     restart: unless-stopped
     build: .
-    volumes: ["timer-data:/home/app"]
+    volumes: ["ejb-2-starter-data:/home/app"]
     ports:
       - "5005:5005"
       - "8080:8080"
@@ -14,7 +14,7 @@ services:
     networks: [backing-services]
 
 volumes:
-  timer-data: {}
+  ejb-2-starter-data: {}
 
 networks:
   backing-services:
