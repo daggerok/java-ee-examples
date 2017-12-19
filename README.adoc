@@ -23,9 +23,6 @@ _Deploy with Docker_
 . link:./timer[JavaEE Timer]
 . link:./timer-async-ejb[JavaEE Async EJB method execution]
 . link:./ejb-3-java-ee-7[Less configurations with JavaEE 7 and EJB 3]
-
-_JBoss Wildfly in Docker_
-
 . link:./forge-javaee-6-ws[Java EE 6 / JAX-WS | JBoss Forge / Wildfly]
 
 _MicroProfile 1.0_
