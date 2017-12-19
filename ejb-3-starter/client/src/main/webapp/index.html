@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaEE Starter</title>
+</head>
+<body>
+  <h3>Greet starter</h3>
+  <div id="app"></div>
+  <script>
+    (function main() {
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch('./v1/api/hello', {
+          headers: { 'content-type': 'application/json', 'Accept': 'application/json' } })
+          .then(data => data.json())
+          .then(obj => document.querySelector('#app').innerHTML = `
+            <p>${obj.ejb} ${obj.cdi}</p>
+            <pre>${JSON.stringify(obj)}</pre>
+          `);
+/*
+        fetch('./v1/api/hello')
+          .then(data => data.text())
+          .then(text => {
+            console.log('text', text);
+            document.querySelector('#app').textContent = text;
+          });
+*/
+      }, false);
+    })();
+  </script>
+</body>
+</html>

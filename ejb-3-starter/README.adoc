@@ -1,0 +1,12 @@
+= JavaEE 7 (beans.xml all-descriptor + no web.xml, JSON servlet) + EJB 3 (no interfaces - @LocalBean) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+.build and test
+----
+docker-compose down -v; ./mvnw; docker-compose up --build
+http :8080/client/v1/api/hello
+open http://127.0.0.1:8080/client
+----
+
+//end::content[]

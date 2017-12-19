@@ -60,6 +60,15 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/ejb-3-starter
+  - bash mvnw
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans &
+  - sleep 20
+  - http :8080/client
+  - http :8080/client/v1/api/hello
+  - docker-compose down -v
+
   - cd $parent/ejb-3-java-ee-7
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
