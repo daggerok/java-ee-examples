@@ -108,7 +108,7 @@ script:
   - sleep 2
   - docker-compose down -v
 
-  - cd $parent/ejb-starter
+  - cd $parent/ejb-2-starter
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans -d
