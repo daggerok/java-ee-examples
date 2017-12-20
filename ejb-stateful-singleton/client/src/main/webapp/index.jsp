@@ -11,7 +11,12 @@
   <title>Stateful | Singleton</title>
 </head>
 <body>
-<a href="./get?key=EJB">get key</a>
-<a href="./set?key=EJB&value=new-value">set key value</a>
+<div>
+  <a href="./get?key=EJB">get key</a>
+</div>
+<div>
+  <a href="./set?key=EJB&value=new-value">set key value</a>
+</div>
+<button><a href="./reset">Reset State</a></button>
 </body>
 </html>

@@ -2,7 +2,6 @@ package daggerok;
 
 import daggerok.api.ejb.local.StatefulEjbLocal;
 import lombok.SneakyThrows;
-import lombok.experimental.var;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
@@ -13,20 +12,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static java.lang.String.format;
-
 @Slf4j
-@WebServlet(urlPatterns = "/get/*", loadOnStartup = 1)
-public class LocalGetClientServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/reset/*", loadOnStartup = 1)
+public class ResetClientServlet extends HttpServlet {
 
-  private static final long serialVersionUID = 6621759119315184794L;
+  private static final long serialVersionUID = -2695481210432979654L;
 
   @EJB
   StatefulEjbLocal statefulService;
 
   @Override
   public void init() throws ServletException {
-    log.info("LocalClientServlet {} started.", this);
+    log.info("ResetClientServlet {} started.", this);
   }
 
   @Override
@@ -34,19 +31,21 @@ public class LocalGetClientServlet extends HttpServlet {
   protected void service(final HttpServletRequest request,
                          final HttpServletResponse response) {
 
-    var key = "EJB";
-    key = request.getParameter("key");
+    val session = request.getSession();
+    session.getId();
 
-    log.info("query string: {}", request.getQueryString());
-    log.info("key: {}", key);
-
-    val writer = response.getWriter();
-    writer.println(format("Local Stateful EJB client says: %s", statefulService.getSomeState(key)));
-    writer.close();
+    //statefulService.removeBean();
+    // @Cleanup val writer = response.getWriter();
+    response.sendRedirect(
+        "./?id=" + session.getId()
+            + "&isNew=" + session.isNew()
+        + "&created=" + session.getCreationTime()
+        + "&last-time=" + session.getLastAccessedTime()
+    );
   }
 
   @Override
   public void destroy() {
-    log.info("LocalClientServlet {} killed.", this);
+    log.info("ResetClientServlet {} killed.", this);
   }
 }

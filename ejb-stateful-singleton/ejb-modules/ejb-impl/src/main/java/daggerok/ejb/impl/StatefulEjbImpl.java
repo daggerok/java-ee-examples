@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
-import javax.ejb.PostActivate;
-import javax.ejb.PrePassivate;
-import javax.ejb.Stateful;
+import javax.ejb.*;
 
 import static java.lang.String.format;
 
@@ -20,6 +17,8 @@ public class StatefulEjbImpl implements StatefulEjbLocal {
   @EJB
   SingletonEjbLocal db;
 
+  String id;
+
   public String storeSomeState(final String name) {
     return format("Hello, %s!", name);
   }
@@ -28,23 +27,24 @@ public class StatefulEjbImpl implements StatefulEjbLocal {
 
   @PostConstruct
   public void postConstruct() {
-    log.info("PostConstruct {}...", this);
+    id = "" + System.currentTimeMillis();
+    log.info("PostConstruct {} of {}", this, id);
   }
 
   @PostActivate
   public void postActivate() {
-    log.info("PostActivate {}...", this);
+    log.info("PostActivate {} of {}", this, id);
     db.save("EJB", "default value");
   }
 
   @PrePassivate
   public void prePassivate() {
-    log.info("PrePassivate {}...", this);
+    log.info("PrePassivate {} of {}", this, id);
   }
 
   @PreDestroy
   public void preDestroy() {
-    log.info("PreDestroy {}...", this);
+    log.info("PreDestroy {} of {}", this, id);
   }
 
   public void setState(final String key, final String value) {
@@ -52,6 +52,11 @@ public class StatefulEjbImpl implements StatefulEjbLocal {
   }
 
   public String getSomeState(final String key) {
-    return db.find(key);
+    return "" + id + ":" + db.find(key);
+  }
+
+  @Remove
+  public void removeBean() {
+    log.info("Remove {} of {}", this, id);
   }
 }

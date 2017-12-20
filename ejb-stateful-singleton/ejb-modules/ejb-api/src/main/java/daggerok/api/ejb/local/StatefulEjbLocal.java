@@ -7,4 +7,6 @@ public interface StatefulEjbLocal {
   void setState(final String key, final String value);
 
   String getSomeState(final String key);
+
+  void removeBean();
 }

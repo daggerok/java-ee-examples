@@ -12,6 +12,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+  <session-config>
+    <session-timeout>
+      1 <!-- keep session in memory 1 minute -->
+    </session-timeout>
+  </session-config>
   <!--<welcome-file-list>-->
   <!--<welcome-file>/</welcome-file>-->
   <!--</welcome-file-list>-->

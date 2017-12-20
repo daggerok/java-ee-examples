@@ -1,7 +1,6 @@
 package daggerok;
 
 import daggerok.api.ejb.local.StatefulEjbLocal;
-import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.var;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static java.lang.String.format;
+
 @Slf4j
-@WebServlet(urlPatterns = "/set/*", loadOnStartup = 1)
-public class LocalSetClientServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/get/*", loadOnStartup = 1)
+public class GetClientServlet extends HttpServlet {
 
   private static final long serialVersionUID = 6621759119315184794L;
 
@@ -25,7 +26,7 @@ public class LocalSetClientServlet extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
-    log.info("LocalClientServlet {} started.", this);
+    log.info("GetClientServlet {} started.", this);
   }
 
   @Override
@@ -36,21 +37,16 @@ public class LocalSetClientServlet extends HttpServlet {
     var key = "EJB";
     key = request.getParameter("key");
 
-    var value = "" + System.currentTimeMillis();
-    value = request.getParameter("value");
-
     log.info("query string: {}", request.getQueryString());
-    log.info("key: '{}', value: '{}'", key, value);
+    log.info("key: {}", key);
 
-    statefulService.setState(key, value);
-
-    @Cleanup val writer = response.getWriter();
-//    writer.println(format("Local Stateful EJB client says: %s", ));
-    response.sendRedirect("./get?key=" + key);
+    val writer = response.getWriter();
+    writer.println(format("Local Stateful EJB client says: %s", statefulService.getSomeState(key)));
+    writer.close();
   }
 
   @Override
   public void destroy() {
-    log.info("LocalClientServlet {} killed.", this);
+    log.info("GetClientServlet {} killed.", this);
   }
 }

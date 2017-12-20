@@ -7,8 +7,9 @@
 docker-compose down -v; ./mvnw; docker-compose up --build
 http :8080/client/
 http :8080/client/get\?key=EJB
-http :8080/client/set\?key=EJB\&value=some-value
+http post :8080/client/set\?key=EJB\&value=some-value
 http :8080/client/get\?key=EJB
+http post :8080/client/reset
 ----
 
 //end::content[]
