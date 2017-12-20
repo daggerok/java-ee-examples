@@ -17,6 +17,10 @@
 <div>
   <a href="./set?key=EJB&value=new-value">set key value</a>
 </div>
+<div>
+  <a href="./counter/increment"> + </a>
+  <a href="./counter/decrement"> - </a>
+</div>
 <button><a href="./reset">Reset State</a></button>
 </body>
 </html>

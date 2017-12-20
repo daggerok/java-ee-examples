@@ -1,4 +1,4 @@
-package daggerok;
+package daggerok.session;
 
 import daggerok.api.ejb.local.StatefulEjbLocal;
 import lombok.SneakyThrows;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSessionListener;
 @WebListener()
 public class SessionListener implements HttpSessionListener, ServletContextListener, HttpSessionAttributeListener {
 
-  private static final String statefulServiceName = "java:module/StatefulEjbImpl";
+  public static final String statefulServiceName = "java:module/StatefulEjbImpl";
 
   // Public constructor is required by servlet spec
   public SessionListener() {

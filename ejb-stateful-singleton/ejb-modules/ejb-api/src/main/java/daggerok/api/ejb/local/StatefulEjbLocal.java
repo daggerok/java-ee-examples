@@ -4,9 +4,13 @@ import javax.ejb.Local;
 
 @Local
 public interface StatefulEjbLocal {
-  void setState(final String key, final String value);
+  void setSingletonState(final String key, final String value);
 
-  String getSomeState(final String key);
+  String getSingletonSomeState(final String key);
+
+  long incrementCounter();
+
+  long decrementCounter();
 
   void removeBean();
 }

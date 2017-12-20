@@ -9,6 +9,11 @@ http :8080/client/
 http :8080/client/get\?key=EJB
 http post :8080/client/set\?key=EJB\&value=some-value
 http :8080/client/get\?key=EJB
+http post :8080/client/reset/counter/incr
+http post :8080/client/reset/counter/increment
+http post :8080/client/reset/counter/decr
+http post :8080/client/reset/counter/incr
+http :8080/client/get\?key=EJB
 http post :8080/client/reset
 ----
 
