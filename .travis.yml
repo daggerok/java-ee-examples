@@ -60,6 +60,17 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/ejb-stateful-singleton
+  - bash mvnw
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans &
+  - sleep 20
+  - http :8080/client/
+  - http :8080/client/get\?key=EJB
+  - http :8080/client/set\?key=EJB\&value=some-value
+  - http :8080/client/get\?key=EJB
+  - docker-compose down -v
+
   - cd $parent/ejb-3-starter
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull

@@ -58,6 +58,7 @@ include::../../ejb-2/README.adoc[tags=content]
 include::../../timer/README.adoc[tags=content]
 include::../../timer-async-ejb/README.adoc[tags=content]
 include::../../ejb-3-java-ee-7/README.adoc[tags=content]
+include::../../ejb-stateful-singleton/README.adoc[tags=content]
 
 == TomEE in Docker
 include::../../tomee-ext.js/README.adoc[tags=content]

@@ -17,13 +17,14 @@ _Deploy with Docker_
 . link:./tomee-ext.js[TomEE in Docker]
 . link:./glassfish-ext.js[Glassfish 5.0 in Docker]
 . link:./forge-ws[java-ee jboss-wildfly gradle]
+. link:./forge-javaee-6-ws[Java EE 6 / JAX-WS | JBoss Forge / Wildfly]
 . link:./xmlrpx[XML-RPC (apache-xmlrpc) inside JavaEE | JBoss EAP]
 . link:./ear[JavaEE EAR example]
 . link:./ejb-2[JavaEE EJB 2.x example]
 . link:./timer[JavaEE Timer]
 . link:./timer-async-ejb[JavaEE Async EJB method execution]
 . link:./ejb-3-java-ee-7[Less configurations with JavaEE 7 and EJB 3]
-. link:./forge-javaee-6-ws[Java EE 6 / JAX-WS | JBoss Forge / Wildfly]
+. link:./ejb-stateful-singleton[javaee-6 | lombok | EJB (@Stateful | @Singleton)]
 
 _MicroProfile 1.0_
 
