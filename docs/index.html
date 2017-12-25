@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2017-12-20 20:06:43 EET</span>
+<span id="revdate">2017-12-26 00:09:13 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -1320,9 +1320,59 @@ http :8080/client</pre>
 <pre>docker-compose down -v; ./mvnw; docker-compose up --build
 http :8080/client/
 http :8080/client/get\?key=EJB
-http :8080/client/set\?key=EJB\&amp;value=some-value
-http :8080/client/get\?key=EJB</pre>
+http post :8080/client/set\?key=EJB\&amp;value=some-value
+http :8080/client/get\?key=EJB
+http post :8080/client/reset/counter/incr
+http post :8080/client/reset/counter/increment
+http post :8080/client/reset/counter/decr
+http post :8080/client/reset/counter/incr
+http :8080/client/get\?key=EJB
+http post :8080/client/reset</pre>
 </div>
+</div>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:datasources:1.2</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>m:ss,SSS} %-5p [%c] (%t) %s%E%n&quot;/<span class="error">&gt;</span> enabled=&quot;true&quot; use-java-context=&quot;true&quot;<span class="error">&gt;</span>
+  <span class="tag">&lt;datasources&gt;</span>
+      <span class="tag">&lt;datasource</span> <span class="attribute-name">jndi-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:jboss/datasources/ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pool-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">enabled</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use-java-context</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+          <span class="tag">&lt;connection-url&gt;</span>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE<span class="tag">&lt;/connection-url&gt;</span>
+          <span class="tag">&lt;driver&gt;</span>h2<span class="tag">&lt;/driver&gt;</span>
+          <span class="tag">&lt;security&gt;</span>
+              <span class="tag">&lt;user-name&gt;</span>sa<span class="tag">&lt;/user-name&gt;</span>
+              <span class="tag">&lt;password&gt;</span>sa<span class="tag">&lt;/password&gt;</span>
+          <span class="tag">&lt;/security&gt;</span>rd<span class="error">&gt;</span>sa<span class="tag">&lt;/password&gt;</span>e<span class="error">&gt;</span>est;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE<span class="tag">&lt;/connection-url&gt;</span>use-java-context=&quot;true&quot;<span class="error">&gt;</span>
+      <span class="tag">&lt;/datasource&gt;</span>
+      <span class="tag">&lt;drivers&gt;</span>
+          <span class="tag">&lt;driver</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">h2</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">module</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">com.h2database.h2</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+              <span class="tag">&lt;xa-datasource-class&gt;</span>org.h2.jdbcx.JdbcDataSource<span class="tag">&lt;/xa-datasource-class&gt;</span>
+          <span class="tag">&lt;/driver&gt;</span>
+      <span class="tag">&lt;/drivers&gt;</span>
+  <span class="tag">&lt;/datasources&gt;</span>
+<span class="comment">&lt;!-- skip --&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">docker-compose down -v; ./mvnw; docker-compose up --build
+http post :8080/client/update/max
+http post :8080/client/update/maxp
+http post :8080/client/update/amaxp
+http :8080/client/
+http post :8080/client/update/max\?remove=true
+http :8080/client/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>links:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://access.redhat.com/articles/112673#EAP_6">eap 6</a></p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1518,7 +1568,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2017-12-20 20:06:43 EET
+Last updated 2017-12-26 00:09:13 EET
 </div>
 </div>
 </body>

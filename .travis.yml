@@ -60,6 +60,19 @@ script:
 
   - export parent=$(pwd)
 
+  - cd $parent/jboss-eap-h2
+  - bash mvnw
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans &
+  - sleep 20
+  - http post :8080/client/update/max
+  - http post :8080/client/update/maxp
+  - http post :8080/client/update/amaxp
+  - http :8080/client/
+  - http post :8080/client/update/max\?remove=true
+  - http :8080/client/
+  - docker-compose down -v
+
   - cd $parent/ejb-stateful-singleton
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull

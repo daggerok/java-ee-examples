@@ -1,0 +1,29 @@
+= H2 | JavaEE 7 | JSON servlet | EJB 3 image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+.according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml
+[source,xml]
+----
+<!-- skepped... -->
+<datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+<!-- skepped... -->
+----
+
+.build and test
+[source,bash]
+----
+docker-compose down -v; ./mvnw; docker-compose up --build
+http post :8080/client/update/max
+http post :8080/client/update/maxp
+http post :8080/client/update/amaxp
+http :8080/client/
+http post :8080/client/update/max\?remove=true
+http :8080/client/
+----
+
+links:
+
+. link:https://access.redhat.com/articles/112673#EAP_6[eap 6]
+
+//end::content[]
