@@ -60,7 +60,7 @@ script:
 
   - export parent=$(pwd)
 
-  - cd $parent/jboss-eap-h2
+  - cd $parent/jboss-eap-h2-ejb
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &

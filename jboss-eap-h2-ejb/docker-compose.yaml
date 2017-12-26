@@ -2,10 +2,10 @@ version: "2.1"
 
 services:
 
-  jboss-eap-h2:
+  jboss-eap-h2-ejb:
     restart: unless-stopped
     build: .
-    volumes: ["jboss-eap-h2-data:/home/app"]
+    volumes: ["jboss-eap-h2-ejb-data:/home/app"]
     ports:
       - "5005:5005"
       - "8080:8080"
@@ -14,7 +14,7 @@ services:
     networks: [backing-services]
 
 volumes:
-  jboss-eap-h2-data: {}
+  jboss-eap-h2-ejb-data: {}
 
 networks:
   backing-services:
