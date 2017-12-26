@@ -60,7 +60,8 @@ script:
 
   - export parent=$(pwd)
 
-  - cd $parent/jboss-eap-h2-ejb
+  # jboss-eap-h2-ejb
+  - cd ${parent}/jboss-eap-h2-ejb
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &
@@ -73,7 +74,8 @@ script:
   - http :8080/client/
   - docker-compose down -v
 
-  - cd $parent/ejb-stateful-singleton
+  # ejb-stateful-singleton
+  - cd ${parent}/ejb-stateful-singleton
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &
@@ -90,7 +92,8 @@ script:
   - http post :8080/client/reset
   - docker-compose down -v
 
-  - cd $parent/ejb-3-starter
+  # ejb-3-starter
+  - cd ${parent}/ejb-3-starter
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &
@@ -99,7 +102,8 @@ script:
   - http :8080/client/v1/api/hello
   - docker-compose down -v
 
-  - cd $parent/ejb-3-java-ee-7
+  # ejb-3-java-ee-7
+  - cd ${parent}/ejb-3-java-ee-7
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &
@@ -113,7 +117,8 @@ script:
   - http :8080/client
   - docker-compose down -v
 
-  - cd $parent/timer-async-ejb
+  # timer-async-ejb
+  - cd ${parent}/timer-async-ejb
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &
@@ -127,7 +132,8 @@ script:
   - http :8080/client
   - docker-compose down -v
 
-  - cd $parent/timer
+  # timer
+  - cd ${parent}/timer
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans -d
@@ -138,7 +144,8 @@ script:
   - sleep 2
   - docker-compose down -v
 
-  - cd $parent/ejb-2-starter
+  # ejb-2-starter
+  - cd ${parent}/ejb-2-starter
   - bash mvnw
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans -d
@@ -146,7 +153,8 @@ script:
   - http :8080/client/
   - docker-compose down -v
 
-  - cd $parent/ejb-2
+  # ejb-2
+  - cd ${parent}/ejb-2
   - bash mvnw clean package -U -T 4
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans -d
@@ -156,7 +164,8 @@ script:
   - http :8080/goodbyer-local-client/
   - docker-compose down -v
 
-  - cd $parent/ear
+  # ear
+  - cd ${parent}/ear
   - bash mvnw clean package -U -T 4
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans -d
@@ -167,7 +176,8 @@ script:
   - http :8080/module-4/
   - docker-compose down -v
 
-  - cd $parent/xmlrpc
+  # xmlrpc
+  - cd ${parent}/xmlrpc
   - bash mvnw clean package -U -T 4
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans &
@@ -175,14 +185,16 @@ script:
   - http :8080/client/v1/greet/Max
   - docker-compose down -v
 
-  - cd $parent/kumuluzee-config
+  # kumuluzee-config
+  - cd ${parent}/kumuluzee-config
   - bash mvnw clean package -U -T 4
   - docker-compose build --force-rm --no-cache --pull
   - docker-compose up --force-recreate --remove-orphans -d
   - sleep 30
   - docker-compose down -v
 
-  - cd $parent/tomee-ext.js
+  # tomee-ext.js
+  - cd ${parent}/tomee-ext.js
   - bash mvnw clean package -U -T 4
   - stop_any 8080
   - docker-compose up -d --build --force-recreate --remove-orphans
@@ -191,7 +203,8 @@ script:
   - http :8080/rest-api/health
   - docker-compose down -v
 
-  - cd $parent/glassfish-ext.js
+  # glassfish-ext.js
+  - cd ${parent}/glassfish-ext.js
   - bash mvnw clean package -U -T 4
   - stop_any 8080
   - docker-compose up -d --build --force-recreate --remove-orphans
@@ -200,7 +213,8 @@ script:
   - http :8080/rest-api/health
   - docker-compose down -v
 
-  - cd $parent/forge-javaee-6-ws
+  # forge-javaee-6-ws
+  - cd ${parent}/forge-javaee-6-ws
   - bash mvnw clean package -U -T 2
   - docker-compose up --build --force-recreate --remove-orphans -d
   - sleep 20
@@ -209,7 +223,8 @@ script:
   - curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xml" -d @request.xml | xmllint --format -
   - docker-compose down -v
 
-  - cd $parent/forge-ws
+  # forge-ws
+  - cd ${parent}/forge-ws
   - bash mvnw clean package -U
   - bash gradlew clean build
   - docker-compose up --build --force-recreate --remove-orphans -d
@@ -220,14 +235,16 @@ script:
   - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
   - docker-compose down -v
 
-  - cd $parent/java-ee-7-docker-jboss-eap-6.4-quickstart
+  # java-ee-7-docker-jboss-eap-6.4-quickstart
+  - cd ${parent}/java-ee-7-docker-jboss-eap-6.4-quickstart
   - bash mvnw -U
   - docker-compose up -d --build
   - sleep 20
   - curl -sS localhost:8080/app/
   - docker-compose down -v
 
-  - cd $parent/kumuluzee-mp-2.0-jax-ws
+  # kumuluzee-mp-2.0-jax-ws
+  - cd ${parent}/kumuluzee-mp-2.0-jax-ws
   - bash mvnw clean package
   - java -jar ./target/*.jar &
   - wait_for 8000
@@ -247,14 +264,16 @@ script:
   - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
   - docker-compose down -v
 
-  - cd $parent/kumuluzee-microprofile-1.0
+  # kumuluzee-microprofile-1.0
+  - cd ${parent}/kumuluzee-microprofile-1.0
   - bash mvnw clean install
   - docker-compose up -d --build
   - sleep 15
   - http :8080/
   - docker-compose down -v
 
-  - cd $parent/jboss-eap-ext.js
+  # jboss-eap-ext.js
+  - cd ${parent}/jboss-eap-ext.js
   - bash mvnw clean package -U -T 4
   - stop_any 8080
   - docker-compose up -d --build --force-recreate --remove-orphans
@@ -263,7 +282,8 @@ script:
   - http :8080/rest-api/health
   - docker-compose down -v
 
-  - cd $parent/kotlin-java-ee-payara-docker
+  # kotlin-java-ee-payara-docker
+  - cd ${parent}/kotlin-java-ee-payara-docker
   - bash gradlew clean war
   - stop_any 8080
   - docker-compose up --force-recreate -d --build --remove-orphans
@@ -272,7 +292,8 @@ script:
   - http :8080/payara-app/max
   - docker-compose down -v
 
-  - cd $parent/main-swarm-rest-api
+  # main-swarm-rest-api
+  - cd ${parent}/main-swarm-rest-api
   - bash mvnw clean package
   - docker-compose up --force-recreate -d --build --remove-orphans
   - sleep 30
@@ -283,14 +304,16 @@ script:
   - http post :8080/api/cors max=max
   - docker-compose down -v
 
-  - cd $parent/main-swarm-static-content
+  # main-swarm-static-content
+  - cd ${parent}/main-swarm-static-content
   - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
   - sleep 30
   - http :8080
   - docker-compose down -v
 
-  - cd $parent/kotlin-plugins-java-ee
+  # kotlin-plugins-java-ee
+  - cd ${parent}/kotlin-plugins-java-ee
   - bash gradlew clean build
   - docker-compose up --force-recreate -d --build --remove-orphans
   - sleep 30
@@ -299,7 +322,8 @@ script:
   - http :8080/max
   - docker-compose down -v
 
-  - cd $parent/kotlin-java-ee
+  # kotlin-java-ee
+  - cd ${parent}/kotlin-java-ee
   - bash gradlew clean build
   - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
   - sleep 30
@@ -307,29 +331,7 @@ script:
   - http :8080/max
   - stop_any 8080 8080 8080
 
-##  - cd $parent/java-kube-ee
-##  - cd $parent/wildfly-swarm-gradle
-#
-#  - >
-#    for gradle_subproject in \
-#      java-kube-ee \
-#      wildfly-swarm-gradle \
-#    ; do
-#
-#      cd ${parent}/${gradle_subproject}
-#      bash gradlew clean build wildfly-swarm-package
-#      java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-#      wait_for 8080
-#      sleep 5
-#      http :8080
-#      sleep 1
-#      stop_any 8080
-#      bash docker/bin/test-dockerfile.bash
-#      bash docker/bin/test-docker-compose.bash
-#      bash docker/bin/test-stack-deploy.bash
-#      bash mvnw clean install
-#    done
-
+  # wildfly-swarm-maven
   - >
       cd ${parent}/wildfly-swarm-maven
       bash mvnw clean install
