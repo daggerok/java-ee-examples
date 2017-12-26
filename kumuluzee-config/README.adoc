@@ -2,6 +2,8 @@
 
 //tag::content[]
 
+=== kumuluzee-config
+
 link:rpc-app/[see rpc-app module]
 
 //end::content[]

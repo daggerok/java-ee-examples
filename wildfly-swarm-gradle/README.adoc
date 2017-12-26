@@ -1,8 +1,9 @@
 = java-ee-examples (gradle) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
-This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
-
 //tag::content[]
+
+=== wildfly-swarm-gradle
+This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
 
 .using gradle / java microprofile
 ----

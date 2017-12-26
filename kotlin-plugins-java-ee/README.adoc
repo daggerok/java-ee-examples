@@ -2,7 +2,8 @@
 
 //tag::content[]
 
-This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using kotlin
+=== kotlin-plugins-java-ee
+This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using Kotlin
 
 ----
 bash gradlew clean build

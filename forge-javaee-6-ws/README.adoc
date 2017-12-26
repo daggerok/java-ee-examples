@@ -2,6 +2,8 @@
 
 //tag::content[]
 
+=== forge-javaee-6-ws
+
 .up and running
 ----
 ./mvnw clean package -U -T 2; docker-compose up --build --force-recreate --remove-orphans

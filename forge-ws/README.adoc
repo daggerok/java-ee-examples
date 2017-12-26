@@ -2,6 +2,8 @@
 
 //tag::content[]
 
+=== forge-ws
+
 .init new maven project using forge cli
 ----
 forge

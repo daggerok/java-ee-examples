@@ -2,6 +2,7 @@
 
 //tag::content[]
 
+=== glassfish-ext.js
 packaging two WARs in glassfish in Docker
 
 .Using Glassfish 5.0 in docker (alpine)

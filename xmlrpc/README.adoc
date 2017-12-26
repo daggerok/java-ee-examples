@@ -2,6 +2,15 @@
 
 //tag::content[]
 
+=== xmlrpc
+Apache XML-RPC (org.apache.xmlrpc)
+
+variations:
+
+. link:./server-client/[monolith]
+. link:./server/[micro-server]
+. link:./client/[micro-client]
+
 .build and test
 ----
 docker-compose down -v; ./mvnw clean package; docker-compose up --build

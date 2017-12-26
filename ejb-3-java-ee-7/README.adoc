@@ -2,6 +2,8 @@
 
 //tag::content[]
 
+=== ejb-3-java-ee-7
+
 .build and test
 ----
 docker-compose down -v; ./mvnw; docker-compose up --build

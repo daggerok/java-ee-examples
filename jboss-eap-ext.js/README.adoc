@@ -2,6 +2,8 @@
 
 //tag::content[]
 
+=== jboss-eap-ext.js
+
 packaging two WARs into jboss AS
 
 .Using JBoss EAP 6.4 in docker

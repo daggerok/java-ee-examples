@@ -2,6 +2,8 @@
 
 //tag::content[]
 
+=== ear
+
 .build
 ----
 ./mvnw clean package -U

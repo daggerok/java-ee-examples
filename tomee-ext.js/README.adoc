@@ -2,6 +2,7 @@
 
 //tag::content[]
 
+=== tomee-ext.js
 packaging two WARs in TomEE in Docker
 
 .Using TomEE in docker

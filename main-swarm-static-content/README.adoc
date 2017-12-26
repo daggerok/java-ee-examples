@@ -1,8 +1,9 @@
 = java-ee-examples (main swarm static content) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
-This repository contains simple JavaEE Wildfly Swarm Micro-profile example - serving static content
-
 //tag::content[]
+
+=== main-swarm-static-content
+This repository contains simple JavaEE Wildfly Swarm Micro-profile example - serving static content
 
 .using gradle / java microprofile
 ----

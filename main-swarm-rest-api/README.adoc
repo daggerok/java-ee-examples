@@ -1,8 +1,9 @@
 = java-ee-examples (main swarm) image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
-This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example - REST API / running wildfly-swarm with main method
-
 //tag::content[]
+
+=== main-swarm-rest-api
+This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application
 
 .using gradle / java microprofile
 ----

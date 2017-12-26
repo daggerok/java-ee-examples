@@ -2,6 +2,8 @@
 
 //tag::content[]
 
+=== timer-async-ejb
+
 .build and test
 ----
 docker-compose down -v; ./mvnw; docker-compose up --build

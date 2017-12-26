@@ -2,6 +2,8 @@
 
 //tag::content[]
 
+=== jboss-eap-h2-ejb
+
 .according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml
 [source,xml]
 ----
