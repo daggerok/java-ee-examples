@@ -16,6 +16,7 @@
 
   <modules>
     <module>jpa</module>
+    <module>ejb-client-api</module>
     <module>ejb</module>
     <module>client</module>
     <module>ear</module>
@@ -111,4 +112,5 @@
       </plugin>
     </plugins>
   </build>
+
 </project>

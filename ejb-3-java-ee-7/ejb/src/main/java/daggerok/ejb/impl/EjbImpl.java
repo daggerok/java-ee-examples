@@ -14,10 +14,8 @@ public class EjbImpl {
   static final String jobName = "TimerJob";
 
   // lifecycle
-  @EJB
-  AsyncWorkerEjbImpl asyncWorker;
-  @Resource
-  SessionContext sessionContext;
+  @EJB AsyncWorkerEjbImpl asyncWorker;
+  @Resource SessionContext sessionContext;
 
   // impl
   TimerHandle timerHandle;

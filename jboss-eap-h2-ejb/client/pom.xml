@@ -13,11 +13,19 @@
   <packaging>war</packaging>
 
   <dependencies>
+    <!-- app contract -->
     <dependency>
       <groupId>daggerok</groupId>
-      <artifactId>ejb</artifactId>
+      <artifactId>jpa</artifactId>
       <version>0.0.1</version>
-      <type>ejb</type>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>daggerok</groupId>
+      <artifactId>ejb-client-api</artifactId>
+      <version>0.0.1</version>
     </dependency>
 
     <!-- JSON -->
@@ -32,4 +40,5 @@
       <version>1.0.4</version>
     </dependency>
   </dependencies>
+
 </project>

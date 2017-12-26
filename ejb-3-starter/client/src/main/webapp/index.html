@@ -15,7 +15,7 @@
           .then(data => data.json())
           .then(obj => document.querySelector('#app').innerHTML = `
             <p>${obj.ejb} ${obj.cdi}</p>
-            <pre>${JSON.stringify(obj)}</pre>
+            <pre>${JSON.stringify(obj, null, 2)}</pre>
           `);
 /*
         fetch('./v1/api/hello')

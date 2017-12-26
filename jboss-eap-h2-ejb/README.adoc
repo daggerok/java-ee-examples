@@ -15,7 +15,7 @@
 .build and test
 [source,bash]
 ----
-docker-compose down -v; ./mvnw; docker-compose up --build
+docker-compose down -v; ./mvnw; docker-compose up --build --force-recreate --remove-orphans
 http post :8080/client/update/max
 http post :8080/client/update/maxp
 http post :8080/client/update/amaxp

@@ -1,6 +1,5 @@
 package daggerok.ejb.impl;
 
-import daggerok.ejb.impl.domain.Person;
 import daggerok.ejb.impl.domain.User;
 import lombok.SneakyThrows;
 
@@ -24,11 +23,11 @@ public class AsyncWorkerEjbImpl {
 
   @Asynchronous
   @SneakyThrows
-  public Future<Person> createAsyncPerson(final String name) {
+  public Future<User> createAsyncPerson(final String name) {
     System.out.println(this + " - async person start");
-    final Person person = new User(name);
+    final User person = new User(name);
     Thread.sleep(3456);
     System.out.println(this + " - async person done.");
-    return new AsyncResult<Person>(person);
+    return new AsyncResult<User>(person);
   }
 }

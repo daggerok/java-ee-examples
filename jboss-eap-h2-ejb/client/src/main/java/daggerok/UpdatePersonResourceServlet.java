@@ -1,6 +1,6 @@
 package daggerok;
 
-import daggerok.ejb.impl.PersonService;
+import daggerok.ejb.PersonServiceRemote;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.var;
@@ -26,8 +26,7 @@ public class UpdatePersonResourceServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1439231173778627396L;
 
-  @EJB
-  PersonService personService;
+  @EJB PersonServiceRemote personService;
 
   @Override
   @SneakyThrows

@@ -14,10 +14,32 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>${h2.version}</version>
+      <type>jar</type>
+    </dependency>
+
+    <dependency>
+      <groupId>daggerok</groupId>
+      <artifactId>jpa</artifactId>
+      <version>0.0.1</version>
+      <type>ejb</type>
+    </dependency>
+
+    <dependency>
+      <groupId>daggerok</groupId>
+      <artifactId>ejb</artifactId>
+      <version>0.0.1</version>
+      <type>ejb</type>
+    </dependency>
+
+    <dependency>
       <groupId>daggerok</groupId>
       <artifactId>client</artifactId>
       <version>0.0.1</version>
       <type>war</type>
     </dependency>
   </dependencies>
+
 </project>

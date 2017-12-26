@@ -2,10 +2,10 @@ version: "2.1"
 
 services:
 
-  java-ee-7-ejb-3-starter:
+  ejb-3-starter:
     restart: unless-stopped
     build: .
-    volumes: ["java-ee-7-ejb-3-starter-data:/home"]
+    volumes: ["ejb-3-starter-data:/home"]
     ports:
       - "5005:5005"
       - "8080:8080"
@@ -14,7 +14,7 @@ services:
     networks: [backing-services]
 
 volumes:
-  java-ee-7-ejb-3-starter-data: {}
+  ejb-3-starter-data: {}
 
 networks:
   backing-services:

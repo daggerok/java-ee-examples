@@ -10,13 +10,15 @@
   </parent>
 
   <artifactId>jpa</artifactId>
-  <packaging>jar</packaging>
+  <packaging>ejb</packaging>
 
   <dependencies>
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <version>${h2.version}</version>
+      <type>jar</type>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -25,4 +27,5 @@
       <version>${hibernate.core.version}</version>
     </dependency>
   </dependencies>
+
 </project>

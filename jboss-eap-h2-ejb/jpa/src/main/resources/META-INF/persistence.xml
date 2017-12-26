@@ -4,8 +4,9 @@
   <!--<persistence-unit name="ExampleDS">-->
   <persistence-unit name="">
     <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
-    <class>daggerok.ejb.impl.domain.User</class>
+    <class>daggerok.domain.User</class>
     <properties>
+      <!--<property name="hibernate.connection.driver_class" value="org.h2.Driver"/>-->
       <property name="hibernate.hbm2ddl.auto" value="create" />
       <property name="hibernate.show_sql" value="true" />
     </properties>

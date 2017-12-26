@@ -3,10 +3,7 @@ package daggerok;
 import lombok.SneakyThrows;
 import lombok.val;
 
-import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

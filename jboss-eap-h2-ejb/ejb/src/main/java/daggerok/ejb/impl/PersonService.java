@@ -1,7 +1,8 @@
 package daggerok.ejb.impl;
 
-import daggerok.ejb.impl.domain.User;
-import daggerok.ejb.impl.domain.UserRepository;
+import daggerok.ejb.PersonServiceRemote;
+import daggerok.domain.User;
+import daggerok.domain.UserRepository;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -13,8 +14,9 @@ import java.util.concurrent.Future;
 
 @Slf4j
 @Stateless
-@LocalBean
-public class PersonService {
+//@LocalBean
+@Remote(PersonServiceRemote.class)
+public class PersonService implements PersonServiceRemote {
 
   @EJB UserRepository userRepository;
 

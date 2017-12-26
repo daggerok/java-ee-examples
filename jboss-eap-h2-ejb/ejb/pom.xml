@@ -13,10 +13,20 @@
   <packaging>ejb</packaging>
 
   <dependencies>
+    <!-- app contract -->
     <dependency>
       <groupId>daggerok</groupId>
       <artifactId>jpa</artifactId>
       <version>0.0.1</version>
+      <type>ejb</type>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>daggerok</groupId>
+      <artifactId>ejb-client-api</artifactId>
+      <version>0.0.1</version>
     </dependency>
   </dependencies>
+
 </project>
