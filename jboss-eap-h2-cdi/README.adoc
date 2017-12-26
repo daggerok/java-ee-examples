@@ -1,8 +1,8 @@
-= H2 | JavaEE 7 | JSON servlet | EJB 3 image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+= H2 | JavaEE 7 | JSON servlet | CDI image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
 //tag::content[]
 
-=== jboss-eap-h2-ejb
+=== jboss-eap-h2-cdi
 
 .according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml
 [source,xml]
@@ -15,7 +15,7 @@
 .build and test
 [source,bash]
 ----
-docker-compose down -v; ./mvnw; docker-compose up --build
+docker-compose down -v; ./mvnw; docker-compose up --build --force-recreate --remove-orphans
 http post :8080/client/update/max
 http post :8080/client/update/maxp
 http post :8080/client/update/amaxp
@@ -23,9 +23,5 @@ http :8080/client/
 http post :8080/client/update/max\?remove=true
 http :8080/client/
 ----
-
-links:
-
-. link:https://access.redhat.com/articles/112673#EAP_6[eap 6]
 
 //end::content[]

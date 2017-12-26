@@ -1,21 +1,24 @@
-package daggerok.ejb.impl.domain;
+package daggerok.domain;
 
 import lombok.extern.slf4j.Slf4j;
 
-import javax.ejb.Singleton;
+import javax.ejb.TransactionAttribute;
+import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static javax.ejb.TransactionAttributeType.NEVER;
+import static javax.ejb.TransactionAttributeType.REQUIRED;
+
 @Slf4j
 @Singleton
+@TransactionAttribute(NEVER)
 public class UserRepository {
 
-  //  @PersistenceContext(unitName = "ExampleDS")
-//  @PersistenceContext(name = "ExampleDS")
-  @PersistenceContext
-  EntityManager em;
+  @PersistenceContext EntityManager em;
 
+  @TransactionAttribute(REQUIRED)
   public User save(final User person) {
     log.info("saving user {}", person);
     em.persist(person);
@@ -33,17 +36,10 @@ public class UserRepository {
              .getResultList();
   }
 
+  @TransactionAttribute(REQUIRED)
   public int deleteByName(final String name) {
     return em.createQuery("delete from User u where lower(u.name) like lower(concat('%', :name,'%'))")
              .setParameter("name", name)
              .executeUpdate();
   }
-  /* // shit approach:
-  public void deleteByName(final String name) {
-    val users = findByName(name);
-    for (val user : users) {
-      em.remove(user);
-    }
-  }
-  */
 }

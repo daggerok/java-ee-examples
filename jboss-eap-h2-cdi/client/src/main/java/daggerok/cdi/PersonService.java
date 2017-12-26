@@ -1,22 +1,24 @@
-package daggerok.ejb.impl;
+package daggerok.cdi;
 
-import daggerok.ejb.impl.domain.User;
-import daggerok.ejb.impl.domain.UserRepository;
+import daggerok.domain.User;
+import daggerok.domain.UserRepository;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
-import javax.ejb.*;
+import javax.ejb.AsyncResult;
+import javax.ejb.Asynchronous;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
 @Slf4j
 @Stateless
-@LocalBean
 public class PersonService {
 
-  @EJB UserRepository userRepository;
+  @Inject UserRepository userRepository;
 
   @Asynchronous
   @SneakyThrows

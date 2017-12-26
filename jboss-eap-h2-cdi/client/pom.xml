@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -13,11 +14,13 @@
   <packaging>war</packaging>
 
   <dependencies>
+    <!-- DB (h2) provided by container -->
     <dependency>
-      <groupId>daggerok</groupId>
-      <artifactId>ejb</artifactId>
-      <version>0.0.1</version>
-      <type>ejb</type>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>${h2.version}</version>
+      <type>jar</type>
+      <scope>provided</scope>
     </dependency>
 
     <!-- JSON -->
@@ -31,5 +34,13 @@
       <artifactId>javax.json</artifactId>
       <version>1.0.4</version>
     </dependency>
+
+    <!-- Hibernate UUID -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.core.version}</version>
+    </dependency>
   </dependencies>
+
 </project>

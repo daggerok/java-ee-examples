@@ -1,13 +1,13 @@
-package daggerok;
+package daggerok.servlets;
 
-import daggerok.ejb.impl.PersonService;
+import daggerok.cdi.PersonService;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.var;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
@@ -26,8 +26,7 @@ public class UpdatePersonResourceServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1439231173778627396L;
 
-  @EJB
-  PersonService personService;
+  @Inject PersonService personService;
 
   @Override
   @SneakyThrows

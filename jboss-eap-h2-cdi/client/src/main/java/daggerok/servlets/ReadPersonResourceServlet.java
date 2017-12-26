@@ -1,15 +1,13 @@
-package daggerok;
+package daggerok.servlets;
 
-import daggerok.ejb.impl.PersonService;
-import daggerok.ejb.impl.domain.User;
+import daggerok.cdi.PersonService;
+import daggerok.domain.User;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
-import javax.ejb.DependsOn;
-import javax.ejb.EJB;
-import javax.ejb.Singleton;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
@@ -28,7 +26,7 @@ public class ReadPersonResourceServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1439231173778627396L;
 
-  @EJB PersonService personService;
+  @Inject PersonService personService;
 
   @Override
   @SneakyThrows
