@@ -1,0 +1,37 @@
+version: "2.1"
+
+services:
+
+  gradle-plain-servlet:
+    build:
+      context: .
+      dockerfile: ./docker/gradle/Dockerfile
+    ports:
+      #- "5005:5005"
+      - "8081:8080"
+      - "9990:9990"
+      #- "8443:8443"
+    volumes: ["gradle-plain-servlet-data:/home/app"]
+    networks: [backing-services]
+    restart: unless-stopped
+
+  maven-plain-servlet:
+    build:
+      context: .
+      dockerfile: ./docker/maven/Dockerfile
+    ports:
+      - "5005:5005"
+      - "8082:8080"
+      #- "9990:9990"
+      #- "8443:8443"
+    volumes: ["maven-plain-servlet-data:/home/app"]
+    networks: [backing-services]
+    restart: unless-stopped
+
+volumes:
+  gradle-plain-servlet-data: {}
+  maven-plain-servlet-data: {}
+
+networks:
+  backing-services:
+    driver: bridge

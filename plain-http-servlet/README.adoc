@@ -1,0 +1,128 @@
+= java-ee-examples image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+=== plain HTTP Servlet
+JBOSS EAP 7.1
+
+.build and run using docker
+----
+docker-compose down -v; ./mvnw clean package; ./gradlew clean build; docker-compose up --build --force-recreate --remove-orphans
+
+http :8081/plain-http-servlet/
+http :8082/plain-http-servlet/
+----
+
+.project structure
+----
+mkdir -p src/main/java/daggerok \
+         src/main/webapp/WEB-INF
+
+touch src/main/java/daggerok/AppServlet.java \
+      src/main/webapp/WEB-INF/web.xml \
+      build.gradle \
+      pom.xml
+----
+
+.vim src/main/java/daggerok/AppServlet.java
+[source,java]
+----
+@WebServlet("/")
+public class AppServlet extends HttpServlet {
+
+  @Override
+  public void service(final ServletRequest req, final ServletResponse res) throws ServletException, IOException {
+    final PrintWroter writer = res.getWriter();
+    writer.println("<b>hi!</b>");
+    writer.close();
+  }
+}
+----
+
+.vim src/main/webapp/WEB-INF/web.xml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+</web-app>
+----
+
+.vim build.gradle
+[source,groovy]
+----
+plugins {
+  id "war"
+}
+
+group "daggerok"
+version "0.0.1"
+description "ololo trololo"
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_7
+
+war {
+  archiveName = "${project.name}.war"
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  providedCompile "javax.servlet:javax.servlet-api:3.1.0"
+}
+----
+
+.vim pom.xml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>daggerok</groupId>
+  <artifactId>plain-http-servlet</artifactId>
+  <version>0.0.1</version>
+  <packaging>war</packaging>
+
+  <name>plain-http-servlet</name>
+  <description>ololo trololo</description>
+
+  <properties>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <defaultGoal>clean package</defaultGoal>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+----
+
+//end::content[]

@@ -1,0 +1,5 @@
+FROM daggerok/jboss-eap-7.1:alpine
+RUN echo "JAVA_OPTS=\"\$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 \"" >> ${JBOSS_HOME}/bin/standalone.conf
+#EXPOSE 5005 8080 9990 8443
+EXPOSE 5005
+ADD ./target/*.war ${JBOSS_HOME}/standalone/deployments/

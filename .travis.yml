@@ -16,49 +16,41 @@ jdk:
 
 install: true
 before_install:
-  # install latest docker
-  - sudo apt remove docker docker-engine docker.io
-  - sudo apt update
-  - >
-    sudo apt install -y \
-        linux-image-extra-$(uname -r) \
-        linux-image-extra-virtual
-  - >
-    sudo apt install -y \
-        apt-transport-https \
-        ca-certificates \
-        curl \
-        software-properties-common
-
+  # update docker
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo apt-key fingerprint 0EBFCD88
-  - >
-    sudo add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-       $(lsb_release -cs) \
-       stable"
-
-  - sudo apt update -y
-  - sudo apt install -y docker-ce
-  - sudo apt-cache madison docker-ce
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt update
+  - sudo apt -y install docker-ce
 
   # docker-compose, curl, jq and httpie
   - sudo apt install -y docker python-pip jq curl libxml2-utils
   - sudo pip install docker-compose httpie
   - sudo usermod -aG docker $(whoami)
 
-  - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
-
   # kill whatever ports is running
+  - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
   - stop_any 5432 5672 27017 8080
 
+  # show versions
   - docker -v
   - docker-compose -v
 
 script:
+
+  # docs
+  - export parent=$(pwd)
   - bash gradlew clean build docs
 
-  - export parent=$(pwd)
+  # plain-http-servlet
+  - cd ${parent}/plain-http-servlet
+  - bash mvnw clean package
+  - bash gradlew clean build
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans &
+  - sleep 20
+  - http :8081/plain-http-servlet/
+  - http :8082/plain-http-servlet/
+  - docker-compose down -v
 
   # jboss-eap-h2-ejb, jboss-eap-h2-cdi
   - >

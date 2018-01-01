@@ -1,0 +1,22 @@
+plugins {
+  id "war"
+}
+
+group "daggerok"
+version "0.0.1"
+description "Plain HTTP Servlet"
+
+war {
+  archiveName = "${project.name}.war"
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  providedCompile "javax.servlet:javax.servlet-api:3.1.0"
+  compileOnly "org.projectlombok:lombok:1.16.18"
+}
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_7

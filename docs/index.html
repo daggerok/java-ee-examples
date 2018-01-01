@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2017-12-26 13:55:17 EET</span>
+<span id="revdate">2018-01-02 01:38:04 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -591,6 +591,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#ejb-3-java-ee-7">6.7. ejb-3-java-ee-7</a></li>
 <li><a href="#ejb-stateful-singleton">6.8. ejb-stateful-singleton</a></li>
 <li><a href="#jboss-eap-h2-ejb">6.9. jboss-eap-h2-ejb</a></li>
+<li><a href="#plain-http-servlet">6.10. plain HTTP Servlet</a></li>
 </ul>
 </li>
 <li><a href="#tomee-in-docker">7. TomEE in Docker</a>
@@ -1507,6 +1508,134 @@ http :8080/client/</code></pre>
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="plain-http-servlet">6.10. plain HTTP Servlet</h3>
+<div class="paragraph">
+<p>JBOSS EAP 7.1</p>
+</div>
+<div class="listingblock">
+<div class="title">build and run using docker</div>
+<div class="content">
+<pre>docker-compose down -v; ./mvnw clean package; ./gradlew clean build; docker-compose up --build --force-recreate --remove-orphans
+
+http :8081/plain-http-servlet/
+http :8082/plain-http-servlet/</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">project structure</div>
+<div class="content">
+<pre>mkdir -p src/main/java/daggerok \
+         src/main/webapp/WEB-INF
+
+touch src/main/java/daggerok/AppServlet.java \
+      src/main/webapp/WEB-INF/web.xml \
+      build.gradle \
+      pom.xml</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">vim src/main/java/daggerok/AppServlet.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@WebServlet</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">AppServlet</span> <span class="directive">extends</span> HttpServlet {
+
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="type">void</span> service(<span class="directive">final</span> ServletRequest req, <span class="directive">final</span> ServletResponse res) <span class="directive">throws</span> ServletException, <span class="exception">IOException</span> {
+    <span class="directive">final</span> PrintWroter writer = res.getWriter();
+    writer.println(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;b&gt;hi!&lt;/b&gt;</span><span class="delimiter">&quot;</span></span>);
+    writer.close();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">vim src/main/webapp/WEB-INF/web.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;web-app</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/javaee</span><span class="delimiter">&quot;</span></span>
+         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
+         <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd</span><span class="delimiter">&quot;</span></span>
+         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">3.1</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="tag">&lt;/web-app&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">vim build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">plugins {
+  id <span class="string"><span class="delimiter">&quot;</span><span class="content">war</span><span class="delimiter">&quot;</span></span>
+}
+
+group <span class="string"><span class="delimiter">&quot;</span><span class="content">daggerok</span><span class="delimiter">&quot;</span></span>
+version <span class="string"><span class="delimiter">&quot;</span><span class="content">0.0.1</span><span class="delimiter">&quot;</span></span>
+description <span class="string"><span class="delimiter">&quot;</span><span class="content">ololo trololo</span><span class="delimiter">&quot;</span></span>
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_7
+
+war {
+  archiveName = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>project.name<span class="inline-delimiter">}</span></span><span class="content">.war</span><span class="delimiter">&quot;</span></span>
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  providedCompile <span class="string"><span class="delimiter">&quot;</span><span class="content">javax.servlet:javax.servlet-api:3.1.0</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">vim pom.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;project</span> <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/POM/4.0.0</span><span class="delimiter">&quot;</span></span>
+         <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+
+  <span class="tag">&lt;modelVersion&gt;</span>4.0.0<span class="tag">&lt;/modelVersion&gt;</span>
+
+  <span class="tag">&lt;groupId&gt;</span>daggerok<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>plain-http-servlet<span class="tag">&lt;/artifactId&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.0.1<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;packaging&gt;</span>war<span class="tag">&lt;/packaging&gt;</span>
+
+  <span class="tag">&lt;name&gt;</span>plain-http-servlet<span class="tag">&lt;/name&gt;</span>
+  <span class="tag">&lt;description&gt;</span>ololo trololo<span class="tag">&lt;/description&gt;</span>
+
+  <span class="tag">&lt;properties&gt;</span>
+    <span class="tag">&lt;maven.compiler.source&gt;</span>1.7<span class="tag">&lt;/maven.compiler.source&gt;</span>
+    <span class="tag">&lt;maven.compiler.target&gt;</span>1.7<span class="tag">&lt;/maven.compiler.target&gt;</span>
+    <span class="tag">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="tag">&lt;/project.build.sourceEncoding&gt;</span>
+  <span class="tag">&lt;/properties&gt;</span>
+
+  <span class="tag">&lt;dependencies&gt;</span>
+    <span class="tag">&lt;dependency&gt;</span>
+      <span class="tag">&lt;groupId&gt;</span>javax.servlet<span class="tag">&lt;/groupId&gt;</span>
+      <span class="tag">&lt;artifactId&gt;</span>javax.servlet-api<span class="tag">&lt;/artifactId&gt;</span>
+      <span class="tag">&lt;version&gt;</span>3.1.0<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;optional&gt;</span>true<span class="tag">&lt;/optional&gt;</span>
+    <span class="tag">&lt;/dependency&gt;</span>
+  <span class="tag">&lt;/dependencies&gt;</span>
+
+  <span class="tag">&lt;build&gt;</span>
+    <span class="tag">&lt;finalName&gt;</span>${project.artifactId}<span class="tag">&lt;/finalName&gt;</span>
+    <span class="tag">&lt;defaultGoal&gt;</span>clean package<span class="tag">&lt;/defaultGoal&gt;</span>
+
+    <span class="tag">&lt;plugins&gt;</span>
+      <span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-war-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.5<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;configuration&gt;</span>
+          <span class="tag">&lt;failOnMissingWebXml&gt;</span>false<span class="tag">&lt;/failOnMissingWebXml&gt;</span>
+        <span class="tag">&lt;/configuration&gt;</span>
+      <span class="tag">&lt;/plugin&gt;</span>
+    <span class="tag">&lt;/plugins&gt;</span>
+  <span class="tag">&lt;/build&gt;</span>
+<span class="tag">&lt;/project&gt;</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1719,7 +1848,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2017-12-26 13:55:17 EET
+Last updated 2018-01-02 01:38:04 EET
 </div>
 </div>
 </body>
