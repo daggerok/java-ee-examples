@@ -1,4 +1,3 @@
-#FROM daggerok/jboss-eap-7.1
 # git clone https://github.com/daggerok/jboss-wildfly
 # docker build -t daggerok/jboss-wildfly -f jboss-wildfly/Dockerfile .
 # docker tag daggerok/jboss-wildfly daggerok/jboss-wildfly:11.0.0.Final
@@ -54,5 +53,3 @@ RUN wget ${JBOSS_URL} -O "${JBOSS_USER_HOME}/${JBOSS_WILDFLY_FILE}.zip" \
 #
 ## deploy apps
 #COPY ./path/to/*.war ./path/to/another/*.war ${JBOSS_HOME}/standalone/deployments/
-
-ADD ./build/libs/*.war ${JBOSS_HOME}/standalone/deployments/
