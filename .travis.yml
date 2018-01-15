@@ -42,6 +42,23 @@ script:
   - bash gradlew clean build docs
 
   # plain-http-servlet
+  - cd ${parent}/kotlin-javaee-cdi-h2
+  - bash mvnw
+  - bash gradlew
+  - docker-compose build --force-rm --no-cache --pull
+  - docker-compose up --force-recreate --remove-orphans &
+  - sleep 30
+  - http get  :8080/kotlin-ee/
+  - http get  :8080/kotlin-ee/get-all
+  - http post :8080/kotlin-ee/save-some
+  - http get  :8080/kotlin-ee/get-all
+  - http get  :8081/kotlin-ee/
+  - http get  :8081/kotlin-ee/get-all
+  - http post :8081/kotlin-ee/save-some
+  - http get  :8081/kotlin-ee/get-all
+  - docker-compose down -v
+
+  # plain-http-servlet
   - cd ${parent}/plain-http-servlet
   - bash mvnw clean package
   - bash gradlew clean build

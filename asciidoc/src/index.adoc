@@ -47,6 +47,7 @@ include::../../kotlin-plugins-java-ee/README.adoc[tags=content]
 include::../../main-swarm-rest-api/README.adoc[tags=content]
 include::../../main-swarm-static-content/README.adoc[tags=content]
 include::../../kotlin-java-ee-payara-docker/README.adoc[tags=content]
+include::../../kotlin-javaee-cdi-h2/README.adoc[tags=content]
 
 _Just JBoss EAP in Docker_
 

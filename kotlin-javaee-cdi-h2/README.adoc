@@ -1,0 +1,31 @@
+= KOTLIN | JavaEE | CDI | H2 | JSON image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+=== kotlin-javaee-cdi-h2
+
+.according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml
+[source,xml]
+----
+<!-- skepped... -->
+<datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+<!-- skepped... -->
+----
+
+.build and test
+[source,bash]
+----
+docker-compose down -v; ./gradlew; ./mvnw; docker-compose up --build --force-recreate --remove-orphans
+# gradle
+http get  :8080/kotlin-ee/
+http get  :8080/kotlin-ee/get-all
+http post :8080/kotlin-ee/save-some
+http get  :8080/kotlin-ee/get-all
+# maven
+http get  :8081/kotlin-ee/
+http get  :8081/kotlin-ee/get-all
+http post :8081/kotlin-ee/save-some
+http get  :8081/kotlin-ee/get-all
+----
+
+//end::content[]

@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-01-02 01:38:04 EET</span>
+<span id="revdate">2018-01-15 06:00:15 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -578,6 +578,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#main-swarm-rest-api">5.4. main-swarm-rest-api</a></li>
 <li><a href="#main-swarm-static-content">5.5. main-swarm-static-content</a></li>
 <li><a href="#kotlin-java-ee-payara-docker">5.6. kotlin-java-ee-payara-docker</a></li>
+<li><a href="#kotlin-javaee-cdi-h2">5.7. kotlin-javaee-cdi-h2</a></li>
 </ul>
 </li>
 <li><a href="#jboss-eap-in-docker">6. JBoss EAP in Docker</a>
@@ -1232,6 +1233,33 @@ http :8080/payara-app/max
 docker-compose down -v</pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="kotlin-javaee-cdi-h2">5.7. kotlin-javaee-cdi-h2</h3>
+<div class="listingblock">
+<div class="title">according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="comment">&lt;!-- skepped... --&gt;</span>
+<span class="tag">&lt;datasource</span> <span class="attribute-name">jndi-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:jboss/datasources/ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pool-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">enabled</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use-java-context</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="comment">&lt;!-- skepped... --&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">docker-compose down -v; ./gradlew; ./mvnw; docker-compose up --build --force-recreate --remove-orphans
+# gradle
+http get  :8080/kotlin-ee/
+http get  :8080/kotlin-ee/get-all
+http post :8080/kotlin-ee/save-some
+http get  :8080/kotlin-ee/get-all
+# maven
+http get  :8081/kotlin-ee/
+http get  :8081/kotlin-ee/get-all
+http post :8081/kotlin-ee/save-some
+http get  :8081/kotlin-ee/get-all</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p><em>Just JBoss EAP in Docker</em></p>
 </div>
@@ -1848,7 +1876,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-01-02 01:38:04 EET
+Last updated 2018-01-15 06:00:15 EET
 </div>
 </div>
 </body>
