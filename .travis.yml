@@ -39,7 +39,7 @@ script:
 - export parent=$(pwd)
 - bash gradlew clean build docs
 
-# plain-http-servlet
+# kotlin-javaee-cdi-h2
 - cd ${parent}/kotlin-javaee-cdi-h2
 - bash mvnw
 - bash gradlew
@@ -107,96 +107,96 @@ script:
 - http post :8080/client/reset
 - docker-compose down -v
 
-# ejb-3-starter
-- cd ${parent}/ejb-3-starter
-- bash mvnw
-- docker-compose build --force-rm --no-cache --pull
-- docker-compose up --force-recreate --remove-orphans &
-- sleep 20
-- http :8080/client/
-- http :8080/client/v1/api/hello
-- docker-compose down -v
-
-- cd ${parent}/ejb-3-java-ee-7
-- bash mvnw
-- docker-compose build --force-rm --no-cache --pull
-- docker-compose up --force-recreate --remove-orphans &
-- sleep 20
-- http :8080/client/start
-- sleep 3
-- http :8080/client/stop
-- sleep 5
-- http :8080/client/was\?name=max
-- http :8080/client/haked-by
-- http :8080/client
-- docker-compose down -v
-
-# ejb-3-java-ee-7, timer-async-ejb
-- >
-  for path in \
-    ejb-3-java-ee-7 \
-    timer-async-ejb \
-  ; do
-
-    cd ${parent}/${path}
-    bash mvnw
-    docker-compose build --force-rm --no-cache --pull
-    docker-compose up --force-recreate --remove-orphans &
-    sleep 20
-    http :8080/client/start
-    sleep 3
-    http :8080/client/stop
-    sleep 5
-    http :8080/client/was\?name=max
-    http :8080/client/haked-by
-    http :8080/client
-    docker-compose down -v
-
-  done
-
-# timer
-- cd ${parent}/timer
-- bash mvnw
-- docker-compose build --force-rm --no-cache --pull
-- docker-compose up --force-recreate --remove-orphans -d
-- sleep 20
-- http :8080/client/start
-- sleep 5
-- http :8080/client/stop
-- sleep 2
-- docker-compose down -v
-
-# ejb-2-starter
-- cd ${parent}/ejb-2-starter
-- bash mvnw
-- docker-compose build --force-rm --no-cache --pull
-- docker-compose up --force-recreate --remove-orphans -d
-- sleep 20
-- http :8080/client/
-- docker-compose down -v
-
-# ejb-2
-- cd ${parent}/ejb-2
-- bash mvnw clean package -U -T 4
-- docker-compose build --force-rm --no-cache --pull
-- docker-compose up --force-recreate --remove-orphans -d
-- sleep 20
-- http :8080/greeter-remote-client/
-- http :8080/remote-only-client/
-- http :8080/goodbyer-local-client/
-- docker-compose down -v
-
-# ear
-- cd ${parent}/ear
-- bash mvnw clean package -U -T 4
-- docker-compose build --force-rm --no-cache --pull
-- docker-compose up --force-recreate --remove-orphans -d
-- sleep 20
-- http :8080/module-1/
-- http :8080/module-2/
-- http :8080/module-3/
-- http :8080/module-4/
-- docker-compose down -v
+## ejb-3-starter
+#- cd ${parent}/ejb-3-starter
+#- bash mvnw
+#- docker-compose build --force-rm --no-cache --pull
+#- docker-compose up --force-recreate --remove-orphans &
+#- sleep 20
+#- http :8080/client/
+#- http :8080/client/v1/api/hello
+#- docker-compose down -v
+#
+#- cd ${parent}/ejb-3-java-ee-7
+#- bash mvnw
+#- docker-compose build --force-rm --no-cache --pull
+#- docker-compose up --force-recreate --remove-orphans &
+#- sleep 20
+#- http :8080/client/start
+#- sleep 3
+#- http :8080/client/stop
+#- sleep 5
+#- http :8080/client/was\?name=max
+#- http :8080/client/haked-by
+#- http :8080/client
+#- docker-compose down -v
+#
+## ejb-3-java-ee-7, timer-async-ejb
+#- >
+#  for path in \
+#    ejb-3-java-ee-7 \
+#    timer-async-ejb \
+#  ; do
+#
+#    cd ${parent}/${path}
+#    bash mvnw
+#    docker-compose build --force-rm --no-cache --pull
+#    docker-compose up --force-recreate --remove-orphans &
+#    sleep 20
+#    http :8080/client/start
+#    sleep 3
+#    http :8080/client/stop
+#    sleep 5
+#    http :8080/client/was\?name=max
+#    http :8080/client/haked-by
+#    http :8080/client
+#    docker-compose down -v
+#
+#  done
+#
+## timer
+#- cd ${parent}/timer
+#- bash mvnw
+#- docker-compose build --force-rm --no-cache --pull
+#- docker-compose up --force-recreate --remove-orphans -d
+#- sleep 20
+#- http :8080/client/start
+#- sleep 5
+#- http :8080/client/stop
+#- sleep 2
+#- docker-compose down -v
+#
+## ejb-2-starter
+#- cd ${parent}/ejb-2-starter
+#- bash mvnw
+#- docker-compose build --force-rm --no-cache --pull
+#- docker-compose up --force-recreate --remove-orphans -d
+#- sleep 20
+#- http :8080/client/
+#- docker-compose down -v
+#
+## ejb-2
+#- cd ${parent}/ejb-2
+#- bash mvnw clean package -U -T 4
+#- docker-compose build --force-rm --no-cache --pull
+#- docker-compose up --force-recreate --remove-orphans -d
+#- sleep 20
+#- http :8080/greeter-remote-client/
+#- http :8080/remote-only-client/
+#- http :8080/goodbyer-local-client/
+#- docker-compose down -v
+#
+## ear
+#- cd ${parent}/ear
+#- bash mvnw clean package -U -T 4
+#- docker-compose build --force-rm --no-cache --pull
+#- docker-compose up --force-recreate --remove-orphans -d
+#- sleep 20
+#- http :8080/module-1/
+#- http :8080/module-2/
+#- http :8080/module-3/
+#- http :8080/module-4/
+#- docker-compose down -v
 
 # xmlrpc, kumuluzee-config
 - >
@@ -232,15 +232,15 @@ script:
 
   done
 
-# forge-javaee-6-ws
-- cd ${parent}/forge-javaee-6-ws
-- bash mvnw clean package -U -T 2
-- docker-compose up --build --force-recreate --remove-orphans -d
-- sleep 20
-- http :8080/app/health
-- http :8080/app/AppEndpoint\?wsdl
-- curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xml" -d @request.xml | xmllint --format -
-- docker-compose down -v
+## forge-javaee-6-ws
+#- cd ${parent}/forge-javaee-6-ws
+#- bash mvnw clean package -U -T 2
+#- docker-compose up --build --force-recreate --remove-orphans -d
+#- sleep 20
+#- http :8080/app/health
+#- http :8080/app/AppEndpoint\?wsdl
+#- curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xml" -d @request.xml | xmllint --format -
+#- docker-compose down -v
 
 # forge-ws
 - cd ${parent}/forge-ws
@@ -254,13 +254,13 @@ script:
 - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
 - docker-compose down -v
 
-# java-ee-7-docker-jboss-eap-6.4-quickstart
-- cd ${parent}/java-ee-7-docker-jboss-eap-6.4-quickstart
-- bash mvnw -U
-- docker-compose up -d --build
-- sleep 20
-- curl -sS localhost:8080/app/
-- docker-compose down -v
+## java-ee-7-docker-jboss-eap-6.4-quickstart
+#- cd ${parent}/java-ee-7-docker-jboss-eap-6.4-quickstart
+#- bash mvnw -U
+#- docker-compose up -d --build
+#- sleep 20
+#- curl -sS localhost:8080/app/
+#- docker-compose down -v
 
 # kumuluzee-mp-2.0-jax-ws
 - cd ${parent}/kumuluzee-mp-2.0-jax-ws
@@ -283,13 +283,13 @@ script:
 - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
 - docker-compose down -v
 
-# kumuluzee-microprofile-1.0
-- cd ${parent}/kumuluzee-microprofile-1.0
-- bash mvnw clean install
-- docker-compose up -d --build
-- sleep 15
-- http :8080/
-- docker-compose down -v
+## kumuluzee-microprofile-1.0
+#- cd ${parent}/kumuluzee-microprofile-1.0
+#- bash mvnw clean install
+#- docker-compose up -d --build
+#- sleep 15
+#- http :8080/
+#- docker-compose down -v
 
 # jboss-eap-ext.js
 - cd ${parent}/jboss-eap-ext.js
@@ -301,45 +301,45 @@ script:
 - http :8080/rest-api/health
 - docker-compose down -v
 
-# kotlin-java-ee-payara-docker
-- cd ${parent}/kotlin-java-ee-payara-docker
-- bash gradlew clean war
-- stop_any 8080
-- docker-compose up --force-recreate -d --build --remove-orphans
-- sleep 30
-- http :8080/payara-app/
-- http :8080/payara-app/max
-- docker-compose down -v
-
-# main-swarm-rest-api
-- cd ${parent}/main-swarm-rest-api
-- bash mvnw clean package
-- docker-compose up --force-recreate -d --build --remove-orphans
-- sleep 30
-- http :8080
-- http :8080/api
-- http :8080/api/max
-- echo '{"users":{"username":"Max"}}' | http :8080/api/jsonp/json-pointer
-- http post :8080/api/cors max=max
-- docker-compose down -v
-
-# main-swarm-static-content
-- cd ${parent}/main-swarm-static-content
-- bash gradlew clean build
-- docker-compose up --force-recreate -d --build --remove-orphans
-- sleep 30
-- http :8080
-- docker-compose down -v
-
-# kotlin-plugins-java-ee
-- cd ${parent}/kotlin-plugins-java-ee
-- bash gradlew clean build
-- docker-compose up --force-recreate -d --build --remove-orphans
-- sleep 30
-- http :8080
-- http :8080/hi
-- http :8080/max
-- docker-compose down -v
+## kotlin-java-ee-payara-docker
+#- cd ${parent}/kotlin-java-ee-payara-docker
+#- bash gradlew clean war
+#- stop_any 8080
+#- docker-compose up --force-recreate -d --build --remove-orphans
+#- sleep 30
+#- http :8080/payara-app/
+#- http :8080/payara-app/max
+#- docker-compose down -v
+#
+## main-swarm-rest-api
+#- cd ${parent}/main-swarm-rest-api
+#- bash mvnw clean package
+#- docker-compose up --force-recreate -d --build --remove-orphans
+#- sleep 30
+#- http :8080
+#- http :8080/api
+#- http :8080/api/max
+#- echo '{"users":{"username":"Max"}}' | http :8080/api/jsonp/json-pointer
+#- http post :8080/api/cors max=max
+#- docker-compose down -v
+#
+## main-swarm-static-content
+#- cd ${parent}/main-swarm-static-content
+#- bash gradlew clean build
+#- docker-compose up --force-recreate -d --build --remove-orphans
+#- sleep 30
+#- http :8080
+#- docker-compose down -v
+#
+## kotlin-plugins-java-ee
+#- cd ${parent}/kotlin-plugins-java-ee
+#- bash gradlew clean build
+#- docker-compose up --force-recreate -d --build --remove-orphans
+#- sleep 30
+#- http :8080
+#- http :8080/hi
+#- http :8080/max
+#- docker-compose down -v
 
 # kotlin-java-ee
 - cd ${parent}/kotlin-java-ee
