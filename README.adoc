@@ -61,5 +61,6 @@ links:
 . link:https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/getting-started/tooling/gradle-plugin.html[wildfly-swarm gradle plugin]
 . link:https://blog.sebastian-daschner.com/entries/rest_with_java_video_course[Java EE & JAX-RS - REST as in Hypermedia with Java]
 . link:https://www.youtube.com/watch?v=2ofbA00gsUk[Eclipse MicroProfile 1.0, 1.10, 1.2]
+. link:https://www.youtube.com/watch?v=uuGnAV8-m4o[CON3884 Java EE Revisits GoF Design Patterns]
 
 //end::content[]
