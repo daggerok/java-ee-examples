@@ -6,12 +6,8 @@ This repository contains simple JavaEE examples (including Docker and different 
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
-_Deploy to k8s_
-
+. link:https://github.com/daggerok/axon-examples/tree/master/java-ee[Axon Framework + JavaEE]
 . link:./java-kube-ee[deploy java-ee on kubernetes]
-
-_Deploy with Docker_
-
 . link:./java-ee-7-docker-jboss-eap-6.4-quickstart[java ee 7 docker jboss-eap-6.4 boilerplate]
 . link:./jboss-eap-ext.js[JBoss EAP 6.4 in Docker]
 . link:./tomee-ext.js[TomEE in Docker]
@@ -27,9 +23,6 @@ _Deploy with Docker_
 . link:./ejb-stateful-singleton[javaee-6 | lombok | EJB (@Stateful | @Singleton)]
 . link:./jboss-eap-h2-ejb/[H2 | JBoss EAP 6 | EJB | JSON REST HttpServlet]
 . link:./plain-http-servlet/[JBoss EAP 7 | Plain HttpServlet]
-
-_MicroProfile 1.0_
-
 . link:./wildfly-swarm-maven[wildfly-swarm micro-profile with maven]
 . link:./wildfly-swarm-gradle[wildfly-swarm micro-profile with gradle]
 . link:./main-swarm-rest-api[wildfly-swarm main entrypoint]
@@ -39,17 +32,11 @@ _MicroProfile 1.0_
 . link:./kotlin-plugins-java-ee[java-ee with kotlin plugins]
 . link:./kotlin-java-ee-payara-docker[Java EE on Kotlin on Payara on Docker]
 . link:./kotlin-javaee-cdi-h2[Kotlin | Java EE | CDI | H2 | UUID Entity ID | JSON | JBOSS EAP 6.4 / 7.1 in Docker]
-
-_MicroProfile 1.1.0_
-
-link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
-
-_MicroProfile 1.2_
-
 . link:./rpc[Kumuluzee (Java EE on Jetty) - MiroProfile 2.0 (Config)]
 . link:./kumuluzee-mp-2.0-jax-ws[Kumuluzee MP 2.0 JAX-WS]
 
-link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
+TODO:
+. https://www.youtube.com/watch?v=2ofbA00gsUk
 
 links:
 
