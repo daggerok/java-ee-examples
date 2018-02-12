@@ -544,7 +544,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-01-15 06:00:15 EET</span>
+<span id="revdate">2018-02-12 07:14:31 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -653,6 +653,68 @@ It&#8217;s contains some JavaEE Micro-profile playground projects</p>
       &lt;/dependency&gt;
     &lt;/dependencies&gt;
   &lt;/dependencyManagement&gt;</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./gradlew
+bash build/libs/*jar
+
+./gradlew build composeUp
+./gradlew composeDown</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./mvnw
+java -jar target/*.jar
+
+./mvnw; ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generated using <a href="https://github.com/daggerok/generator-daggerok-fatjar/">daggerok-fatjar</a> yeoman generator</p>
+</div>
+<div class="paragraph">
+<p>inside:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>java 8 based project</p>
+</li>
+<li>
+<p>javaee 8.0</p>
+</li>
+<li>
+<p>lombok (slf4j + logback logging)</p>
+</li>
+<li>
+<p>vavr (javaslang)</p>
+</li>
+<li>
+<p>support maven</p>
+</li>
+<li>
+<p>support gradle</p>
+</li>
+<li>
+<p>supports testing junit 4 / 5</p>
+</li>
+<li>
+<p>docker / docker-compose support (JBOSS EAP 7)</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+
+./gradlew clean build composeUp
+./gradlew composeDown</pre>
 </div>
 </div>
 </div>
@@ -1876,7 +1938,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-01-15 06:00:15 EET
+Last updated 2018-02-12 07:14:31 EET
 </div>
 </div>
 </body>

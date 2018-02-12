@@ -1,0 +1,170 @@
+buildscript {
+  ext {
+    javaVersion = "1.8"
+    javaeeVersion = "8.0"
+    vavrVersion = "0.9.2"
+    slf4jVersion = "1.7.25"
+    kotlinVersion = "1.2.21"
+    lombokVersion = "1.16.20"
+    junitJupiterVersion = "5.0.2"
+    junitPlatformVersion = "1.0.2"
+    wildflySwarmVersion = "2018.1.0"
+    hibernateCoreVersion = "4.2.18.Final"
+  }
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
+    classpath("org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion")
+    classpath("io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE")
+    classpath("org.wildfly.swarm:wildfly-swarm-gradle-plugin:$wildflySwarmVersion")
+  }
+}
+
+plugins {
+//  id "ear"
+  id "war"
+  id "idea"
+  id "maven"
+  id "eclipse"
+  id "com.avast.gradle.docker-compose" version "0.6.13"
+}
+
+apply plugin: "kotlin"
+apply plugin: "kotlin-noarg"
+apply plugin: "kotlin-allopen"
+apply plugin: "wildfly-swarm"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "org.junit.platform.gradle.plugin"
+
+group = "daggerok"
+version = "0.0.1"
+sourceCompatibility = targetCompatibility = "$javaVersion"
+
+compileKotlin {
+  kotlinOptions {
+    freeCompilerArgs = ["-Xjsr305=strict"]
+    jvmTarget = "$javaVersion"
+  }
+}
+
+compileTestKotlin {
+  kotlinOptions {
+    freeCompilerArgs = ["-Xjsr305=strict"]
+    jvmTarget = "$javaVersion"
+  }
+}
+
+allOpen {
+  annotation("javax.persistence.Entity")
+  annotation("javax.ejb.Stateless")
+  annotation("javax.inject.Singleton")
+  annotation("javax.ws.rs.Path")
+  annotation("javax.enterprise.context.ApplicationScoped")
+}
+
+noArg {
+  annotation("javax.persistence.Entity")
+  annotation("javax.ejb.Stateless")
+  annotation("javax.inject.Singleton")
+  annotation("javax.ws.rs.Path")
+  annotation("javax.enterprise.context.ApplicationScoped")
+}
+
+/*
+ear {
+  archiveName = "${project.name}.ear"
+}
+*/
+
+war {
+  archiveName = "${project.name}.war"
+}
+
+defaultTasks "clean", "build"
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+dependencies {
+
+  compile("org.wildfly.swarm:microprofile")
+  compile("org.wildfly.swarm:logging")
+  testCompile("org.wildfly.swarm:arquillian")
+
+  //compile("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+  compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+
+  providedCompile "javax:javaee-api:$javaeeVersion"
+  providedCompile "com.h2database:h2:1.4.196"
+
+  compile "org.hibernate:hibernate-core:$hibernateCoreVersion"
+  compile "javax.json:javax.json-api:1.0"
+  compile "org.glassfish:javax.json:1.0.4"
+  compile "org.jboss.resteasy:resteasy-json-p-provider:3.0.7.Final"
+
+  compile "org.slf4j:slf4j-api:$slf4jVersion"
+  compile "org.slf4j:slf4j-jdk14:$slf4jVersion"
+
+  compile "io.vavr:vavr:$vavrVersion"
+
+  compileOnly "org.projectlombok:lombok:$lombokVersion"
+
+  // junit 4
+  testCompile "junit:junit:4.12"
+  // junit 5
+  testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+  // hamcrest asserts, like: assertThat
+  testImplementation("org.hamcrest:hamcrest-core:1.3")
+
+  testRuntime("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+  testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
+  testRuntime("org.junit.vintage:junit-vintage-engine:4.12.3")
+  // IDEA (older bundle):
+  testRuntime("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
+
+  testCompileOnly("org.apiguardian:apiguardian-api:1.0.0")
+  testCompileOnly("org.projectlombok:lombok:$lombokVersion")
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "org.wildfly.swarm:bom:$wildflySwarmVersion"
+  }
+}
+
+swarm {
+  executable = true
+}
+
+dockerCompose {
+  useComposeFiles = [project.file("docker-compose-gradle.yaml")]
+  // captureContainersOutput = true
+  captureContainersOutput = false
+  stopContainers = true
+  removeContainers = true
+  removeImages = "Local"
+  removeVolumes = true
+  removeOrphans = true
+  forceRecreate = true
+  waitForTcpPorts = false
+  projectName = project.name
+}
+
+composeUp.dependsOn assemble
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.5.1"
+  distributionType = "ALL"
+}
+
+test {
+  systemProperties "property": "value"
+}

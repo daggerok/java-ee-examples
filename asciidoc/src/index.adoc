@@ -29,6 +29,8 @@ include::includes/Introduction.adoc[]
   </dependencyManagement>
 ----
 
+include::../../kotlin-swarm/README.adoc[tags=content]
+
 == JavaEE Wildfly-Swarm Micro-Profile using Gradle
 include::../../wildfly-swarm-gradle/README.adoc[tags=content]
 

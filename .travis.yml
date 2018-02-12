@@ -1,60 +1,74 @@
-#group: edge
-#dist: trusty
-#group: deprecated-2017Q4
-sudo: required
-group: travis_lts
-
 service:
 - docker
-
+sudo: required
+group: travis_lts
 env:
   global:
     TERM=dumb
-
 language: java
 jdk:
 - openjdk8
 - oraclejdk8
-
 install: true
 before_install:
 ## update docker
 #- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 #- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 - sudo apt -y update || true
-- sudo apt -y install docker-ce || true
-- sudo usermod -aG docker $(whoami)
-# docker-compose, curl, jq and httpie
-- sudo apt install -y docker python-pip jq curl libxml2-utils || true
+- sudo apt install -y --no-install-recommends docker-ce python-pip jq curl libxml2-utils
 - sudo pip install docker-compose httpie
-# kill whatever ports is running
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 - stop_any 5432 5672 27017 8080
-# show versions
-- docker -v
-- docker-compose -v
-
 script:
 # docs
 - export parent=$(pwd)
 - bash gradlew clean build docs
 
-# kotlin-javaee-cdi-h2
-- cd ${parent}/kotlin-javaee-cdi-h2
-- bash mvnw
-- bash gradlew
-- docker-compose build --force-rm --no-cache --pull
-- docker-compose up --force-recreate --remove-orphans &
-- sleep 30
-- http get  :8080/kotlin-ee/
-- http get  :8080/kotlin-ee/get-all
-- http post :8080/kotlin-ee/save-some
-- http get  :8080/kotlin-ee/get-all
-- http get  :8081/kotlin-ee/
-- http get  :8081/kotlin-ee/get-all
-- http post :8081/kotlin-ee/save-some
-- http get  :8081/kotlin-ee/get-all
-- docker-compose down -v
+# kotlin-swarm
+- cd ${parent}/kotlin-swarm
+- bash mvnw >/dev/null 2>&1
+#- sudo bash mvnw wildfly-swarm:run &
+#- java -jar target/*.jar &
+- bash gradlew >/dev/null 2>&1
+- bash build/libs/*.jar -Djava.net.preferIPv4Stack=true &
+- wait_for 8080
+- sleep 5
+- http :8080
+- http :8080/health
+- stop_any 8080
+- bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+- sleep 25
+- http :8080
+- http :8080/health
+- bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+- bash gradlew composeUp || true
+- sleep 25
+- http :8080
+- http :8080/health
+- bash gradlew composeDown || true
+- docker-compose -f docker-compose-maven.yaml build
+- docker-compose -f docker-compose-maven.yaml up &
+- sleep 40
+- http :8080
+- http :8080/health
+- docker-compose -f docker-compose-maven.yaml down -v
+
+## kotlin-javaee-cdi-h2
+#- cd ${parent}/kotlin-javaee-cdi-h2
+#- bash mvnw
+#- bash gradlew
+#- docker-compose build --force-rm --no-cache --pull
+#- docker-compose up --force-recreate --remove-orphans &
+#- sleep 30
+#- http get  :8080/kotlin-ee/
+#- http get  :8080/kotlin-ee/get-all
+#- http post :8080/kotlin-ee/save-some
+#- http get  :8080/kotlin-ee/get-all
+#- http get  :8081/kotlin-ee/
+#- http get  :8081/kotlin-ee/get-all
+#- http post :8081/kotlin-ee/save-some
+#- http get  :8081/kotlin-ee/get-all
+#- docker-compose down -v
 
 # plain-http-servlet
 - cd ${parent}/plain-http-servlet
@@ -365,8 +379,3 @@ script:
   # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
   bash docker/bin/test-stack-deploy.bash
   bash gradlew clean build wildfly-swarm-package
-
-cache:
-  directories:
-  - $HOME/.m2
-  - $HOME/.gradle
