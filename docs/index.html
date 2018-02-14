@@ -544,89 +544,90 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-02-12 07:14:31 EET</span>
+<span id="revdate">2018-02-14 21:57:29 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#javaee-wildfly-swarm-micro-profile-using-gradle">1. JavaEE Wildfly-Swarm Micro-Profile using Gradle</a>
 <ul class="sectlevel2">
-<li><a href="#wildfly-swarm-gradle">1.1. wildfly-swarm-gradle</a></li>
+<li><a href="#maven-is-not-working-properly">1. maven is not working properly</a></li>
+<li><a href="#javaee-wildfly-swarm-micro-profile-using-gradle">2. JavaEE Wildfly-Swarm Micro-Profile using Gradle</a>
+<ul class="sectlevel2">
+<li><a href="#wildfly-swarm-gradle">2.1. wildfly-swarm-gradle</a></li>
 </ul>
 </li>
-<li><a href="#javaee-wildfly-swarm-micro-profile-using-maven">2. JavaEE Wildfly-Swarm Micro-Profile using Maven</a>
+<li><a href="#javaee-wildfly-swarm-micro-profile-using-maven">3. JavaEE Wildfly-Swarm Micro-Profile using Maven</a>
 <ul class="sectlevel2">
-<li><a href="#wildfly-swarm-maven">2.1. wildfly-swarm-maven</a></li>
+<li><a href="#wildfly-swarm-maven">3.1. wildfly-swarm-maven</a></li>
 </ul>
 </li>
-<li><a href="#kumuluzee-microprofile-1-0">3. Kumuluzee MicroProfile 1.0</a>
+<li><a href="#kumuluzee-microprofile-1-0">4. Kumuluzee MicroProfile 1.0</a>
 <ul class="sectlevel2">
-<li><a href="#kumuluzee-microprofile-1-0-2">3.1. kumuluzee-microprofile-1.0</a></li>
+<li><a href="#kumuluzee-microprofile-1-0-2">4.1. kumuluzee-microprofile-1.0</a></li>
 </ul>
 </li>
-<li><a href="#javaee-kubernetes">4. JavaEE Kubernetes</a>
+<li><a href="#javaee-kubernetes">5. JavaEE Kubernetes</a>
 <ul class="sectlevel2">
-<li><a href="#java-kube-ee">4.1. java-kube-ee</a></li>
-<li><a href="#old">4.2. old</a></li>
+<li><a href="#java-kube-ee">5.1. java-kube-ee</a></li>
+<li><a href="#old">5.2. old</a></li>
 </ul>
 </li>
-<li><a href="#javaee-using-kotlin">5. JavaEE using Kotlin</a>
+<li><a href="#javaee-using-kotlin">6. JavaEE using Kotlin</a>
 <ul class="sectlevel2">
-<li><a href="#java-kube-ee-2">5.1. java-kube-ee</a></li>
-<li><a href="#old-2">5.2. old</a></li>
-<li><a href="#kotlin-plugins-java-ee">5.3. kotlin-plugins-java-ee</a></li>
-<li><a href="#main-swarm-rest-api">5.4. main-swarm-rest-api</a></li>
-<li><a href="#main-swarm-static-content">5.5. main-swarm-static-content</a></li>
-<li><a href="#kotlin-java-ee-payara-docker">5.6. kotlin-java-ee-payara-docker</a></li>
-<li><a href="#kotlin-javaee-cdi-h2">5.7. kotlin-javaee-cdi-h2</a></li>
+<li><a href="#java-kube-ee-2">6.1. java-kube-ee</a></li>
+<li><a href="#old-2">6.2. old</a></li>
+<li><a href="#kotlin-plugins-java-ee">6.3. kotlin-plugins-java-ee</a></li>
+<li><a href="#main-swarm-rest-api">6.4. main-swarm-rest-api</a></li>
+<li><a href="#main-swarm-static-content">6.5. main-swarm-static-content</a></li>
+<li><a href="#kotlin-java-ee-payara-docker">6.6. kotlin-java-ee-payara-docker</a></li>
+<li><a href="#kotlin-javaee-cdi-h2">6.7. kotlin-javaee-cdi-h2</a></li>
 </ul>
 </li>
-<li><a href="#jboss-eap-in-docker">6. JBoss EAP in Docker</a>
+<li><a href="#jboss-eap-in-docker">7. JBoss EAP in Docker</a>
 <ul class="sectlevel2">
-<li><a href="#jboss-eap-ext-js">6.1. jboss-eap-ext.js</a></li>
-<li><a href="#xmlrpc">6.2. xmlrpc</a></li>
-<li><a href="#ear">6.3. ear</a></li>
-<li><a href="#ejb-2">6.4. ejb-2</a></li>
-<li><a href="#timer">6.5. timer</a></li>
-<li><a href="#timer-async-ejb">6.6. timer-async-ejb</a></li>
-<li><a href="#ejb-3-java-ee-7">6.7. ejb-3-java-ee-7</a></li>
-<li><a href="#ejb-stateful-singleton">6.8. ejb-stateful-singleton</a></li>
-<li><a href="#jboss-eap-h2-ejb">6.9. jboss-eap-h2-ejb</a></li>
-<li><a href="#plain-http-servlet">6.10. plain HTTP Servlet</a></li>
+<li><a href="#jboss-eap-ext-js">7.1. jboss-eap-ext.js</a></li>
+<li><a href="#xmlrpc">7.2. xmlrpc</a></li>
+<li><a href="#ear">7.3. ear</a></li>
+<li><a href="#ejb-2">7.4. ejb-2</a></li>
+<li><a href="#timer">7.5. timer</a></li>
+<li><a href="#timer-async-ejb">7.6. timer-async-ejb</a></li>
+<li><a href="#ejb-3-java-ee-7">7.7. ejb-3-java-ee-7</a></li>
+<li><a href="#ejb-stateful-singleton">7.8. ejb-stateful-singleton</a></li>
+<li><a href="#jboss-eap-h2-ejb">7.9. jboss-eap-h2-ejb</a></li>
+<li><a href="#plain-http-servlet">7.10. plain HTTP Servlet</a></li>
 </ul>
 </li>
-<li><a href="#tomee-in-docker">7. TomEE in Docker</a>
+<li><a href="#tomee-in-docker">8. TomEE in Docker</a>
 <ul class="sectlevel2">
-<li><a href="#tomee-ext-js">7.1. tomee-ext.js</a></li>
+<li><a href="#tomee-ext-js">8.1. tomee-ext.js</a></li>
 </ul>
 </li>
-<li><a href="#glassfisg-in-docker">8. Glassfisg in Docker</a>
+<li><a href="#glassfisg-in-docker">9. Glassfisg in Docker</a>
 <ul class="sectlevel2">
-<li><a href="#glassfish-ext-js">8.1. glassfish-ext.js</a></li>
+<li><a href="#glassfish-ext-js">9.1. glassfish-ext.js</a></li>
 </ul>
 </li>
-<li><a href="#jboss-wildfly-mvnw-gradlew-in-docker">9. JBoss WildFly (mvnw / gradlew) in Docker</a>
+<li><a href="#jboss-wildfly-mvnw-gradlew-in-docker">10. JBoss WildFly (mvnw / gradlew) in Docker</a>
 <ul class="sectlevel2">
-<li><a href="#forge-ws">9.1. forge-ws</a></li>
+<li><a href="#forge-ws">10.1. forge-ws</a></li>
 </ul>
 </li>
-<li><a href="#jboss-forge-wildfly-java-ee-6-jax-ws">10. JBoss forge / WildFly Java EE 6 / JAX-WS</a>
+<li><a href="#jboss-forge-wildfly-java-ee-6-jax-ws">11. JBoss forge / WildFly Java EE 6 / JAX-WS</a>
 <ul class="sectlevel2">
-<li><a href="#forge-javaee-6-ws">10.1. forge-javaee-6-ws</a></li>
+<li><a href="#forge-javaee-6-ws">11.1. forge-javaee-6-ws</a></li>
 </ul>
 </li>
-<li><a href="#kumuluzee-microprofile-2-0-config-yaml">11. Kumuluzee MicroProfile 2.0 (config.yaml)</a>
+<li><a href="#kumuluzee-microprofile-2-0-config-yaml">12. Kumuluzee MicroProfile 2.0 (config.yaml)</a>
 <ul class="sectlevel2">
-<li><a href="#kumuluzee-config">11.1. kumuluzee-config</a></li>
+<li><a href="#kumuluzee-config">12.1. kumuluzee-config</a></li>
 </ul>
 </li>
-<li><a href="#kumuluzee-microprofile-2-0-jax-ws">12. Kumuluzee MicroProfile 2.0 (JAX-WS)</a>
+<li><a href="#kumuluzee-microprofile-2-0-jax-ws">13. Kumuluzee MicroProfile 2.0 (JAX-WS)</a>
 <ul class="sectlevel2">
-<li><a href="#kumuluzee-mp-2-0-jax-ws">12.1. kumuluzee-mp-2.0-jax-ws</a></li>
+<li><a href="#kumuluzee-mp-2-0-jax-ws">13.1. kumuluzee-mp-2.0-jax-ws</a></li>
 </ul>
 </li>
-<li><a href="#links">13. links</a></li>
-<li><a href="#enjoy">14. Enjoy! :)</a></li>
+<li><a href="#links">14. links</a></li>
+<li><a href="#enjoy">15. Enjoy! :)</a></li>
 </ul>
 </div>
 </div>
@@ -654,6 +655,81 @@ It&#8217;s contains some JavaEE Micro-profile playground projects</p>
     &lt;/dependencies&gt;
   &lt;/dependencyManagement&gt;</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>in fucking progress&#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="title">kafka</div>
+<div class="content">
+<pre>cd /tmp
+wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/daggerok/embedded-kafka/0.0.1/embedded-kafka-0.0.1.jar
+java -jar kafka.jar</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">gradle</div>
+<div class="content">
+<pre>./gradlew
+bash build/libs/*jar
+
+./gradlew build composeUp
+./gradlew composeDown</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="maven-is-not-working-properly">1. maven is not working properly</h3>
+<div class="paragraph">
+<p>actually working but with hack (see src/main/webapp/WEB-INF/classes/README)</p>
+</div>
+<div class="listingblock">
+<div class="title">maven</div>
+<div class="content">
+<pre>./mvnw
+java -jar target/*.jar
+
+./mvnw; ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generated using <a href="https://github.com/daggerok/generator-daggerok-fatjar/">daggerok-fatjar</a> yeoman generator</p>
+</div>
+<div class="paragraph">
+<p>inside:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>java 8 based project</p>
+</li>
+<li>
+<p>javaee 8.0 using wildfly-swarm micro-profile</p>
+</li>
+<li>
+<p>kotlin support</p>
+</li>
+<li>
+<p>lombok (slf4j + logback logging)</p>
+</li>
+<li>
+<p>vavr (javaslang)</p>
+</li>
+<li>
+<p>support maven</p>
+</li>
+<li>
+<p>support gradle</p>
+</li>
+<li>
+<p>supports testing junit 4 / 5</p>
+</li>
+<li>
+<p>docker / docker-compose support</p>
+</li>
+</ol>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -718,12 +794,11 @@ java -jar target/*.jar
 </div>
 </div>
 </div>
-</div>
 <div class="sect1">
-<h2 id="javaee-wildfly-swarm-micro-profile-using-gradle">1. JavaEE Wildfly-Swarm Micro-Profile using Gradle</h2>
+<h2 id="javaee-wildfly-swarm-micro-profile-using-gradle">2. JavaEE Wildfly-Swarm Micro-Profile using Gradle</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="wildfly-swarm-gradle">1.1. wildfly-swarm-gradle</h3>
+<h3 id="wildfly-swarm-gradle">2.1. wildfly-swarm-gradle</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
 </div>
@@ -800,10 +875,10 @@ docker system prune -af</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="javaee-wildfly-swarm-micro-profile-using-maven">2. JavaEE Wildfly-Swarm Micro-Profile using Maven</h2>
+<h2 id="javaee-wildfly-swarm-micro-profile-using-maven">3. JavaEE Wildfly-Swarm Micro-Profile using Maven</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="wildfly-swarm-maven">2.1. wildfly-swarm-maven</h3>
+<h3 id="wildfly-swarm-maven">3.1. wildfly-swarm-maven</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
 </div>
@@ -884,10 +959,10 @@ docker system prune -af</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="kumuluzee-microprofile-1-0">3. Kumuluzee MicroProfile 1.0</h2>
+<h2 id="kumuluzee-microprofile-1-0">4. Kumuluzee MicroProfile 1.0</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="kumuluzee-microprofile-1-0-2">3.1. kumuluzee-microprofile-1.0</h3>
+<h3 id="kumuluzee-microprofile-1-0-2">4.1. kumuluzee-microprofile-1.0</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE Wildfly Swarm Micro-profile example - serving static content</p>
 </div>
@@ -903,10 +978,10 @@ http :8080</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="javaee-kubernetes">4. JavaEE Kubernetes</h2>
+<h2 id="javaee-kubernetes">5. JavaEE Kubernetes</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="java-kube-ee">4.1. java-kube-ee</h3>
+<h3 id="java-kube-ee">5.1. java-kube-ee</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
 </div>
@@ -1040,7 +1115,7 @@ minikube stop; minikube delete</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="old">4.2. old</h3>
+<h3 id="old">5.2. old</h3>
 <div class="listingblock">
 <div class="title">using gradle / java microprofile</div>
 <div class="content">
@@ -1071,10 +1146,10 @@ bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="javaee-using-kotlin">5. JavaEE using Kotlin</h2>
+<h2 id="javaee-using-kotlin">6. JavaEE using Kotlin</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="java-kube-ee-2">5.1. java-kube-ee</h3>
+<h3 id="java-kube-ee-2">6.1. java-kube-ee</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
 </div>
@@ -1208,7 +1283,7 @@ minikube stop; minikube delete</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="old-2">5.2. old</h3>
+<h3 id="old-2">6.2. old</h3>
 <div class="listingblock">
 <div class="title">using gradle / java microprofile</div>
 <div class="content">
@@ -1237,7 +1312,7 @@ bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="kotlin-plugins-java-ee">5.3. kotlin-plugins-java-ee</h3>
+<h3 id="kotlin-plugins-java-ee">6.3. kotlin-plugins-java-ee</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using Kotlin</p>
 </div>
@@ -1252,7 +1327,7 @@ http :8080/max</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="main-swarm-rest-api">5.4. main-swarm-rest-api</h3>
+<h3 id="main-swarm-rest-api">6.4. main-swarm-rest-api</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
 </div>
@@ -1268,7 +1343,7 @@ http :8080/api/max</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="main-swarm-static-content">5.5. main-swarm-static-content</h3>
+<h3 id="main-swarm-static-content">6.5. main-swarm-static-content</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE Wildfly Swarm Micro-profile example - serving static content</p>
 </div>
@@ -1282,7 +1357,7 @@ http :8080</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="kotlin-java-ee-payara-docker">5.6. kotlin-java-ee-payara-docker</h3>
+<h3 id="kotlin-java-ee-payara-docker">6.6. kotlin-java-ee-payara-docker</h3>
 <div class="paragraph">
 <p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using Kotlin</p>
 </div>
@@ -1297,7 +1372,7 @@ docker-compose down -v</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="kotlin-javaee-cdi-h2">5.7. kotlin-javaee-cdi-h2</h3>
+<h3 id="kotlin-javaee-cdi-h2">6.7. kotlin-javaee-cdi-h2</h3>
 <div class="listingblock">
 <div class="title">according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml</div>
 <div class="content">
@@ -1329,10 +1404,10 @@ http get  :8081/kotlin-ee/get-all</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="jboss-eap-in-docker">6. JBoss EAP in Docker</h2>
+<h2 id="jboss-eap-in-docker">7. JBoss EAP in Docker</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="jboss-eap-ext-js">6.1. jboss-eap-ext.js</h3>
+<h3 id="jboss-eap-ext-js">7.1. jboss-eap-ext.js</h3>
 <div class="paragraph">
 <p>packaging two WARs into jboss AS</p>
 </div>
@@ -1348,7 +1423,7 @@ docker-compose down -v</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="xmlrpc">6.2. xmlrpc</h3>
+<h3 id="xmlrpc">7.2. xmlrpc</h3>
 <div class="paragraph">
 <p>Apache XML-RPC (org.apache.xmlrpc)</p>
 </div>
@@ -1376,7 +1451,7 @@ docker-compose down -v</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="ear">6.3. ear</h3>
+<h3 id="ear">7.3. ear</h3>
 <div class="listingblock">
 <div class="title">build</div>
 <div class="content">
@@ -1421,7 +1496,7 @@ http :8080/module-4/</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="ejb-2">6.4. ejb-2</h3>
+<h3 id="ejb-2">7.4. ejb-2</h3>
 <div class="listingblock">
 <div class="title">build</div>
 <div class="content">
@@ -1511,7 +1586,7 @@ http :8080/goodbyer-local-client/</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="timer">6.5. timer</h3>
+<h3 id="timer">7.5. timer</h3>
 <div class="listingblock">
 <div class="title">build and test</div>
 <div class="content">
@@ -1522,7 +1597,7 @@ http :8080/client/stop</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="timer-async-ejb">6.6. timer-async-ejb</h3>
+<h3 id="timer-async-ejb">7.6. timer-async-ejb</h3>
 <div class="listingblock">
 <div class="title">build and test</div>
 <div class="content">
@@ -1535,7 +1610,7 @@ http :8080/client</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="ejb-3-java-ee-7">6.7. ejb-3-java-ee-7</h3>
+<h3 id="ejb-3-java-ee-7">7.7. ejb-3-java-ee-7</h3>
 <div class="listingblock">
 <div class="title">build and test</div>
 <div class="content">
@@ -1548,7 +1623,7 @@ http :8080/client</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="ejb-stateful-singleton">6.8. ejb-stateful-singleton</h3>
+<h3 id="ejb-stateful-singleton">7.8. ejb-stateful-singleton</h3>
 <div class="listingblock">
 <div class="title">build and test</div>
 <div class="content">
@@ -1566,7 +1641,7 @@ http post :8080/client/reset</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="jboss-eap-h2-ejb">6.9. jboss-eap-h2-ejb</h3>
+<h3 id="jboss-eap-h2-ejb">7.9. jboss-eap-h2-ejb</h3>
 <div class="listingblock">
 <div class="title">according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml</div>
 <div class="content">
@@ -1599,7 +1674,7 @@ http :8080/client/</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="plain-http-servlet">6.10. plain HTTP Servlet</h3>
+<h3 id="plain-http-servlet">7.10. plain HTTP Servlet</h3>
 <div class="paragraph">
 <p>JBOSS EAP 7.1</p>
 </div>
@@ -1729,10 +1804,10 @@ dependencies {
 </div>
 </div>
 <div class="sect1">
-<h2 id="tomee-in-docker">7. TomEE in Docker</h2>
+<h2 id="tomee-in-docker">8. TomEE in Docker</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="tomee-ext-js">7.1. tomee-ext.js</h3>
+<h3 id="tomee-ext-js">8.1. tomee-ext.js</h3>
 <div class="paragraph">
 <p>packaging two WARs in TomEE in Docker</p>
 </div>
@@ -1752,10 +1827,10 @@ docker-compose down -v</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="glassfisg-in-docker">8. Glassfisg in Docker</h2>
+<h2 id="glassfisg-in-docker">9. Glassfisg in Docker</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="glassfish-ext-js">8.1. glassfish-ext.js</h3>
+<h3 id="glassfish-ext-js">9.1. glassfish-ext.js</h3>
 <div class="paragraph">
 <p>packaging two WARs in glassfish in Docker</p>
 </div>
@@ -1774,10 +1849,10 @@ docker-compose down -v</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="jboss-wildfly-mvnw-gradlew-in-docker">9. JBoss WildFly (mvnw / gradlew) in Docker</h2>
+<h2 id="jboss-wildfly-mvnw-gradlew-in-docker">10. JBoss WildFly (mvnw / gradlew) in Docker</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="forge-ws">9.1. forge-ws</h3>
+<h3 id="forge-ws">10.1. forge-ws</h3>
 <div class="listingblock">
 <div class="title">init new maven project using forge cli</div>
 <div class="content">
@@ -1855,10 +1930,10 @@ curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @
 </div>
 </div>
 <div class="sect1">
-<h2 id="jboss-forge-wildfly-java-ee-6-jax-ws">10. JBoss forge / WildFly Java EE 6 / JAX-WS</h2>
+<h2 id="jboss-forge-wildfly-java-ee-6-jax-ws">11. JBoss forge / WildFly Java EE 6 / JAX-WS</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="forge-javaee-6-ws">10.1. forge-javaee-6-ws</h3>
+<h3 id="forge-javaee-6-ws">11.1. forge-javaee-6-ws</h3>
 <div class="listingblock">
 <div class="title">up and running</div>
 <div class="content">
@@ -1883,10 +1958,10 @@ curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xm
 </div>
 </div>
 <div class="sect1">
-<h2 id="kumuluzee-microprofile-2-0-config-yaml">11. Kumuluzee MicroProfile 2.0 (config.yaml)</h2>
+<h2 id="kumuluzee-microprofile-2-0-config-yaml">12. Kumuluzee MicroProfile 2.0 (config.yaml)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="kumuluzee-config">11.1. kumuluzee-config</h3>
+<h3 id="kumuluzee-config">12.1. kumuluzee-config</h3>
 <div class="paragraph">
 <p><a href="rpc-app/">see rpc-app module</a></p>
 </div>
@@ -1894,10 +1969,10 @@ curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xm
 </div>
 </div>
 <div class="sect1">
-<h2 id="kumuluzee-microprofile-2-0-jax-ws">12. Kumuluzee MicroProfile 2.0 (JAX-WS)</h2>
+<h2 id="kumuluzee-microprofile-2-0-jax-ws">13. Kumuluzee MicroProfile 2.0 (JAX-WS)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="kumuluzee-mp-2-0-jax-ws">12.1. kumuluzee-mp-2.0-jax-ws</h3>
+<h3 id="kumuluzee-mp-2-0-jax-ws">13.1. kumuluzee-mp-2.0-jax-ws</h3>
 <div class="paragraph">
 <p>in progress&#8230;&#8203;</p>
 </div>
@@ -1917,7 +1992,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 </div>
 </div>
 <div class="sect1">
-<h2 id="links">13. links</h2>
+<h2 id="links">14. links</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -1929,7 +2004,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 </div>
 </div>
 <div class="sect1">
-<h2 id="enjoy">14. Enjoy! :)</h2>
+<h2 id="enjoy">15. Enjoy! :)</h2>
 <div class="sectionbody">
 
 </div>
@@ -1938,7 +2013,7 @@ curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-02-12 07:14:31 EET
+Last updated 2018-02-14 21:57:29 EET
 </div>
 </div>
 </body>

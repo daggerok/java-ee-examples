@@ -1,0 +1,42 @@
+#service:
+#- docker
+#sudo: required
+group: travis_lts
+env:
+  global:
+    TERM=dumb
+language: java
+jdk:
+- oraclejdk8
+- openjdk8
+install: true
+before_script:
+- sudo apt udate -y || true
+#- sudo apt install -y --no-install-recommends curl jq libxml2-utils docker-ce python-pip
+#- sudo pip install docker-compose httpie
+- sudo apt install -y --no-install-recommends wget python-pip
+- sudo pip install httpie
+- source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+script:
+- wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/daggerok/embedded-kafka/0.0.1/embedded-kafka-0.0.1.jar
+- java -jar kafka.jar &
+- bash mvnw
+- bash gradlew
+- bash build/libs/*.jar &
+- wait_for 8080
+- sleep 5
+- http :8080/kafka/query
+- http :8080/kafka/produce
+- http :8080/kafka/produce
+- stop_any 8080
+- bash target/*.jar &
+- wait_for 8080
+- sleep 5
+- http :8080/kafka/query
+- http :8080/kafka/produce
+- http :8080/kafka/produce
+- stop_any 8080
+cache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.gradle

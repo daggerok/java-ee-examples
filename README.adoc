@@ -6,6 +6,7 @@ This repository contains simple JavaEE examples (including Docker and different 
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+. link:./kotlin-kafka/[Kafka EE]
 . link:./kotlin-swarm/[Kotlin Wildfly Swarm]
 . link:https://github.com/daggerok/axon-examples/tree/master/java-ee[Axon Framework + JavaEE]
 . link:https://github.com/daggerok/event-driven-examples/tree/master/java-ee[JavaEE event-driven]
@@ -38,6 +39,7 @@ link:https://daggerok.github.io/java-ee-examples[Documentation]
 . link:./kumuluzee-mp-2.0-jax-ws[Kumuluzee MP 2.0 JAX-WS]
 
 TODO:
+
 . https://www.youtube.com/watch?v=2ofbA00gsUk
 
 links:

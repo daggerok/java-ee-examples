@@ -15,7 +15,7 @@ before_install:
 #- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 #- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 - sudo apt -y update || true
-- sudo apt install -y --no-install-recommends docker-ce python-pip jq curl libxml2-utils
+- sudo apt install -y --no-install-recommends docker-ce wget python-pip
 - sudo pip install docker-compose httpie
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 - stop_any 5432 5672 27017 8080
@@ -23,7 +23,20 @@ script:
 # docs
 - export parent=$(pwd)
 - bash gradlew clean build docs
-
+# kotlin-kafka
+- cd ${parent}/kotlin-kafka
+- wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/daggerok/embedded-kafka/0.0.1/embedded-kafka-0.0.1.jar
+- java -jar kafka.jar &
+- bash mvnw >/dev/null 2>&1
+- bash gradlew >/dev/null 2>&1
+- bash build/libs/*.jar -Djava.net.preferIPv4Stack=true &
+- wait_for 8080
+- sleep 15
+- http :8080/kafka/query
+- http :8080/kafka/produce
+- http :8080/kafka/produce
+- stop_any 8080 8080
+- sudo killall -9 java
 # kotlin-swarm
 - cd ${parent}/kotlin-swarm
 - bash mvnw >/dev/null 2>&1

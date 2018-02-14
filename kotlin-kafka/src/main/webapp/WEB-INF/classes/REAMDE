@@ -1,0 +1,3 @@
+this is a wildfly-swarm-maven plugin hack...
+for some reasons fucking maven plugin didn't put my resources/* files into WEB-INF/classes
+meanwhile gradle plugin doing job well

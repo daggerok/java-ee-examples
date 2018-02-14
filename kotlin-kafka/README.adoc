@@ -1,0 +1,54 @@
+= kotlin-kafka image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+
+//tag::content[]
+
+in fucking progress...
+
+. link:https://books.google.com.ua/books?id=-RhKDwAAQBAJ&pg=PA319&lpg=PA319&dq=javaee+kafka.properties&source=bl&ots=HM7QXscLch&sig=7z2zCVuPZjalSXh2zP4D-sj9jB8&hl=ru&sa=X&ved=0ahUKEwjQsuzoo6XZAhVBhywKHdakBREQ6AEIQDAD#v=onepage&q=javaee%20kafka.properties&f=false[book]
+. link:https://www.youtube.com/watch?v=HLfl2ccS304&index=11&list=PLEV9ul4qfGOZ5gWIPMlFGMUpenSs1EvxZ[youtube]
+. link:https://github.com/sdaschner/scalable-coffee-shop[Github: sdaschner/scalable-coffee-shop]
+
+.kafka
+----
+cd /tmp
+wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/daggerok/embedded-kafka/0.0.1/embedded-kafka-0.0.1.jar
+java -jar kafka.jar
+----
+
+.gradle
+----
+./gradlew
+bash build/libs/*jar
+
+./gradlew build composeUp
+./gradlew composeDown
+----
+
+=== maven is not working properly
+
+actually working but with hack (see src/main/webapp/WEB-INF/classes/README)
+
+.maven
+----
+./mvnw
+java -jar target/*.jar
+
+./mvnw; ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+----
+
+generated using link:https://github.com/daggerok/generator-daggerok-fatjar/[daggerok-fatjar] yeoman generator
+
+inside:
+
+. java 8 based project
+. javaee 8.0 using wildfly-swarm micro-profile
+. kotlin support
+. lombok (slf4j + logback logging)
+. vavr (javaslang)
+. support maven
+. support gradle
+. supports testing junit 4 / 5
+. docker / docker-compose support
+
+//end::content[]
