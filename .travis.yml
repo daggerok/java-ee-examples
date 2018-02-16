@@ -22,7 +22,7 @@ before_install:
 script:
 # docs
 - export parent=$(pwd)
-- bash gradlew clean build docs
+- bash gradlew clean build asciidoctor #docs
 # kotlin-kafka
 - cd ${parent}/kotlin-kafka
 - wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/daggerok/embedded-kafka/0.0.1/embedded-kafka-0.0.1.jar

@@ -24,7 +24,7 @@ bash build/libs/*jar
 ./gradlew composeDown
 ----
 
-=== maven is not working properly
+== maven is not working properly
 
 actually working but with hack (see src/main/webapp/WEB-INF/classes/README)
 
