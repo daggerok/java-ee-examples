@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Maksim Kostromin">
-<title>JavaEE examples docs (0.0.0)</title>
+<title>JavaEE examples docs (0.0.1)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -539,25 +539,95 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>JavaEE examples docs (0.0.0) <span class="image"><a class="image" href="https://github.com/daggerok/java-ee-examples"><img src="https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master" alt="Build Status"></a></span></h1>
+<h1>JavaEE examples docs (0.0.1) <span class="image"><a class="image" href="https://github.com/daggerok/java-ee-examples"><img src="https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master" alt="Build Status"></a></span></h1>
 <div class="details">
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
-<span id="revnumber">version 0.0.0,</span>
-<span id="revdate">2017-10-02 14:38:12 EEST</span>
+<span id="revnumber">version 0.0.1,</span>
+<span id="revdate">2018-02-14 21:57:29 EET</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#javaee-wildfly-swarm-micro-profile-using-gradle">1. JavaEE Wildfly-Swarm Micro-Profile using Gradle</a></li>
-<li><a href="#javaee-wildfly-swarm-micro-profile-using-maven">2. JavaEE Wildfly-Swarm Micro-Profile using Maven</a></li>
-<li><a href="#javaee-kubernetes">3. JavaEE Kubernetes</a>
 <ul class="sectlevel2">
-<li><a href="#old">3.1. old</a></li>
+<li><a href="#maven-is-not-working-properly">1. maven is not working properly</a></li>
+<li><a href="#javaee-wildfly-swarm-micro-profile-using-gradle">2. JavaEE Wildfly-Swarm Micro-Profile using Gradle</a>
+<ul class="sectlevel2">
+<li><a href="#wildfly-swarm-gradle">2.1. wildfly-swarm-gradle</a></li>
 </ul>
 </li>
-<li><a href="#links">4. links</a></li>
-<li><a href="#enjoy">5. Enjoy! :)</a></li>
+<li><a href="#javaee-wildfly-swarm-micro-profile-using-maven">3. JavaEE Wildfly-Swarm Micro-Profile using Maven</a>
+<ul class="sectlevel2">
+<li><a href="#wildfly-swarm-maven">3.1. wildfly-swarm-maven</a></li>
+</ul>
+</li>
+<li><a href="#kumuluzee-microprofile-1-0">4. Kumuluzee MicroProfile 1.0</a>
+<ul class="sectlevel2">
+<li><a href="#kumuluzee-microprofile-1-0-2">4.1. kumuluzee-microprofile-1.0</a></li>
+</ul>
+</li>
+<li><a href="#javaee-kubernetes">5. JavaEE Kubernetes</a>
+<ul class="sectlevel2">
+<li><a href="#java-kube-ee">5.1. java-kube-ee</a></li>
+<li><a href="#old">5.2. old</a></li>
+</ul>
+</li>
+<li><a href="#javaee-using-kotlin">6. JavaEE using Kotlin</a>
+<ul class="sectlevel2">
+<li><a href="#java-kube-ee-2">6.1. java-kube-ee</a></li>
+<li><a href="#old-2">6.2. old</a></li>
+<li><a href="#kotlin-plugins-java-ee">6.3. kotlin-plugins-java-ee</a></li>
+<li><a href="#main-swarm-rest-api">6.4. main-swarm-rest-api</a></li>
+<li><a href="#main-swarm-static-content">6.5. main-swarm-static-content</a></li>
+<li><a href="#kotlin-java-ee-payara-docker">6.6. kotlin-java-ee-payara-docker</a></li>
+<li><a href="#kotlin-javaee-cdi-h2">6.7. kotlin-javaee-cdi-h2</a></li>
+</ul>
+</li>
+<li><a href="#jboss-eap-in-docker">7. JBoss EAP in Docker</a>
+<ul class="sectlevel2">
+<li><a href="#jboss-eap-ext-js">7.1. jboss-eap-ext.js</a></li>
+<li><a href="#xmlrpc">7.2. xmlrpc</a></li>
+<li><a href="#ear">7.3. ear</a></li>
+<li><a href="#ejb-2">7.4. ejb-2</a></li>
+<li><a href="#timer">7.5. timer</a></li>
+<li><a href="#timer-async-ejb">7.6. timer-async-ejb</a></li>
+<li><a href="#ejb-3-java-ee-7">7.7. ejb-3-java-ee-7</a></li>
+<li><a href="#ejb-stateful-singleton">7.8. ejb-stateful-singleton</a></li>
+<li><a href="#jboss-eap-h2-ejb">7.9. jboss-eap-h2-ejb</a></li>
+<li><a href="#plain-http-servlet">7.10. plain HTTP Servlet</a></li>
+</ul>
+</li>
+<li><a href="#tomee-in-docker">8. TomEE in Docker</a>
+<ul class="sectlevel2">
+<li><a href="#tomee-ext-js">8.1. tomee-ext.js</a></li>
+</ul>
+</li>
+<li><a href="#glassfisg-in-docker">9. Glassfisg in Docker</a>
+<ul class="sectlevel2">
+<li><a href="#glassfish-ext-js">9.1. glassfish-ext.js</a></li>
+</ul>
+</li>
+<li><a href="#jboss-wildfly-mvnw-gradlew-in-docker">10. JBoss WildFly (mvnw / gradlew) in Docker</a>
+<ul class="sectlevel2">
+<li><a href="#forge-ws">10.1. forge-ws</a></li>
+</ul>
+</li>
+<li><a href="#jboss-forge-wildfly-java-ee-6-jax-ws">11. JBoss forge / WildFly Java EE 6 / JAX-WS</a>
+<ul class="sectlevel2">
+<li><a href="#forge-javaee-6-ws">11.1. forge-javaee-6-ws</a></li>
+</ul>
+</li>
+<li><a href="#kumuluzee-microprofile-2-0-config-yaml">12. Kumuluzee MicroProfile 2.0 (config.yaml)</a>
+<ul class="sectlevel2">
+<li><a href="#kumuluzee-config">12.1. kumuluzee-config</a></li>
+</ul>
+</li>
+<li><a href="#kumuluzee-microprofile-2-0-jax-ws">13. Kumuluzee MicroProfile 2.0 (JAX-WS)</a>
+<ul class="sectlevel2">
+<li><a href="#kumuluzee-mp-2-0-jax-ws">13.1. kumuluzee-mp-2.0-jax-ws</a></li>
+</ul>
+</li>
+<li><a href="#links">14. links</a></li>
+<li><a href="#enjoy">15. Enjoy! :)</a></li>
 </ul>
 </div>
 </div>
@@ -570,11 +640,181 @@ table.CodeRay td.code>pre{padding:0}
 <a href="https://github.com/daggerok/java-ee-examples">examples from java-ee-examples repository</a>.
 It&#8217;s contains some JavaEE Micro-profile playground projects</p>
 </div>
+<div class="listingblock">
+<div class="title"><em>MicroProfile 1.0 (CDI + JAX-RS + JSON-P)</em></div>
+<div class="content">
+<pre>&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;org.wildfly.swarm&lt;/groupId&gt;
+        &lt;artifactId&gt;bom-all&lt;/artifactId&gt;
+        &lt;version&gt;${version.wildfly.swarm}&lt;/version&gt;
+        &lt;scope&gt;import&lt;/scope&gt;
+        &lt;type&gt;pom&lt;/type&gt;
+      &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+  &lt;/dependencyManagement&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>in fucking progress&#8230;&#8203;</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://books.google.com.ua/books?id=-RhKDwAAQBAJ&amp;pg=PA319&amp;lpg=PA319&amp;dq=javaee+kafka.properties&amp;source=bl&amp;ots=HM7QXscLch&amp;sig=7z2zCVuPZjalSXh2zP4D-sj9jB8&amp;hl=ru&amp;sa=X&amp;ved=0ahUKEwjQsuzoo6XZAhVBhywKHdakBREQ6AEIQDAD#v=onepage&amp;q=javaee%20kafka.properties&amp;f=false">book</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=HLfl2ccS304&amp;index=11&amp;list=PLEV9ul4qfGOZ5gWIPMlFGMUpenSs1EvxZ">youtube</a></p>
+</li>
+<li>
+<p><a href="https://github.com/sdaschner/scalable-coffee-shop">Github: sdaschner/scalable-coffee-shop</a></p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">kafka</div>
+<div class="content">
+<pre>cd /tmp
+wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/daggerok/embedded-kafka/0.0.1/embedded-kafka-0.0.1.jar
+java -jar kafka.jar</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">gradle</div>
+<div class="content">
+<pre>./gradlew
+bash build/libs/*jar
+
+./gradlew build composeUp
+./gradlew composeDown</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="maven-is-not-working-properly">1. maven is not working properly</h3>
+<div class="paragraph">
+<p>actually working but with hack (see src/main/webapp/WEB-INF/classes/README)</p>
+</div>
+<div class="listingblock">
+<div class="title">maven</div>
+<div class="content">
+<pre>./mvnw
+java -jar target/*.jar
+
+./mvnw; ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generated using <a href="https://github.com/daggerok/generator-daggerok-fatjar/">daggerok-fatjar</a> yeoman generator</p>
+</div>
+<div class="paragraph">
+<p>inside:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>java 8 based project</p>
+</li>
+<li>
+<p>javaee 8.0 using wildfly-swarm micro-profile</p>
+</li>
+<li>
+<p>kotlin support</p>
+</li>
+<li>
+<p>lombok (slf4j + logback logging)</p>
+</li>
+<li>
+<p>vavr (javaslang)</p>
+</li>
+<li>
+<p>support maven</p>
+</li>
+<li>
+<p>support gradle</p>
+</li>
+<li>
+<p>supports testing junit 4 / 5</p>
+</li>
+<li>
+<p>docker / docker-compose support</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./gradlew
+bash build/libs/*jar
+
+./gradlew build composeUp
+./gradlew composeDown</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./mvnw
+java -jar target/*.jar
+
+./mvnw; ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generated using <a href="https://github.com/daggerok/generator-daggerok-fatjar/">daggerok-fatjar</a> yeoman generator</p>
+</div>
+<div class="paragraph">
+<p>inside:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>java 8 based project</p>
+</li>
+<li>
+<p>javaee 8.0</p>
+</li>
+<li>
+<p>lombok (slf4j + logback logging)</p>
+</li>
+<li>
+<p>vavr (javaslang)</p>
+</li>
+<li>
+<p>support maven</p>
+</li>
+<li>
+<p>support gradle</p>
+</li>
+<li>
+<p>supports testing junit 4 / 5</p>
+</li>
+<li>
+<p>docker / docker-compose support (JBOSS EAP 7)</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+
+./gradlew clean build composeUp
+./gradlew composeDown</pre>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="javaee-wildfly-swarm-micro-profile-using-gradle">1. JavaEE Wildfly-Swarm Micro-Profile using Gradle</h2>
+<h2 id="javaee-wildfly-swarm-micro-profile-using-gradle">2. JavaEE Wildfly-Swarm Micro-Profile using Gradle</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="wildfly-swarm-gradle">2.1. wildfly-swarm-gradle</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
+</div>
 <div class="listingblock">
 <div class="title">using gradle / java microprofile</div>
 <div class="content">
@@ -646,9 +886,15 @@ docker system prune -af</pre>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="javaee-wildfly-swarm-micro-profile-using-maven">2. JavaEE Wildfly-Swarm Micro-Profile using Maven</h2>
+<h2 id="javaee-wildfly-swarm-micro-profile-using-maven">3. JavaEE Wildfly-Swarm Micro-Profile using Maven</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="wildfly-swarm-maven">3.1. wildfly-swarm-maven</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
+</div>
 <div class="listingblock">
 <div class="title">using maven</div>
 <div class="content">
@@ -724,9 +970,34 @@ docker system prune -af</pre>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="javaee-kubernetes">3. JavaEE Kubernetes</h2>
+<h2 id="kumuluzee-microprofile-1-0">4. Kumuluzee MicroProfile 1.0</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="kumuluzee-microprofile-1-0-2">4.1. kumuluzee-microprofile-1.0</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE Wildfly Swarm Micro-profile example - serving static content</p>
+</div>
+<div class="listingblock">
+<div class="title">using gradle / java microprofile</div>
+<div class="content">
+<pre>bash gradlew clean build
+java -Djava.net.preferIPv4Stack=true -jar build/libs/wildfly-swarm-gradle-swarm.jar
+http :8080</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="javaee-kubernetes">5. JavaEE Kubernetes</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="java-kube-ee">5.1. java-kube-ee</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
+</div>
 <div class="listingblock">
 <div class="title">prepare kubernetes cluster, build docker image, push into local registry</div>
 <div class="content">
@@ -855,8 +1126,9 @@ kubectl delete service app; kubectl delete deployment app
 minikube stop; minikube delete</pre>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="old">3.1. old</h3>
+<h3 id="old">5.2. old</h3>
 <div class="listingblock">
 <div class="title">using gradle / java microprofile</div>
 <div class="content">
@@ -887,7 +1159,868 @@ bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="links">4. links</h2>
+<h2 id="javaee-using-kotlin">6. JavaEE using Kotlin</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="java-kube-ee-2">6.1. java-kube-ee</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
+</div>
+<div class="listingblock">
+<div class="title">prepare kubernetes cluster, build docker image, push into local registry</div>
+<div class="content">
+<pre>minikube start --cpus=4 --memory=4096
+eval (minikube docker-env)
+docker run -d --rm --name registry -p 5000:5000 registry:2
+docker build -t 127.0.0.1:5000/app -f ./docker/src/Dockerfile .
+docker push 127.0.0.1:5000/app</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">create kubernete yaml file</div>
+<div class="content">
+<pre>vim ./docker/k8s/app.yml
+
+kubectl apply -f ./docker/k8s/app.yml --validate=false
+
+kubectl get svc -o wide                                               23:51:57
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE       SELECTOR
+app          NodePort    10.0.0.189   &lt;none&gt;        8080:32464/TCP   3m        app=app
+
+curl 192.168.99.100:32464
+# or
+http (minikube service app --url)                                                                               22:21:09
+
+[
+    "one",
+    "two",
+    "three",
+    "kubeee"
+]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>now update code and redeploy app</p>
+</div>
+<div class="listingblock">
+<div class="title">deploy app</div>
+<div class="content">
+<pre>bash gradlew clean build
+docker build -t 127.0.0.1:5000/app:v2 -f ./docker/src/Dockerfile .
+docker push 127.0.0.1:5000/app:v2
+vim ./docker/k8s/app.yml # update image: 127.0.0.1:5000/app:v2
+kubectl apply -f ./docker/k8s --validate=false</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">terminal 1</div>
+<div class="content">
+<pre>kubectl get pods -w                 23:59:35
+NAME                   READY     STATUS    RESTARTS   AGE
+app-1515935557-411m1   1/1       Running   0          10m
+app-1515935557-4d3gf   1/1       Terminating   0         4m
+app-1515935557-4d3gf   0/1       Terminating   0         4m
+app-3366916455-bw6m9   0/1       Pending   0         0s
+app-3366916455-bw6m9   0/1       ContainerCreating   0         0s
+app-3366916455-bw6m9   1/1       Running   0         1s</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">terminal 2</div>
+<div class="content">
+<pre>while true; curl (minikube service app --url); echo""; sleep 1; end
+["one","two","three","kubeee"]
+["one","two","three","kubeee"]
+Waiting, endpoint for service is not ready yet...
+["one","two","three","kubeee","2017-10-02T21:12:34.095Z"]
+["one","two","three","kubeee","2017-10-02T21:12:36.182Z"]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>second test but using ip, not minikube service</p>
+</div>
+<div class="listingblock">
+<div class="title">redeploy app prev version</div>
+<div class="content">
+<pre>vim ./docker/k8s/app.yml # update image: 127.0.0.1:5000/app
+kubectl apply -f ./docker/k8s --validate=false</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">terminal 1</div>
+<div class="content">
+<pre>kubectl get pods -w                 23:59:35
+NAME                   READY     STATUS    RESTARTS   AGE
+app-1515935557-411m1   1/1       Running   0          10m
+...
+app-1515935557-4d3gf   1/1       Terminating   0         4m
+app-1515935557-4d3gf   0/1       Terminating   0         4m
+...
+app-3366916455-bw6m9   0/1       Pending   0         0s
+app-3366916455-bw6m9   0/1       ContainerCreating   0         0s
+app-3366916455-bw6m9   1/1       Running   0         1s</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">terminal 2</div>
+<div class="content">
+<pre>while true; curl 192.168.99.100:32161; echo""; sleep 1; end
+["one","two","three","kubeee"]
+["one","two","three","kubeee"]
+Waiting, endpoint for service is not ready yet...
+["one","two","three","kubeee","172.17.0.5"]
+["one","two","three","kubeee","172.17.0.6"]</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">autoscale</div>
+<div class="content">
+<pre>kubectl autoscale deployment app --min=2 --max=3</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">scale down</div>
+<div class="content">
+<pre>kubectl scale deployment app --replicas=3</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">cleanup</div>
+<div class="content">
+<pre>kubectl delete all -l name=app
+# or
+kubectl delete service app; kubectl delete deployment app
+
+minikube stop; minikube delete</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="old-2">6.2. old</h3>
+<div class="listingblock">
+<div class="title">using gradle / java microprofile</div>
+<div class="content">
+<pre>bash gradlew clean build
+java -Djava.net.preferIPv4Stack=true -jar build/libs/java-kube-ee-swarm.jar
+http :8080</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">e2e tests using bash scripts)</div>
+<div class="content">
+<pre>bash ./docker/bin/test-dockerfile.bash     # docker
+bash ./docker/bin/test-docker-compose.bash # docker compose
+bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>links</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://www.youtube.com/watch?v=kNZmxFcggjM">like so</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kotlin-plugins-java-ee">6.3. kotlin-plugins-java-ee</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using Kotlin</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bash gradlew clean build
+bash build/libs/*-swarm.jar
+
+http :8080
+http :8080/max</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="main-swarm-rest-api">6.4. main-swarm-rest-api</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example playground application</p>
+</div>
+<div class="listingblock">
+<div class="title">using gradle / java microprofile</div>
+<div class="content">
+<pre>bash gradlew clean build
+java -Djava.net.preferIPv4Stack=true -jar build/libs/wildfly-swarm-gradle-swarm.jar
+http :8080
+http :8080/api
+http :8080/api/max</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="main-swarm-static-content">6.5. main-swarm-static-content</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE Wildfly Swarm Micro-profile example - serving static content</p>
+</div>
+<div class="listingblock">
+<div class="title">using gradle / java microprofile</div>
+<div class="content">
+<pre>bash gradlew clean build
+java -Djava.net.preferIPv4Stack=true -jar build/libs/wildfly-swarm-gradle-swarm.jar
+http :8080</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kotlin-java-ee-payara-docker">6.6. kotlin-java-ee-payara-docker</h3>
+<div class="paragraph">
+<p>This repository contains simple JavaEE JAX-RS Wildfly Swarm Micro-profile example using Kotlin</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./gradlew clean war
+docker-compose up --force-recreate --build --remove-orphans
+http :8080/payara-app/
+http :8080/payara-app/max
+docker-compose down -v</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kotlin-javaee-cdi-h2">6.7. kotlin-javaee-cdi-h2</h3>
+<div class="listingblock">
+<div class="title">according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="comment">&lt;!-- skepped... --&gt;</span>
+<span class="tag">&lt;datasource</span> <span class="attribute-name">jndi-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:jboss/datasources/ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pool-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">enabled</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use-java-context</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="comment">&lt;!-- skepped... --&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">docker-compose down -v; ./gradlew; ./mvnw; docker-compose up --build --force-recreate --remove-orphans
+# gradle
+http get  :8080/kotlin-ee/
+http get  :8080/kotlin-ee/get-all
+http post :8080/kotlin-ee/save-some
+http get  :8080/kotlin-ee/get-all
+# maven
+http get  :8081/kotlin-ee/
+http get  :8081/kotlin-ee/get-all
+http post :8081/kotlin-ee/save-some
+http get  :8081/kotlin-ee/get-all</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Just JBoss EAP in Docker</em></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jboss-eap-in-docker">7. JBoss EAP in Docker</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="jboss-eap-ext-js">7.1. jboss-eap-ext.js</h3>
+<div class="paragraph">
+<p>packaging two WARs into jboss AS</p>
+</div>
+<div class="listingblock">
+<div class="title">Using JBoss EAP 6.4 in docker</div>
+<div class="content">
+<pre>./mvnw clean install -U -T 4; docker-compose up --build --force-recreate
+
+open localhost:8080/ui/
+
+docker-compose down -v</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xmlrpc">7.2. xmlrpc</h3>
+<div class="paragraph">
+<p>Apache XML-RPC (org.apache.xmlrpc)</p>
+</div>
+<div class="paragraph">
+<p>variations:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="./server-client/">monolith</a></p>
+</li>
+<li>
+<p><a href="./server/">micro-server</a></p>
+</li>
+<li>
+<p><a href="./client/">micro-client</a></p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre>docker-compose down -v; ./mvnw clean package; docker-compose up --build</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ear">7.3. ear</h3>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>./mvnw clean package -U</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">docker</div>
+<div class="content">
+<pre>docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">testing</div>
+<div class="content">
+<pre>http :8080/module-1/
+http :8080/module-2/
+http :8080/module-3/
+http :8080/module-4/</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">lombok for java 7 (maven)</div>
+<div class="content">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+  &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+  &lt;version&gt;1.14.2&lt;/version&gt;
+  &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">lombok for java 7 (gradle)</div>
+<div class="content">
+<pre>dependencies {
+  compileOnly 'org.projectlombok:lombok:1.14.2'
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ejb-2">7.4. ejb-2</h3>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>./mvnw clean package -U</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">docker</div>
+<div class="content">
+<pre>docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Classic EJB 2.1 Local + Remote interfaces:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>ejb-modules/greeter-impl</p>
+</li>
+<li>
+<p>ejb-modules/greeter-local-api</p>
+</li>
+<li>
+<p>ejb-modules/greeter-remote-api</p>
+</li>
+<li>
+<p>client-modules/greeter-remote-client</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Using remote EJB interface only:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>ejb-modules/remote-only-api</p>
+</li>
+<li>
+<p>ejb-modules/remote-only-impl</p>
+</li>
+<li>
+<p>client-modules/remote-only-client</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Access EJB locally:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>ejb-modules/goodbyer-impl</p>
+</li>
+<li>
+<p>ejb-modules/goodbyer-local-api</p>
+</li>
+<li>
+<p>client-modules/goodbyer-local-client</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">testing (remote ejb call)</div>
+<div class="content">
+<pre>http :8080/greeter-remote-client/
+http :8080/remote-only-client/
+http :8080/goodbyer-local-client/</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>links:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://docs.oracle.com/cd/E16439_01/doc.1013/e13981/ses21imp001.htm">EJB 2.1 deployment descriptor</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="timer">7.5. timer</h3>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre>docker-compose down -v; ./mvnw; docker-compose up --build
+http :8080/client/start
+http :8080/client/stop</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="timer-async-ejb">7.6. timer-async-ejb</h3>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre>docker-compose down -v; ./mvnw; docker-compose up --build
+http :8080/client/start; sleep 3; http :8080/client/stop
+http :8080/client/max\?name=bax
+http :8080/client/max
+http :8080/client</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ejb-3-java-ee-7">7.7. ejb-3-java-ee-7</h3>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre>docker-compose down -v; ./mvnw; docker-compose up --build
+http :8080/client/start; sleep 3; http :8080/client/stop
+http :8080/client/fax\?name=max
+http :8080/client/bax
+http :8080/client</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ejb-stateful-singleton">7.8. ejb-stateful-singleton</h3>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre>docker-compose down -v; ./mvnw; docker-compose up --build
+http :8080/client/
+http :8080/client/get\?key=EJB
+http post :8080/client/set\?key=EJB\&amp;value=some-value
+http :8080/client/get\?key=EJB
+http post :8080/client/counter/increment
+http post :8080/client/counter/decr
+http post :8080/client/counter/incr
+http :8080/client/get\?key=EJB
+http post :8080/client/reset</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jboss-eap-h2-ejb">7.9. jboss-eap-h2-ejb</h3>
+<div class="listingblock">
+<div class="title">according to default ${JBOSS_HOME}/standalone/configuration/standalone.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="comment">&lt;!-- skepped... --&gt;</span>
+<span class="tag">&lt;datasource</span> <span class="attribute-name">jndi-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:jboss/datasources/ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pool-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">enabled</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use-java-context</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="comment">&lt;!-- skepped... --&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build and test</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">docker-compose down -v; ./mvnw; docker-compose up --build --force-recreate --remove-orphans
+http post :8080/client/update/max
+http post :8080/client/update/maxp
+http post :8080/client/update/amaxp
+http :8080/client/
+http post :8080/client/update/max\?remove=true
+http :8080/client/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>links:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://access.redhat.com/articles/112673#EAP_6">eap 6</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="plain-http-servlet">7.10. plain HTTP Servlet</h3>
+<div class="paragraph">
+<p>JBOSS EAP 7.1</p>
+</div>
+<div class="listingblock">
+<div class="title">build and run using docker</div>
+<div class="content">
+<pre>docker-compose down -v; ./mvnw clean package; ./gradlew clean build; docker-compose up --build --force-recreate --remove-orphans
+
+http :8081/plain-http-servlet/
+http :8082/plain-http-servlet/</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">project structure</div>
+<div class="content">
+<pre>mkdir -p src/main/java/daggerok \
+         src/main/webapp/WEB-INF
+
+touch src/main/java/daggerok/AppServlet.java \
+      src/main/webapp/WEB-INF/web.xml \
+      build.gradle \
+      pom.xml</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">vim src/main/java/daggerok/AppServlet.java</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@WebServlet</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">AppServlet</span> <span class="directive">extends</span> HttpServlet {
+
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="type">void</span> service(<span class="directive">final</span> ServletRequest req, <span class="directive">final</span> ServletResponse res) <span class="directive">throws</span> ServletException, <span class="exception">IOException</span> {
+    <span class="directive">final</span> PrintWroter writer = res.getWriter();
+    writer.println(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;b&gt;hi!&lt;/b&gt;</span><span class="delimiter">&quot;</span></span>);
+    writer.close();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">vim src/main/webapp/WEB-INF/web.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;web-app</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/javaee</span><span class="delimiter">&quot;</span></span>
+         <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
+         <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd</span><span class="delimiter">&quot;</span></span>
+         <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">3.1</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="tag">&lt;/web-app&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">vim build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">plugins {
+  id <span class="string"><span class="delimiter">&quot;</span><span class="content">war</span><span class="delimiter">&quot;</span></span>
+}
+
+group <span class="string"><span class="delimiter">&quot;</span><span class="content">daggerok</span><span class="delimiter">&quot;</span></span>
+version <span class="string"><span class="delimiter">&quot;</span><span class="content">0.0.1</span><span class="delimiter">&quot;</span></span>
+description <span class="string"><span class="delimiter">&quot;</span><span class="content">ololo trololo</span><span class="delimiter">&quot;</span></span>
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_7
+
+war {
+  archiveName = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>project.name<span class="inline-delimiter">}</span></span><span class="content">.war</span><span class="delimiter">&quot;</span></span>
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  providedCompile <span class="string"><span class="delimiter">&quot;</span><span class="content">javax.servlet:javax.servlet-api:3.1.0</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">vim pom.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;project</span> <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/POM/4.0.0</span><span class="delimiter">&quot;</span></span>
+         <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+
+  <span class="tag">&lt;modelVersion&gt;</span>4.0.0<span class="tag">&lt;/modelVersion&gt;</span>
+
+  <span class="tag">&lt;groupId&gt;</span>daggerok<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>plain-http-servlet<span class="tag">&lt;/artifactId&gt;</span>
+  <span class="tag">&lt;version&gt;</span>0.0.1<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;packaging&gt;</span>war<span class="tag">&lt;/packaging&gt;</span>
+
+  <span class="tag">&lt;name&gt;</span>plain-http-servlet<span class="tag">&lt;/name&gt;</span>
+  <span class="tag">&lt;description&gt;</span>ololo trololo<span class="tag">&lt;/description&gt;</span>
+
+  <span class="tag">&lt;properties&gt;</span>
+    <span class="tag">&lt;maven.compiler.source&gt;</span>1.7<span class="tag">&lt;/maven.compiler.source&gt;</span>
+    <span class="tag">&lt;maven.compiler.target&gt;</span>1.7<span class="tag">&lt;/maven.compiler.target&gt;</span>
+    <span class="tag">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="tag">&lt;/project.build.sourceEncoding&gt;</span>
+  <span class="tag">&lt;/properties&gt;</span>
+
+  <span class="tag">&lt;dependencies&gt;</span>
+    <span class="tag">&lt;dependency&gt;</span>
+      <span class="tag">&lt;groupId&gt;</span>javax.servlet<span class="tag">&lt;/groupId&gt;</span>
+      <span class="tag">&lt;artifactId&gt;</span>javax.servlet-api<span class="tag">&lt;/artifactId&gt;</span>
+      <span class="tag">&lt;version&gt;</span>3.1.0<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;optional&gt;</span>true<span class="tag">&lt;/optional&gt;</span>
+    <span class="tag">&lt;/dependency&gt;</span>
+  <span class="tag">&lt;/dependencies&gt;</span>
+
+  <span class="tag">&lt;build&gt;</span>
+    <span class="tag">&lt;finalName&gt;</span>${project.artifactId}<span class="tag">&lt;/finalName&gt;</span>
+    <span class="tag">&lt;defaultGoal&gt;</span>clean package<span class="tag">&lt;/defaultGoal&gt;</span>
+
+    <span class="tag">&lt;plugins&gt;</span>
+      <span class="tag">&lt;plugin&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>maven-war-plugin<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>2.5<span class="tag">&lt;/version&gt;</span>
+        <span class="tag">&lt;configuration&gt;</span>
+          <span class="tag">&lt;failOnMissingWebXml&gt;</span>false<span class="tag">&lt;/failOnMissingWebXml&gt;</span>
+        <span class="tag">&lt;/configuration&gt;</span>
+      <span class="tag">&lt;/plugin&gt;</span>
+    <span class="tag">&lt;/plugins&gt;</span>
+  <span class="tag">&lt;/build&gt;</span>
+<span class="tag">&lt;/project&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tomee-in-docker">8. TomEE in Docker</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="tomee-ext-js">8.1. tomee-ext.js</h3>
+<div class="paragraph">
+<p>packaging two WARs in TomEE in Docker</p>
+</div>
+<div class="listingblock">
+<div class="title">Using TomEE in docker</div>
+<div class="content">
+<pre>./mvnw clean package -U -T 2
+docker-compose up --build
+
+open localhost:8080/ui/
+open localhost:8080/rest-api/health
+
+docker-compose down -v</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="glassfisg-in-docker">9. Glassfisg in Docker</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="glassfish-ext-js">9.1. glassfish-ext.js</h3>
+<div class="paragraph">
+<p>packaging two WARs in glassfish in Docker</p>
+</div>
+<div class="listingblock">
+<div class="title">Using Glassfish 5.0 in docker (alpine)</div>
+<div class="content">
+<pre>./mvnw clean package -U -T 2
+docker-compose up --build
+
+open localhost:8080/ui/
+
+docker-compose down -v</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jboss-wildfly-mvnw-gradlew-in-docker">10. JBoss WildFly (mvnw / gradlew) in Docker</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="forge-ws">10.1. forge-ws</h3>
+<div class="listingblock">
+<div class="title">init new maven project using forge cli</div>
+<div class="content">
+<pre>forge
+project-new \
+  --named forge-ws2 \
+  --top-level-package daggerok \
+  --final-name forge-ws \
+  --type war</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">add maven wrapper</div>
+<div class="content">
+<pre>cd maven-forge-project/
+mvn -N io.takari:maven:wrapper</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build</div>
+<div class="content">
+<pre>./mvnw clean package -U -T 4</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">docker - see docker-compose and src/main/docker/Dockerfile</div>
+<div class="content">
+<pre>docker-compose up --build --force-recreate --remove-orphans
+docker-compose down -v
+# docker rm -f -v (docker ps -a|grep -v CONTAINER|awk '{print $1}')</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">testing</div>
+<div class="content">
+<pre>http :8080/app/v1/api
+http :8080/app/UserService\?wsdl
+curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @./src/test/resources/empty-request.xml | xmllint --format -
+curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">lombok for java 7 (maven)</div>
+<div class="content">
+<pre>&lt;dependency&gt;
+  &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+  &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+  &lt;version&gt;1.14.2&lt;/version&gt;
+  &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">lombok for java 7 (gradle)</div>
+<div class="content">
+<pre>dependencies {
+  compileOnly 'org.projectlombok:lombok:1.14.2'
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>links:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://docs.oracle.com/javaee/7/tutorial/jaxws001.htm#BNAYW">jax-ws oracle tutorial</a></p>
+</li>
+<li>
+<p><a href="https://forge.jboss.org/document/jboss-forge-2,-java-ee-easily,-so-easily">JBoss Forge 2, Java EE easily, so easily</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jboss-forge-wildfly-java-ee-6-jax-ws">11. JBoss forge / WildFly Java EE 6 / JAX-WS</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="forge-javaee-6-ws">11.1. forge-javaee-6-ws</h3>
+<div class="listingblock">
+<div class="title">up and running</div>
+<div class="content">
+<pre>./mvnw clean package -U -T 2; docker-compose up --build --force-recreate --remove-orphans
+
+http :8080/app/health
+http :8080/app/AppEndpoint\?wsdl
+
+curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xml" -d @request.xml | xmllint --format -</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>MicroProfile 1.1.0 (CDI + JAX-RS + JSON-P)</em></p>
+</div>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="paragraph">
+<p><em>MicroProfile 1.2 (CDI + JAX-RS + JSON-P)</em></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kumuluzee-microprofile-2-0-config-yaml">12. Kumuluzee MicroProfile 2.0 (config.yaml)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="kumuluzee-config">12.1. kumuluzee-config</h3>
+<div class="paragraph">
+<p><a href="rpc-app/">see rpc-app module</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kumuluzee-microprofile-2-0-jax-ws">13. Kumuluzee MicroProfile 2.0 (JAX-WS)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="kumuluzee-mp-2-0-jax-ws">13.1. kumuluzee-mp-2.0-jax-ws</h3>
+<div class="paragraph">
+<p>in progress&#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="title">up and running</div>
+<div class="content">
+<pre>./mvnw clean package -U; java -jar target/*.jar
+
+http :8000
+http :8000/api/v1/ws
+http :8000/api/v1/ws?WSDL
+
+curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d @./request.xml  | xmllint --format -</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">docker / docker-compose</div>
+<div class="content">
+<pre>./mvnw
+docker-compose up --force-recreate --remove-orphans
+
+http :8000
+http :8000/api/v1/ws
+http :8000/api/v1/ws?WSDL
+
+curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d @./request.xml  | xmllint --format -
+
+docker-compose down -v</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="links">14. links</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -899,7 +2032,7 @@ bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="enjoy">5. Enjoy! :)</h2>
+<h2 id="enjoy">15. Enjoy! :)</h2>
 <div class="sectionbody">
 
 </div>
@@ -907,8 +2040,8 @@ bash ./docker/bin/test-stack-deploy.bash   # docker swarm cluster</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.0.0<br>
-Last updated 2017-10-02 14:38:12 EEST
+Version 0.0.1<br>
+Last updated 2018-02-14 21:57:29 EET
 </div>
 </div>
 </body>
