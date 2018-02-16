@@ -5,9 +5,10 @@ services:
   kumuluzee-mp-2.0-jax-ws:
     restart: unless-stopped
     build: .
-    volumes: ["kumuluzee-mp-2.0-jax-ws-data:/home/app"]
+    volumes: ["kumuluzee-mp-2.0-jax-ws-data:/home/appuser"]
     ports: ["8000:8000"]
     networks: [backing-services]
+    mem_limit: 786432000 # container limit: 700Mb (700 * 1024 * 1024)
 
 volumes:
   kumuluzee-mp-2.0-jax-ws-data: {}

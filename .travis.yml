@@ -15,7 +15,7 @@ before_install:
 #- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 #- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 - sudo apt -y update || true
-- sudo apt install -y --no-install-recommends docker-ce wget python-pip
+- sudo apt install -y --no-install-recommends wget bash curl jq libxml2-utils docker-ce python-pip
 - sudo pip install docker-compose httpie
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 - stop_any 5432 5672 27017 8080
@@ -294,13 +294,15 @@ script:
 - bash mvnw clean package
 - java -jar ./target/*.jar &
 - wait_for 8000
+- sleep 3
 - http :8000/
 - http :8000/api/v1/ws
 - http :8000/api/v1/ws\?wsdl
 - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
 - stop_any 8000
-- docker-compose up -d --build --force-recreate --remove-orphans
-- sleep 15
+- docker-compose build --force-rm --no-cache --pull
+- docker-compose up --force-recreate --remove-orphans &
+- sleep 35
 - curl -sS localhost:8000 | jq
 - curl -sS localhost:8000/api/v1/ws | xmllint --format -
 - curl -sS "localhost:8000/api/v1/ws?WSDL" | xmllint --format -

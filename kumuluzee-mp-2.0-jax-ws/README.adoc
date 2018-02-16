@@ -16,4 +16,18 @@ http :8000/api/v1/ws?WSDL
 curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d @./request.xml  | xmllint --format -
 ----
 
+.docker / docker-compose
+----
+./mvnw
+docker-compose up --force-recreate --remove-orphans
+
+http :8000
+http :8000/api/v1/ws
+http :8000/api/v1/ws?WSDL
+
+curl -XPOST http://localhost:8000/api/v1/ws --header "content-type: text/xml" -d @./request.xml  | xmllint --format -
+
+docker-compose down -v
+----
+
 //end::content[]

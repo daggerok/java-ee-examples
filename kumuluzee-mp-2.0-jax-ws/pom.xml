@@ -15,7 +15,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kumuluz.version>2.5.0-SNAPSHOT</kumuluz.version>
+    <kumuluz.version>2.5.2</kumuluz.version>
   </properties>
 
   <repositories>
@@ -84,6 +84,8 @@
   </dependencies>
 
   <build>
+    <defaultGoal>clean package</defaultGoal>
+
     <plugins>
       <plugin>
         <groupId>com.kumuluz.ee</groupId>
