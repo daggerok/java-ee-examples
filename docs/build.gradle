@@ -50,6 +50,11 @@ gitPublish {
   commitMessage = "Documentation for ${project.group}:${project.name}:$project.version"
 }
 
+gitPublishPush.doLast {
+  file("$buildDir/gitPublish/404.html").text = file("$buildDir/gitPublish/index.html")
+  file("$buildDir/gitPublish/.nojekyll").text = "\n"
+}
+
 gitPublishPush.dependsOn asciidoctor
 gitPublishPush.shouldRunAfter clean, asciidoctor, build
 
