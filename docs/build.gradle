@@ -36,7 +36,7 @@ asciidoctor {
 }
 
 asciidoctor.doLast {
-  file("$asciidocBuildDir/html5/404.html").text = file("$buildDir/gitPublish/index.html")
+  file("$asciidocBuildDir/html5/404.html").text = file("$asciidocBuildDir/html5/index.html").text
   file("$asciidocBuildDir/html5/.nojekyll").text = "\n"
 }
 
