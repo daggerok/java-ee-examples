@@ -35,6 +35,11 @@ asciidoctor {
       "endpoint-url": "https://daggerok.github.io/java-ee-examples"
 }
 
+asciidoctor.doLast {
+  file("$asciidocBuildDir/html5/404.html").text = file("$buildDir/gitPublish/index.html")
+  file("$asciidocBuildDir/html5/.nojekyll").text = "\n"
+}
+
 gitPublish {
 
   repoUri = "git@github.com:daggerok/java-ee-examples.git"
@@ -48,11 +53,6 @@ gitPublish {
   }
 
   commitMessage = "Documentation for ${project.group}:${project.name}:$project.version"
-}
-
-gitPublishPush.doLast {
-  file("$buildDir/gitPublish/404.html").text = file("$buildDir/gitPublish/index.html")
-  file("$buildDir/gitPublish/.nojekyll").text = "\n"
 }
 
 gitPublishPush.dependsOn asciidoctor
