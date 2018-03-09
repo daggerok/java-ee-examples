@@ -1,7 +1,5 @@
 service:
 - docker
-sudo: required
-group: travis_lts
 env:
   global:
     TERM=dumb
