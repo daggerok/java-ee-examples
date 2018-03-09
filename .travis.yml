@@ -23,8 +23,15 @@ script:
 - bash gradlew clean build asciidoctor #docs
 # kotlin-kafka
 - cd ${parent}/kotlin-kafka
-- wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/daggerok/embedded-kafka/0.0.1/embedded-kafka-0.0.1.jar
-- java -jar kafka.jar &
+- wget -O kafka.jar https://github.com/daggerok/embedded-kafka/embedded-kafka-0.0.3-all.jar
+- >
+  java -jar kafka.jar \
+            --zookeeperPort=2181 \
+            --zookeeperDir=/tmp \
+            --kafkaPort=9092 \
+            --kafkaTopics=topic1,topic2 \
+            --httpPort=8080 \
+            --httpContext=/ &
 - bash mvnw >/dev/null 2>&1
 - bash gradlew >/dev/null 2>&1
 - bash build/libs/*.jar -Djava.net.preferIPv4Stack=true &
@@ -33,7 +40,7 @@ script:
 - http :8080/kafka/query
 - http :8080/kafka/produce
 - http :8080/kafka/produce
-- stop_any 8080 8080
+- stop_any 8080 8080 9092 2181
 - sudo killall -9 java
 # kotlin-swarm
 - cd ${parent}/kotlin-swarm
