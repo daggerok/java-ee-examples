@@ -2,10 +2,16 @@
 
 //tag::content[]
 
+=== docker:
+
+. deploy jsp or servlet (see WEB-INF/web.xml)
+. copy war into bash ${JBOSS_HOME}/server/default/deploy/
+. `docker build`, `docker run`
+
+=== without docker:
+
 . download jboss 4 (see Dockerfile)
-. deploy jsp or servlet (see WEB-INF/web.jsp.xml
-                             WEB-INF/web.servlet.xml
-                             WEB-INF/web.xml)
+. deploy jsp or servlet (see WEB-INF/web.xml)
 . copy war into bash ${JBOSS_HOME}/server/default/deploy/
 . start JBOSS using ${JBOSS_HOME}/bin/run.sh
 

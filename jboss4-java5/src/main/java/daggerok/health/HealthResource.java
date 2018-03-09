@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/*")
+@WebServlet("/api/*")
 public class HealthResource extends HttpServlet {
 
   @Override
@@ -18,6 +18,6 @@ public class HealthResource extends HttpServlet {
       throws ServletException, IOException {
 
     @Cleanup final PrintWriter writer = resp.getWriter();
-    writer.printf("<p>Hello <b>%s</b>!</p>", "Maksimko");
+    writer.printf("{\"response\":\"Hello %s!\"}", "Maksimko");
   }
 }

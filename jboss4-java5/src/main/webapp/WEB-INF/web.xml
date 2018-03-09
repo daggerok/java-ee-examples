@@ -4,17 +4,14 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-  <!-- use index.jsp as home handler -->
-  <!--&lt;!&ndash;-->
+  <!-- use index.jsp as '/' path handler -->
   <welcome-file-list>
     <welcome-file>/</welcome-file>
     <welcome-file>/index.jsp</welcome-file>
     <welcome-file>/index.html</welcome-file>
   </welcome-file-list>
-  <!--&ndash;&gt;-->
 
-  <!-- use health servlet as home handler -->
-  <!--
+  <!-- use health servlet as '/api/*' path handler-->
   <servlet>
     <servlet-name>health</servlet-name>
     <servlet-class>daggerok.health.HealthResource</servlet-class>
@@ -22,8 +19,7 @@
 
   <servlet-mapping>
     <servlet-name>health</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
-  -->
 
 </web-app>
