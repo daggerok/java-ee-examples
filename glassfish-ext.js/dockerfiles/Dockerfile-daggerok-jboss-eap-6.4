@@ -1,4 +1,4 @@
-FROM daggerok/jboss-eap-6.4:v2
+FROM daggerok/jboss:eap-6.4:v2
 
 # admin user is already defined in base image
 RUN ${JBOSS_HOME}/bin/add-user.sh mak Admin.123 --silent

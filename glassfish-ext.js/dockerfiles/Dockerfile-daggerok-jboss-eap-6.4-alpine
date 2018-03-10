@@ -1,4 +1,4 @@
-FROM daggerok/jboss-eap-6.4:alpine
+FROM daggerok/jboss:eap-6.4:alpine
 MAINTAINER Maksim Kostromin https://github.com/daggerok/docker
 
 HEALTHCHECK --interval=1s --timeout=3s --retries=30 \

@@ -1,4 +1,4 @@
-FROM daggerok/jboss-eap-6.4:alpine
+FROM daggerok/jboss:eap-6.4:alpine
 MAINTAINER Maksim Kostromin https://github.com/daggerok/docker
 
 # check all apps healthy (in current example we are expecting to have apps with /ui/ and /rest-api/ contexts deployed:
