@@ -12,9 +12,9 @@ before_install:
 ## update docker
 #- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 #- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-- sudo apt -y update || true
-- sudo apt install -y --no-install-recommends wget bash curl jq libxml2-utils docker-ce python-pip
-- sudo pip install docker-compose httpie
+- sudo apt -y update || true >/dev/null 2>&1
+- sudo apt install -y --no-install-recommends wget bash curl jq libxml2-utils docker-ce python-pip >/dev/null 2>&1
+- sudo pip install docker-compose httpie >/dev/null 2>&1
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 - stop_any 5432 5672 27017 8080
 script:
@@ -23,12 +23,12 @@ script:
 
 - export parent=$(pwd)
 - cd ${parent}/jboss-4-jax-rs
-- bash ./gradlew
+- bash ./gradlew >/dev/null 2>&1
 - bash ./gradlew composeUp
 - http :8080/app/
 - http :8080/app/api/
 - bash ./gradlew composeDown
-- bash ./mvnw
+- bash ./mvnw >/dev/null 2>&1
 - ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
 - sleep 30
 - http :8080/app/
