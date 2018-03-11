@@ -25,12 +25,13 @@ script:
 - cd ${parent}/jboss-4-jax-rs
 - bash ./gradlew >/dev/null 2>&1
 - bash ./gradlew composeUp
+- sleep 10
 - http :8080/app/
 - http :8080/app/api/
 - bash ./gradlew composeDown
 - bash ./mvnw >/dev/null 2>&1
 - ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
-- sleep 30
+- sleep 40
 - http :8080/app/
 - http :8080/app/api/
 - ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
