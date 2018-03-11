@@ -29,6 +29,9 @@ include::includes/Introduction.adoc[]
   </dependencyManagement>
 ----
 
+== JBOSS 4 | JAX-RS
+include::../../jboss-4-jax-rs/README.adoc[tags=content]
+
 include::../../kotlin-kafka/README.adoc[tags=content]
 include::../../kotlin-swarm/README.adoc[tags=content]
 

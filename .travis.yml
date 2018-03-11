@@ -19,8 +19,22 @@ before_install:
 - stop_any 5432 5672 27017 8080
 script:
 # docs
-- export parent=$(pwd)
 - bash gradlew clean build asciidoctor #docs
+
+- export parent=$(pwd)
+- cd ${parent}/jboss-4-jax-rs
+- bash ./gradlew
+- bash ./gradlew composeUp
+- http :8080/app/
+- http :8080/app/api/
+- bash ./gradlew composeDown
+- bash ./mvnw
+- ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+- sleep 30
+- http :8080/app/
+- http :8080/app/api/
+- ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+
 # kotlin-kafka
 - cd ${parent}/kotlin-kafka
 - wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/embedded-kafka-0.0.3-all.jar
@@ -88,16 +102,16 @@ script:
 #- http get  :8081/kotlin-ee/get-all
 #- docker-compose down -v
 
-# plain-http-servlet
-- cd ${parent}/plain-http-servlet
-- bash mvnw clean package
-- bash gradlew clean build
-- docker-compose build --force-rm --no-cache --pull
-- docker-compose up --force-recreate --remove-orphans &
-- sleep 20
-- http :8081/plain-http-servlet/
-- http :8082/plain-http-servlet/
-- docker-compose down -v
+## plain-http-servlet
+#- cd ${parent}/plain-http-servlet
+#- bash mvnw clean package
+#- bash gradlew clean build
+#- docker-compose build --force-rm --no-cache --pull
+#- docker-compose up --force-recreate --remove-orphans &
+#- sleep 20
+#- http :8081/plain-http-servlet/
+#- http :8082/plain-http-servlet/
+#- docker-compose down -v
 
 # jboss-eap-h2-ejb, jboss-eap-h2-cdi
 - >

@@ -1,0 +1,24 @@
+version: "2.1"
+
+services:
+
+  gradle-jboss-4-jax-rs-app:
+    build:
+      context: .
+      dockerfile: gradle/Dockerfile
+    volumes: ["gradle-jboss-4-jax-rs-app-data:/home/app"]
+    ports:
+    - "5005:5005"
+    - "8080:8080"
+    - "8009:8009"
+    - "8083:8083"
+    - "8093:8093"
+    networks: [backing-services]
+    mem_limit: 786432000 # container limit: 700Mb (700 * 1024 * 1024)
+
+volumes:
+  gradle-jboss-4-jax-rs-app-data: {}
+
+networks:
+  backing-services:
+    driver: bridge
