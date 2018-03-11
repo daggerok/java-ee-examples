@@ -1,11 +1,3 @@
-# git clone https://github.com/daggerok/jboss-wildfly
-# docker build -t daggerok/jboss-wildfly -f jboss-wildfly/Dockerfile .
-# docker tag daggerok/jboss-wildfly daggerok/jboss-wildfly:11.0.0.Final-alpine
-# docker tag daggerok/jboss-wildfly daggerok/jboss-wildfly:11.0.0.Final
-# docker tag daggerok/jboss-wildfly daggerok/jboss-wildfly:alpine
-# docker tag daggerok/jboss-wildfly daggerok/jboss-wildfly:latest
-# docker push daggerok/jboss-wildfly
-
 FROM openjdk:8u151-jdk-alpine
 MAINTAINER Maksim Kostromin https://github.com/daggerok/docker
 

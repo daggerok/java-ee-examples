@@ -6,7 +6,7 @@
 # docker build -t daggerok/apache-tomcat -f apache-tomcat/Dockerfile .
 # docker tag daggerok/apache-tomcat daggerok/apache-tomcat:9.0.2-alpine
 # docker tag daggerok/apache-tomcat daggerok/apache-tomcat:9.0.2
-# docker tag daggerok/apache-tomcat daggerok/apache-tomcat:alpine
+# docker tag daggerok/apache-tomcat daggerok/apache-tomcat-alpine
 # docker tag daggerok/apache-tomcat daggerok/apache-tomcat:latest
 # docker push daggerok/apache-tomcat
 
