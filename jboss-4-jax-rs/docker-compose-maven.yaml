@@ -12,7 +12,7 @@ services:
     - "8080:8080"
     - "8009:8009"
     - "8083:8083"
-    - "8093:8093".
+    - "8093:8093"
     networks: [backing-services]
     mem_limit: 786432000 # container limit: 700Mb (700 * 1024 * 1024)
 
