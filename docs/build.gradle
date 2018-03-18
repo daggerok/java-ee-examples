@@ -61,6 +61,6 @@ gitPublishPush.shouldRunAfter clean, asciidoctor, build
 task docs(dependsOn: gitPublishPush)
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "4.0"
-  distributionType = "BIN"
+  gradleVersion = "4.6"
+  distributionType = "ALL"
 }
