@@ -4,9 +4,9 @@ env:
   global:
     TERM=dumb
 language: java
-jdk:
-- openjdk8
-- oraclejdk8
+#jdk:
+#- openjdk8
+#- oraclejdk8
 install: true
 before_install:
 ## update docker
