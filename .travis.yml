@@ -1,12 +1,14 @@
-service:
-- docker
 env:
   global:
-    TERM=dumb
+  - TERM=dumb
+
 language: java
+jdk: oraclejdk8
+
 #jdk:
 #- openjdk8
 #- oraclejdk8
+
 install: true
 before_install:
 ## update docker
@@ -16,25 +18,41 @@ before_install:
 - sudo apt install -y --no-install-recommends wget bash curl jq libxml2-utils docker-ce python-pip >/dev/null 2>&1
 - sudo pip install docker-compose httpie >/dev/null 2>&1
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
-- stop_any 5432 5672 27017 8080
+- stop_any 5432 5672 27017 8080 80
 script:
 # docs
-- bash gradlew clean build asciidoctor #docs
+- bash gradlew clean build asciidoctor >/dev/null 2>&1 #docs
 
+# facelets-example gradle
 - export parent=$(pwd)
-- cd ${parent}/jboss-4-jax-rs
+- cd ${parent}/facelets-example
 - bash ./gradlew >/dev/null 2>&1
-- bash ./gradlew composeUp
-- sleep 10
+- bash ./gradlew composeUp >/dev/null 2>&1
 - http :8080/app/
-- http :8080/app/api/
+- http :8080/app/faces/index.xhtml
 - bash ./gradlew composeDown
+# facelets-example maven
 - bash ./mvnw >/dev/null 2>&1
-- ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
 - sleep 40
 - http :8080/app/
-- http :8080/app/api/
-- ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+- http :8080/app/faces/index.xhtml
+- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+
+#- export parent=$(pwd)
+#- cd ${parent}/jboss-4-jax-rs
+#- bash ./gradlew >/dev/null 2>&1
+#- bash ./gradlew composeUp
+#- sleep 10
+#- http :8080/app/
+#- http :8080/app/api/
+#- bash ./gradlew composeDown
+#- bash ./mvnw >/dev/null 2>&1
+#- ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+#- sleep 40
+#- http :8080/app/
+#- http :8080/app/api/
+#- ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
 
 # kotlin-kafka
 - cd ${parent}/kotlin-kafka

@@ -6,6 +6,7 @@ This repository contains simple JavaEE examples (including Docker and different 
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+. link:./facelets-example/[JSF]
 . link:https://github.com/daggerok/java-ee-multi-project[Java EE: EAR, EJB, JPA, RAX-RS | Servlet | JSP | WEB | JBOSS EAP]
 . link:https://github.com/daggerok/accessing-ejb3-from-jspp[Accessing EJB3 from JSP]
 . link:https://github.com/daggerok/jboss422-jee5-ejb21[JBOSS 4.2.2.GA | JavaEE 5 | EJB 2.1 (SessionBean)]
