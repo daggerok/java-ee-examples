@@ -1,3 +1,15 @@
-. link:http://asciidoctor.org/docs/user-manual/#builtin-attributes[Asciidoctor attributes]
 . link:https://javaee.github.io/tutorial/toc.html[Java Platform, Enterprise Edition (Java EE) 8 The Java EE Tutorial]
 . link:https://javaee.github.io/firstcup/toc.html[Java Platform, Enterprise Edition (Java EE) 8 Your First Cup: An Introduction to the Java EE Platform]
+
+. link:https://github.com/kumuluz/kumuluzee-reactive[Reactive JavaEE (Vert.x / KumuluzEE)]
+. link:https://ee.kumuluz.com/tutorial/[KumuluzEE tutorials]
+. link:https://github.com/kumuluz/kumuluzee-samples[KumuluzEE samples]
+
+. link:https://www.slideshare.net/AnatoleTresch/configuration-beyond-java-ee-8[Configuration beyond Java EE 8]
+
+. link:http://www.oracle.com/technetwork/articles/java/unittesting-455385.html[Unit Testing for Java EE]
+. link:http://www.oracle.com/technetwork/articles/java/intondemand-1444614.html[Interfaces on Demand with CDI and EJB 3.1]
+
+. link:https://docs.oracle.com/javaee/6/tutorial/doc/bnaph.html[The Java EE 6 Tutorial]
+
+. link:http://asciidoctor.org/docs/user-manual/#builtin-attributes[Asciidoctor attributes]

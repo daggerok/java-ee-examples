@@ -58,6 +58,7 @@ include::../../kotlin-javaee-cdi-h2/README.adoc[tags=content]
 _Just JBoss EAP in Docker_
 
 == JBoss EAP in Docker
+include::../../facelets-example/README.adoc[tags=content]
 include::../../jboss-eap-ext.js/README.adoc[tags=content]
 include::../../xmlrpc/README.adoc[tags=content]
 include::../../ear/README.adoc[tags=content]

@@ -1,3 +1,0 @@
-This documentation contains some help to
-link:{github_url}[examples from java-ee-examples repository].
-It's contains some JavaEE Micro-profile playground projects
