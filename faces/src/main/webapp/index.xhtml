@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+  <title>Hello, World!</title>
+</h:head>
+
+<h:body>
+  <h:form>
+    <h:outputLabel for="name" value="Enter your name" required="true" />
+    <h:inputText id="name" value="#{indexBean.name}" />
+    <h:message for="name" />
+    <br />
+    <h:commandButton value="Say hello" action="#{indexBean.createMessage}">
+      <f:ajax execute="@form" render="@form" />
+    </h:commandButton>
+    <br />
+    #{indexBean.message}
+  </h:form>
+</h:body>
+</html>

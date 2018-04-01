@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>daggerok</groupId>
+  <artifactId>faces</artifactId>
+  <version>0.0.1</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <javaee.version>8.0</javaee.version>
+    <faces.version>2.2.16</faces.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-api</artifactId>
+      <version>${faces.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-impl</artifactId>
+      <version>${faces.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-web-api</artifactId>
+      <version>${javaee.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <defaultGoal>clean package</defaultGoal>
+    <finalName>${project.artifactId}</finalName>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <ejbVersion>3.0</ejbVersion>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.dkanejs.maven.plugins</groupId>
+        <artifactId>docker-compose-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <id>up</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>up</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>down</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>down</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <composeFile>${project.basedir}/docker-compose-maven.yaml</composeFile>
+          <detachedMode>true</detachedMode>
+          <removeVolumes>true</removeVolumes>
+          <detail>true</detail>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

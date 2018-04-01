@@ -1,0 +1,78 @@
+buildscript {
+  ext {
+    javaVersion = "1.8"
+    javaeeVersion = "8.0"
+    facesVersion = "2.2.16"
+  }
+}
+
+plugins {
+  //id "ear"
+  id "war"
+  id "idea"
+  id "maven"
+  id "eclipse"
+  id "com.avast.gradle.docker-compose" version "0.6.13"
+}
+
+group = "daggerok"
+version = "0.0.1"
+sourceCompatibility = targetCompatibility = "$javaVersion"
+
+//ear { archiveName = "${project.name}.ear" }
+
+war {
+  archiveName = "${project.name}.war"
+}
+
+defaultTasks "clean", "build"
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+dependencies {
+  compile "com.sun.faces:jsf-api:$facesVersion"
+  compile "com.sun.faces:jsf-impl:$facesVersion"
+  providedCompile "javax:javaee-web-api:$javaeeVersion"
+}
+
+def profile = project.hasProperty("profile") ? project.getProperty("profile") : "gradle"
+
+dockerCompose {
+  useComposeFiles = [project.file("docker-compose-${profile}.yaml")]
+  // captureContainersOutput = true
+  captureContainersOutput = false
+  stopContainers = true
+  removeContainers = true
+  removeImages = "Local"
+  removeVolumes = true
+  removeOrphans = true
+  forceRecreate = true
+  waitForTcpPorts = false
+  projectName = project.name
+}
+
+composeUp.dependsOn assemble
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.6"
+  distributionType = "ALL"
+}
+
+test {
+  systemProperties "property": "value"
+}
+
+idea {
+  module {
+    downloadSources = true
+  }
+}
+
+eclipse {
+  classpath {
+    downloadSources = true
+  }
+}
