@@ -1,15 +1,18 @@
 package daggerok;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
 @Named
 @Getter
-@SessionScoped
+@RequestScoped
+@NoArgsConstructor
 public class IndexBean implements Serializable {
 
   @Setter

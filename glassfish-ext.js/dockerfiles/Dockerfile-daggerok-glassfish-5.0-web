@@ -1,4 +1,4 @@
-FROM daggerok/glassfish-5.0-web:v1
+FROM daggerok/glassfish:5.0-web
 MAINTAINER Maksim Kostromin https://github.com/daggerok/docker
 
 # check all apps healthy

@@ -21,7 +21,7 @@ before_install:
 - stop_any 5432 5672 27017 8080 80
 script:
 # docs
-- bash gradlew clean build asciidoctor >/dev/null 2>&1 #docs
+- bash gradlew clean asciidoctor >/dev/null 2>&1 #docs
 
 # faces gradle
 - export parent=$(pwd)
@@ -33,6 +33,7 @@ script:
 # faces maven
 - bash ./mvnw >/dev/null 2>&1
 - bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+- docker logs -f faces_maven-faces-app_1 &
 - sleep 40
 - http :8080/app/
 - bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1

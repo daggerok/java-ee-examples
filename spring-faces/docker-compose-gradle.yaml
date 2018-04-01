@@ -2,11 +2,11 @@ version: "2.1"
 
 services:
 
-  gradle-faces-app:
+  gradle-spring-faces-app:
     build:
       context: .
       dockerfile: gradle/Dockerfile
-    volumes: ["gradle-faces-app-data:/home/app"]
+    volumes: ["gradle-spring-faces-app-data:/home/app"]
     ports:
     - "5005:5005"
     - "8080:8080"
@@ -15,7 +15,7 @@ services:
     #mem_limit: 786432000 # container limit: 700Mb (700 * 1024 * 1024)
 
 volumes:
-  gradle-faces-app-data: {}
+  gradle-spring-faces-app-data: {}
 
 networks:
   backing-services:
