@@ -8,17 +8,15 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-  <title>1) Hey!</title>
+  <title>2) Your name?</title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 </h:head>
-
 <h:body>
-  <h:link value="greeting..." outcome="hello.xhtml" />
-
-  <div>
-    <h:outputLabel value="#{primeBean.slogan}" />
-  </div>
+  <h:form>
+    <h:outputLabel value="Enter name" />
+    <h:inputText value="#{greetingBean.name}" label="name" />
+    <h:commandButton value="Say hi..." action="hello" />
+  </h:form>
 </h:body>
 </html>

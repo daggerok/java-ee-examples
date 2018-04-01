@@ -54,7 +54,7 @@
       <artifactId>all-themes</artifactId>
       <version>1.0.10</version>
     </dependency>
-    <!-- Tomcat required this -->
+    <!-- Tomcat required this: @ManagedBean, @SessionScoped, @RequestScoped -->
     <!--
     <dependency>
       <groupId>org.jboss.weld.servlet</groupId>
@@ -62,6 +62,7 @@
       <version>2.4.7.Final</version>
     </dependency>
     -->
+    <!-- @Scope("session"), ... -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
@@ -72,11 +73,16 @@
       <artifactId>spring-web</artifactId>
       <version>${spring.version}</version>
     </dependency>
-    <!-- javax -->
+    <!-- @Named -->
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
       <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.1.2</version>
     </dependency>
     <dependency>
       <groupId>javax</groupId>

@@ -59,6 +59,7 @@ dependencies {
   compile("org.springframework:spring-web:4.3.14.RELEASE")
   // javax
   compile("javax.inject:javax.inject:1")
+  providedCompile("javax.servlet:jstl:1.1.2")
   providedCompile("javax:javaee-web-api:$javaeeVersion")
 
   compileOnly("org.projectlombok:lombok:$lombokVersion")

@@ -3,21 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>daggerok</groupId>
+  <parent>
+    <groupId>daggerok</groupId>
+    <artifactId>jboss-eap-ext.js</artifactId>
+    <version>0.0.1</version>
+  </parent>
+
   <artifactId>ui</artifactId>
-  <version>0.0.1</version>
   <packaging>war</packaging>
-
-  <properties>
-    <failOnMissingWebXml>false</failOnMissingWebXml>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
-  <build>
-    <finalName>${project.artifactId}</finalName>
-  </build>
 
   <dependencies>
     <dependency>
@@ -26,12 +19,6 @@
       <!--<version>6.2.0</version>-->
       <version>3.4.0</version>
     </dependency>
-
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>7.0</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
+
 </project>

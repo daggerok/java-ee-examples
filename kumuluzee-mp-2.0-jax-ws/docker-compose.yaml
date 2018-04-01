@@ -3,11 +3,11 @@ version: "2.1"
 services:
 
   kumuluzee-mp-2.0-jax-ws:
-    restart: unless-stopped
     build: .
     volumes: ["kumuluzee-mp-2.0-jax-ws-data:/home/appuser"]
     ports: ["8000:8000"]
     networks: [backing-services]
+    #restart: unless-stopped
     #mem_limit: 786432000 # container limit: 700Mb (700 * 1024 * 1024)
 
 volumes:
