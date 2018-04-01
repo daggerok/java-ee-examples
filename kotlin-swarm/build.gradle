@@ -8,7 +8,7 @@ buildscript {
     lombokVersion = "1.16.20"
     junitJupiterVersion = "5.0.2"
     junitPlatformVersion = "1.0.2"
-    wildflySwarmVersion = "2018.1.0"
+    wildflySwarmVersion = "2018.3.3"
     hibernateCoreVersion = "4.2.18.Final"
   }
   repositories {

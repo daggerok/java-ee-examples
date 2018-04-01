@@ -3,13 +3,13 @@ version: "2.1"
 services:
 
   glassfish-extjs:
-    restart: unless-stopped
     build: .
     volumes: ["glassfish-extjs-data:/home"]
     ports:
-      - "8080:8080"
-      - "9990:9990"
+    - "8080:8080"
+    - "9990:9990"
     networks: [backing-services]
+    #restart: unless-stopped
 
 volumes:
   glassfish-extjs-data: {}

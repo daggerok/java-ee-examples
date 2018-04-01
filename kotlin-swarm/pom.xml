@@ -12,7 +12,7 @@
   <properties>
     <kotlin.version>1.2.21</kotlin.version>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <version.wildfly.swarm>2018.1.0</version.wildfly.swarm>
+    <version.wildfly.swarm>2018.3.3</version.wildfly.swarm>
     <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>

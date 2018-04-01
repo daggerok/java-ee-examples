@@ -1,6 +1,7 @@
 FROM daggerok/apache-tomcat:9.0.2-alpine
-ARG JPDA_OPTS_ARG="${JAVA_OPTS} -agentlib:jdwp=transport=dt_socket,address=1043,server=y,suspend=n"
-ENV JPDA_OPTS="${JPDA_OPTS_ARG}"
+ARG JAVA_OPTS_ARG="${JAVA_OPTS} -agentlib:jdwp=transport=dt_socket,address=1043,server=y,suspend=n"
+ENV JPDA_OPTS="${JAVA_OPTS_ARG}" \
+    JAVA_OPTS=${JAVA_OPTS_ARG}
 EXPOSE 5005
 HEALTHCHECK --timeout=2s --retries=22 \
         CMD wget -q --spider http://127.0.0.1:8080/app/ \

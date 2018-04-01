@@ -42,13 +42,23 @@ defaultTasks "clean", "build"
 repositories {
   mavenLocal()
   mavenCentral()
+  maven { url "http://repository.primefaces.org" }
 }
 
 dependencies {
 
   compile("com.sun.faces:jsf-api:$facesVersion")
   compile("com.sun.faces:jsf-impl:$facesVersion")
+  // Tomcat requires weld-servlet:
   compile("org.jboss.weld.servlet:weld-servlet:2.4.7.Final")
+  // prime faces
+  compile("org.primefaces:primefaces:6.2")
+  compile("org.primefaces.themes:all-themes:1.0.10")
+  // spring
+  compile("org.springframework:spring-context:4.3.14.RELEASE")
+  compile("org.springframework:spring-web:4.3.14.RELEASE")
+  // javax
+  compile("javax.inject:javax.inject:1")
   providedCompile("javax:javaee-web-api:$javaeeVersion")
 
   compileOnly("org.projectlombok:lombok:$lombokVersion")
