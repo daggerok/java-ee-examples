@@ -6,6 +6,7 @@ This repository contains simple JavaEE examples (including Docker and different 
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+. link:https://github.com/daggerok/wildfly-swarm-jgroups-chat[JGroups chat on Wildfly Swarm]
 . link:./spring-faces/[Spring | JSF]
 . link:./faces/[Faces]
 . link:./facelets-example/[JSF]
