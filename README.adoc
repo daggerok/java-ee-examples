@@ -44,6 +44,7 @@ link:https://daggerok.github.io/java-ee-examples[Documentation]
 . link:./kotlin-javaee-cdi-h2[Kotlin | Java EE | CDI | H2 | UUID Entity ID | JSON | JBOSS EAP 6.4 / 7.1 in Docker]
 . link:./rpc[Kumuluzee (Java EE on Jetty) - MiroProfile 2.0 (Config)]
 . link:./kumuluzee-mp-2.0-jax-ws[Kumuluzee MP 2.0 JAX-WS]
+. link:https://github.com/daggerok/java-ee-entity-bean[Yet another JavaEE | JPA | CDI | JAX-RS | Docker example]
 
 TODO:
 
