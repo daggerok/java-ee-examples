@@ -5,20 +5,24 @@ env:
 language: java
 jdk: oraclejdk8
 
-#jdk:
-#- openjdk8
-#- oraclejdk8
+addons:
+  apt:
+    update: true
+    packages:
+    - wget
+    - bash
+    - curl
+    - jq
+    - libxml2-utils
+    - docker-ce
+    - python-pip
 
 install: true
 before_install:
-## update docker
-#- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-#- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-- sudo apt -y update || true >/dev/null 2>&1
-- sudo apt install -y --no-install-recommends wget bash curl jq libxml2-utils docker-ce python-pip >/dev/null 2>&1
 - sudo pip install docker-compose httpie >/dev/null 2>&1
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 - stop_any 5432 5672 27017 8080 80
+
 script:
 # docs
 - bash gradlew clean asciidoctor >/dev/null 2>&1 #docs
