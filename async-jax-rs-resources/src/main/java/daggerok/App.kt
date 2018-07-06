@@ -9,6 +9,7 @@ import javax.json.Json
 import javax.persistence.*
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 import javax.ws.rs.*
 import javax.ws.rs.core.Application
 import javax.ws.rs.core.Context
@@ -102,11 +103,11 @@ class AppResource {
   @Path("{id}")
   fun get(@PathParam("id") id: Long): Response =
       try { Response.ok(itemRepository.findOne(id)).build() }
-      catch (e: NoResultException) { return Response.status(Response.Status.NOT_FOUND).build() }
+      catch (e: NoResultException) { Response.status(Response.Status.NOT_FOUND).build() }
 
   @POST
   @Path("")
-  fun post(@Valid item: Item): Response =
+  fun post(@Valid @NotNull item: Item): Response =
       Response.created(
           uriInfo.baseUriBuilder
               .path(AppResource::class.java)
@@ -138,5 +139,5 @@ class ItemRepository {
 @Entity
 data class Item(
     @Id @GeneratedValue var id: Long? = null,
-    @NotBlank var value: String? = null
+    @NotNull var value: String? = null
 )
