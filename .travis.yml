@@ -92,7 +92,7 @@ script:
 #- bash ./gradlew composeDown
 
 # faces maven
-- bash ./mvnw >/dev/null 2>&1
+- bash ./mvnw >/dev/null
 - bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
 - docker logs -f springfaces_maven-spring-faces-app_1 &
 - sleep 40
