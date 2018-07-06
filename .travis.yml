@@ -61,6 +61,31 @@ script:
 
   done;
 
+# kumuluzee-mp-2.0-jax-ws
+- cd ${parent}/kumuluzee-mp-2.0-jax-ws
+- bash mvnw clean package >/dev/null 2>&1
+- java -jar ./target/*.jar &
+- wait_for 8000
+- sleep 5
+- http :8000/
+- http :8000/api/v1/ws
+- http :8000/api/v1/ws\?wsdl
+- curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
+- stop_any 8000
+- docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
+- docker-compose up &
+- wait_for 8000
+- sleep 35
+- http :8000
+- curl -sS 127.0.0.1:8000/api/v1/ws | xmllint --format -
+- curl -sS "127.0.0.1:8000/api/v1/ws?WSDL" | xmllint --format -
+- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
+- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+- docker-compose down -v >/dev/null 2>&1
+- stop_any 8000
+
 ## spring-faces gradle
 #- cd ${parent}/spring-faces
 #- bash ./gradlew >/dev/null 2>&1
@@ -398,31 +423,6 @@ script:
 #- sleep 20
 #- curl -sS localhost:8080/app/
 #- docker-compose down -v
-
-# kumuluzee-mp-2.0-jax-ws
-- cd ${parent}/kumuluzee-mp-2.0-jax-ws
-- bash mvnw clean package >/dev/null 2>&1
-- java -jar ./target/*.jar &
-- wait_for 8000
-- sleep 5
-- http :8000/
-- http :8000/api/v1/ws
-- http :8000/api/v1/ws\?wsdl
-- curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
-- stop_any 8000
-- docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
-- docker-compose up &
-- wait_for 8000
-- sleep 35
-- http :8000
-- curl -sS 127.0.0.1:8000/api/v1/ws | xmllint --format -
-- curl -sS "127.0.0.1:8000/api/v1/ws?WSDL" | xmllint --format -
-- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
-- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-- docker-compose down -v >/dev/null 2>&1
-- stop_any 8000
 
 ## kumuluzee-microprofile-1.0
 #- cd ${parent}/kumuluzee-microprofile-1.0
