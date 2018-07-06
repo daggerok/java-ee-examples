@@ -1,4 +1,4 @@
-package daggerok.health;
+package daggerok.app.health;
 
 import javax.ejb.Stateless;
 import javax.json.Json;

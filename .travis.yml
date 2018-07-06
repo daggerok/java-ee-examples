@@ -27,39 +27,47 @@ before_install:
 script:
 - export parent=$(pwd)
 
-# async-jax-rs-resources
 # porcupine-bulkhead-jee8
-- >
-  for path in \
-    porcupine-bulkhead-jee8 \
-    async-jax-rs-resources \
-  ; do
+- cd ${parent}/porcupine-bulkhead-jee8
+- ./mvnw >/dev/null
+- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+- http :8080/app/async-items/write1 value=ololo
+- http :8080/app/async-items/write2 value=trololo
+- http :8080/app/async-items/read1
+- http :8080/app/async-items/read1/1
+- http :8080/app/async-items/read2
+- http :8080/app/async-items/read2/3 || true
+- ./gradlew -Pprofile=maven composeDown
+- ./gradlew >/dev/null
+- ./gradlew composeUp >/dev/null
+- http :8080/app/async-items/write1 value=ololo
+- http :8080/app/async-items/write2 value=trololo
+- http :8080/app/async-items/read1
+- http :8080/app/async-items/read1/1
+- http :8080/app/async-items/read2
+- http :8080/app/async-items/read2/3 || true
+- ./gradlew composeDown
 
-    cd ${parent}/${path}
-
-    ./mvnw >/dev/null
-
-    ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
-    http :8080/app/items value=ololo
-    http :8080/app/items value=trololo
-    http :8080/app/items/
-    http :8080/app/items/1
-    http :8080/app/items/2
-    http :8080/app/items/3 || true
-    ./gradlew -Pprofile=maven composeDown
-
-    ./gradlew >/dev/null
-
-    ./gradlew composeUp >/dev/null
-    http :8080/app/items value=ololo
-    http :8080/app/items value=trololo
-    http :8080/app/items/
-    http :8080/app/items/1
-    http :8080/app/items/2
-    http :8080/app/items/3 || true
-    ./gradlew composeDown
-
-  done;
+# async-jax-rs-resources
+- cd ${parent}/async-jax-rs-resources
+- ./mvnw >/dev/null
+- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+- http :8080/app/items value=ololo
+- http :8080/app/items value=trololo
+- http :8080/app/items/
+- http :8080/app/items/1
+- http :8080/app/items/2
+- http :8080/app/items/3 || true
+- ./gradlew -Pprofile=maven composeDown
+- ./gradlew >/dev/null
+- ./gradlew composeUp >/dev/null
+- http :8080/app/items value=ololo
+- http :8080/app/items value=trololo
+- http :8080/app/items/
+- http :8080/app/items/1
+- http :8080/app/items/2
+- http :8080/app/items/3 || true
+- ./gradlew composeDown
 
 # kumuluzee-mp-2.0-jax-ws
 - cd ${parent}/kumuluzee-mp-2.0-jax-ws

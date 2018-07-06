@@ -58,11 +58,11 @@ jacocoTestReport {
   afterEvaluate {
     classDirectories = files(classDirectories.files.collect {
       fileTree(
-        dir    : it,
-        exclude: [
-          '*donot/check/me*',
-          '*dont/check/metoo*',
-        ]
+          dir: it,
+          exclude: [
+              '*donot/check/me*',
+              '*dont/check/metoo*',
+          ]
       )
     })
   }

@@ -57,9 +57,11 @@ allprojects {
   publishing {
     repositories {
       maven {
-        url """$rootProject.buildDir/maven-publish/repos/${(
-            project.version.endsWith('SNAPSHOT') ? 'snapshots' : 'releases'
-        )}"""
+        url """$rootProject.buildDir/maven-publish/repos/${
+          (
+              project.version.endsWith('SNAPSHOT') ? 'snapshots' : 'releases'
+          )
+        }"""
       }
     }
   }

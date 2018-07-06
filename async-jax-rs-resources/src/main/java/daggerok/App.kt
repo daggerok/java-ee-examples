@@ -47,7 +47,7 @@ class GlobalExceptionHandler : ExceptionMapper<Throwable> {
 @Stateless
 @Path("")
 @Produces(APPLICATION_JSON)
-class ApiResource : Application() {
+class ApiResource {
 
   @GET
   @Path("")

@@ -17,6 +17,7 @@ allprojects {
   compileJava.dependsOn(processResources)
 
   dependencies {
+    implementation 'org.eclipse.microprofile.fault-tolerance:microprofile-fault-tolerance-api:1.1'
     implementation 'com.airhacks:porcupine:0.0.4'
 
     providedCompile "javax:javaee-api:$javaeeVersion"
@@ -25,10 +26,12 @@ allprojects {
 
     providedCompile 'com.h2database:h2:1.4.196'
 
-    testImplementation "io.vavr:vavr:$vavrVersion"
+    implementation "io.vavr:vavr:$vavrVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
     testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    testImplementation "org.slf4j:slf4j-api:$slf4jVersion"
-    testImplementation "org.slf4j:slf4j-jdk14:$slf4jVersion"
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    implementation "org.slf4j:slf4j-jdk14:$slf4jVersion"
   }
 }
