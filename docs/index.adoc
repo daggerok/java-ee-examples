@@ -23,16 +23,16 @@ include::../porcupine-bulkhead-jee8/README.adoc[tags=content]
 ._MicroProfile 1.0 (CDI + JAX-RS + JSON-P)_
 ----
 <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.wildfly.swarm</groupId>
-        <artifactId>bom-all</artifactId>
-        <version>${version.wildfly.swarm}</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>bom-all</artifactId>
+      <version>${version.wildfly.swarm}</version>
+      <scope>import</scope>
+      <type>pom</type>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
 ----
 
 == JBOSS 4 | JAX-RS
