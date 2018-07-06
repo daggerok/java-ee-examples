@@ -8,7 +8,6 @@ import javax.inject.Inject
 import javax.json.Json
 import javax.persistence.*
 import javax.validation.Valid
-import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.ws.rs.*
 import javax.ws.rs.core.Application
@@ -112,7 +111,6 @@ class AppResource {
           uriInfo.baseUriBuilder
               .path(AppResource::class.java)
               .path(AppResource::class.java, "get")
-              .path("{id}")
               .build(itemRepository.save(item).id))
           .build()
 }
@@ -121,7 +119,7 @@ class AppResource {
 class ItemRepository {
 
   @PersistenceContext
-  lateinit var em: EntityManager
+  private lateinit var em: EntityManager
 
   @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   fun save(item: Item): Item {
@@ -139,5 +137,5 @@ class ItemRepository {
 @Entity
 data class Item(
     @Id @GeneratedValue var id: Long? = null,
-    @NotNull var value: String? = null
+    var value: String? = null
 )
