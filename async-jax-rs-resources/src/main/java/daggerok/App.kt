@@ -2,10 +2,6 @@ package daggerok
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.CompletionStage
-import java.util.concurrent.ExecutorService
-import java.util.function.Supplier
 import javax.annotation.Resource
 import javax.ejb.Stateless
 import javax.ejb.TransactionAttribute
@@ -116,6 +112,7 @@ class HealthResource {
       .build()
 }
 
+//tag::resource[]
 @Stateless
 @Path("items")
 @Produces(APPLICATION_JSON)
@@ -136,6 +133,7 @@ class AppResource {
     val result = itemRepository.findAll()
     asyncResponse.resume(result)
   }
+  //end::resource[]
 
   @GET
   @Path("")
@@ -156,7 +154,9 @@ class AppResource {
               .path(AppResource::class.java, "get")
               .build(itemRepository.save(item).id))
           .build()
+  //tag::resource[]
 }
+//end::resource[]
 
 @TransactionAttribute(NEVER)
 class ItemRepository {
@@ -177,9 +177,11 @@ class ItemRepository {
   fun findAll(): List<Item> = em.createQuery("select i from Item i", Item::class.java).resultList
 }
 
+//tag::entity[]
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Item(
     @Id @GeneratedValue var id: Long? = null,
     var value: String? = null
 ) : Serializable
+//end::entity[]
