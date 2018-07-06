@@ -37,7 +37,7 @@ script:
 
     cd ${parent}/${path}
 
-    ./mvnw
+    ./mvnw >/dev/null
 
     ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
     http :8080/app/items value=ololo
@@ -411,10 +411,10 @@ script:
 - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
 - stop_any 8000
 - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
-- docker-compose up --build &
+- docker-compose up &
 - wait_for 8000
 - sleep 35
-- curl -sS 127.0.0.1:8000 | jq
+- http :8000
 - curl -sS 127.0.0.1:8000/api/v1/ws | xmllint --format -
 - curl -sS "127.0.0.1:8000/api/v1/ws?WSDL" | xmllint --format -
 - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
