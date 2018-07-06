@@ -1,0 +1,3 @@
+rootProject.name = 'porcupine-bulkhead-jee8'
+enableFeaturePreview 'STABLE_PUBLISHING'
+include 'docs'

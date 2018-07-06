@@ -24,16 +24,27 @@ before_install:
 - stop_any 5432 5672 27017 8080 80
 
 script:
-# docs
-- bash gradlew clean asciidoctor >/dev/null 2>&1 #docs
+- export parent=$(pwd)
+
+# porcupine-bulkhead-jee8
+- cd ${parent}/porcupine-bulkhead-jee8
+- bash ./gradlew >/dev/null
+- bash ./gradlew composeUp >/dev/null
+- http :8080/app/items value=ololo
+- http :8080/app/items value=trololo
+- http :8080/app/items/
+- http :8080/app/items/1
+- http :8080/app/items/2
+- http :8080/app/items/3 || true
+- bash ./gradlew composeDown
 
 # spring-faces gradle
-- export parent=$(pwd)
 - cd ${parent}/spring-faces
 - bash ./gradlew >/dev/null 2>&1
 - bash ./gradlew composeUp >/dev/null 2>&1
 - http :8080/app/
 - bash ./gradlew composeDown
+
 # faces maven
 - bash ./mvnw >/dev/null 2>&1
 - bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
@@ -460,3 +471,29 @@ script:
   # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
   bash docker/bin/test-stack-deploy.bash
   bash gradlew clean build wildfly-swarm-package >/dev/null 2>&1
+
+before_deploy:
+- cd ${parent}/
+- ./mvnw
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  # travis encrypt GITHUB_TOKEN=<your github repo token> --add
+  github-token: "$GITHUB_TOKEN"
+  keep-history: true
+  on:
+    branch: master
+  local-dir: target/generated-docs
+  target_branch: gh-pages
+
+before_cache:
+- sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
+- sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
+- sudo rm -rf $HOME/.gradle/caches/modules-2/modules-2.lock
+
+cache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.gradle
+  - $HOME/.docker

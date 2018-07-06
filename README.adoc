@@ -6,6 +6,7 @@ This repository contains simple JavaEE examples (including Docker and different 
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+- ink:./porcupine-bulkhead-jee8[Bulkhead pattern in JavaEE 8 by using porcupine library]
 - link:https://github.com/daggerok/thymeleaf-ee[Thymeleaf + JavaEE]
 - link:https://github.com/daggerok/wildfly-swarm-jgroups-chat[JGroups chat on Wildfly Swarm]
 - link:./spring-faces/[Spring | JSF]
