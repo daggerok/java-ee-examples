@@ -27,24 +27,46 @@ before_install:
 script:
 - export parent=$(pwd)
 
+# async-jax-rs-resources
 # porcupine-bulkhead-jee8
-- cd ${parent}/porcupine-bulkhead-jee8
-- bash ./gradlew >/dev/null
-- bash ./gradlew composeUp >/dev/null
-- http :8080/app/items value=ololo
-- http :8080/app/items value=trololo
-- http :8080/app/items/
-- http :8080/app/items/1
-- http :8080/app/items/2
-- http :8080/app/items/3 || true
-- bash ./gradlew composeDown
+- >
+  for path in \
+    porcupine-bulkhead-jee8 \
+    async-jax-rs-resources \
+  ; do
 
-# spring-faces gradle
-- cd ${parent}/spring-faces
-- bash ./gradlew >/dev/null 2>&1
-- bash ./gradlew composeUp >/dev/null 2>&1
-- http :8080/app/
-- bash ./gradlew composeDown
+    cd ${parent}/${path}
+
+    ./mvnw
+
+    ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+    http :8080/app/items value=ololo
+    http :8080/app/items value=trololo
+    http :8080/app/items/
+    http :8080/app/items/1
+    http :8080/app/items/2
+    http :8080/app/items/3 || true
+    ./gradlew -Pprofile=maven composeDown
+
+    ./gradlew >/dev/null
+
+    ./gradlew composeUp >/dev/null
+    http :8080/app/items value=ololo
+    http :8080/app/items value=trololo
+    http :8080/app/items/
+    http :8080/app/items/1
+    http :8080/app/items/2
+    http :8080/app/items/3 || true
+    ./gradlew composeDown
+
+  done;
+
+## spring-faces gradle
+#- cd ${parent}/spring-faces
+#- bash ./gradlew >/dev/null 2>&1
+#- bash ./gradlew composeUp >/dev/null 2>&1
+#- http :8080/app/
+#- bash ./gradlew composeDown
 
 # faces maven
 - bash ./mvnw >/dev/null 2>&1
@@ -390,15 +412,17 @@ script:
 - stop_any 8000
 - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
 - docker-compose up --build &
+- wait_for 8000
 - sleep 35
-- curl -sS localhost:8000 | jq
-- curl -sS localhost:8000/api/v1/ws | xmllint --format -
-- curl -sS "localhost:8000/api/v1/ws?WSDL" | xmllint --format -
-- curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
-- curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-- curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-- curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+- curl -sS 127.0.0.1:8000 | jq
+- curl -sS 127.0.0.1:8000/api/v1/ws | xmllint --format -
+- curl -sS "127.0.0.1:8000/api/v1/ws?WSDL" | xmllint --format -
+- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
+- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
 - docker-compose down -v >/dev/null 2>&1
+- stop_any 8000
 
 ## kumuluzee-microprofile-1.0
 #- cd ${parent}/kumuluzee-microprofile-1.0
