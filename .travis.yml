@@ -101,7 +101,6 @@ script:
 - bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
 
 ## faces gradle
-#- export parent=$(pwd)
 #- cd ${parent}/faces
 #- bash ./gradlew >/dev/null 2>&1
 #- bash ./gradlew composeUp >/dev/null 2>&1
@@ -116,7 +115,6 @@ script:
 #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
 
 ## facelets-example gradle
-#- export parent=$(pwd)
 #- cd ${parent}/facelets-example
 #- bash ./gradlew >/dev/null 2>&1
 #- bash ./gradlew composeUp >/dev/null 2>&1
@@ -131,7 +129,6 @@ script:
 #- http :8080/app/faces/index.xhtml
 #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
 
-#- export parent=$(pwd)
 #- cd ${parent}/jboss-4-jax-rs
 #- bash ./gradlew >/dev/null 2>&1
 #- bash ./gradlew composeUp
