@@ -131,7 +131,7 @@ class ItemRepository {
       .setParameter("id", id)
       .singleResult
 
-  fun findAll() = em.createQuery("select i from Item i", Item::class.java).resultList!!
+  fun findAll(): List<Item> = em.createQuery("select i from Item i", Item::class.java).resultList
 }
 
 @Entity
