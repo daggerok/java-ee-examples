@@ -1,8 +1,17 @@
 package daggerok
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import java.io.Serializable
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CompletionStage
+import java.util.concurrent.ExecutorService
+import java.util.function.Supplier
+import javax.annotation.Resource
 import javax.ejb.Stateless
 import javax.ejb.TransactionAttribute
-import javax.ejb.TransactionAttributeType
+import javax.ejb.TransactionAttributeType.NEVER
+import javax.ejb.TransactionAttributeType.REQUIRES_NEW
+import javax.enterprise.concurrent.ManagedExecutorService
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
 import javax.json.Json
@@ -10,15 +19,34 @@ import javax.persistence.*
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 import javax.ws.rs.*
+import javax.ws.rs.container.AsyncResponse
+import javax.ws.rs.container.Suspended
 import javax.ws.rs.core.Application
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.Response
+import javax.ws.rs.core.Response.Status.BAD_REQUEST
+import javax.ws.rs.core.Response.Status.NOT_FOUND
 import javax.ws.rs.core.UriInfo
+import javax.ws.rs.ext.ExceptionMapper
+import javax.ws.rs.ext.Provider
 
 @ApplicationScoped
 @ApplicationPath("")
 class App : Application()
+
+@Provider
+class GlobalExceptionHandler : ExceptionMapper<Throwable> {
+
+  override fun toResponse(e: Throwable): Response =
+      Response
+          .status(BAD_REQUEST)
+          .entity(Json.createObjectBuilder()
+              .add("error", e.localizedMessage ?: "empty")
+              .build()
+              .toString())
+          .build()
+}
 
 @Stateless
 @Path("")
@@ -31,6 +59,11 @@ class ApiResource : Application() {
 
     return Response.ok(
         Json.createArrayBuilder()
+            .add(uriInfo.baseUriBuilder
+                .path(AppResource::class.java)
+                .path(AppResource::class.java, "getAllInAsync")
+                .build()
+                .toString())
             .add(uriInfo.baseUriBuilder
                 .path(AppResource::class.java)
                 .path(AppResource::class.java, "getAll")
@@ -91,18 +124,28 @@ class AppResource {
   @Context
   lateinit var uriInfo: UriInfo
 
+  @Resource
+  lateinit var mes: ManagedExecutorService
+
   @Inject
   lateinit var itemRepository: ItemRepository
 
   @GET
+  @Path("async")
+  fun getAllInAsync(@Suspended asyncResponse: AsyncResponse) = mes.execute {
+    val result = itemRepository.findAll()
+    asyncResponse.resume(result)
+  }
+
+  @GET
   @Path("")
-  fun getAll(): Response = Response.ok(itemRepository.findAll()).build()
+  fun getAll() = itemRepository.findAll()
 
   @GET
   @Path("{id}")
   fun get(@PathParam("id") id: Long): Response =
       try { Response.ok(itemRepository.findOne(id)).build() }
-      catch (e: NoResultException) { Response.status(Response.Status.NOT_FOUND).build() }
+      catch (e: NoResultException) { Response.status(NOT_FOUND).build() }
 
   @POST
   @Path("")
@@ -115,13 +158,13 @@ class AppResource {
           .build()
 }
 
-@TransactionAttribute(TransactionAttributeType.NEVER)
+@TransactionAttribute(NEVER)
 class ItemRepository {
 
   @PersistenceContext
-  private lateinit var em: EntityManager
+  lateinit var em: EntityManager
 
-  @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+  @TransactionAttribute(REQUIRES_NEW)
   fun save(item: Item): Item {
     em.persist(item)
     return item
@@ -135,7 +178,8 @@ class ItemRepository {
 }
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Item(
     @Id @GeneratedValue var id: Long? = null,
     var value: String? = null
-)
+) : Serializable

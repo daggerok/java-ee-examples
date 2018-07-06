@@ -32,9 +32,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.airhacks</groupId>
-      <artifactId>porcupine</artifactId>
-      <version>0.0.4</version>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-kotlin</artifactId>
+      <version>${jakson-kotlin.version}</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
@@ -179,6 +179,7 @@
           <compilerPlugins>
             <plugin>all-open</plugin>
             <plugin>no-arg</plugin>
+            <plugin>spring</plugin>
           </compilerPlugins>
           <pluginOptions>
             <option>all-open:annotation=javax.ws.rs.Path</option>
@@ -186,6 +187,7 @@
             <option>all-open:annotation=javax.ejb.Stateless</option>
             <option>all-open:annotation=javax.ejb.Singleton</option>
             <option>all-open:annotation=javax.inject.Singleton</option>
+            <option>all-open:annotation=javax.ws.rs.ext.Provider</option>
             <option>all-open:annotation=javax.persistence.Entity</option>
             <option>all-open:annotation=javax.enterprise.context.ApplicationScoped</option>
             <option>no-arg:annotation=javax.ws.rs.Path</option>
@@ -193,6 +195,7 @@
             <option>no-arg:annotation=javax.ejb.Stateless</option>
             <option>no-arg:annotation=javax.ejb.Singleton</option>
             <option>no-arg:annotation=javax.inject.Singleton</option>
+            <option>no-arg:annotation=javax.ws.rs.ext.Provider</option>
             <option>no-arg:annotation=javax.persistence.Entity</option>
             <option>no-arg:annotation=javax.enterprise.context.ApplicationScoped</option>
           </pluginOptions>

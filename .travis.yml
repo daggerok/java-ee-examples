@@ -74,7 +74,6 @@ script:
 - stop_any 8000
 - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
 - docker-compose up &
-- wait_for 8000
 - sleep 35
 - http :8000
 - curl -sS 127.0.0.1:8000/api/v1/ws | xmllint --format -
@@ -84,7 +83,6 @@ script:
 - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
 - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
 - docker-compose down -v >/dev/null 2>&1
-- stop_any 8000
 
 ## spring-faces gradle
 #- cd ${parent}/spring-faces

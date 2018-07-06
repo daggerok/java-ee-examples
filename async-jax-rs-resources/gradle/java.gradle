@@ -17,8 +17,6 @@ allprojects {
   compileJava.dependsOn(processResources)
 
   dependencies {
-    implementation 'com.airhacks:porcupine:0.0.4'
-
     providedCompile "javax:javaee-api:$javaeeVersion"
     implementation 'javax.json:javax.json-api:1.0'
     implementation 'org.glassfish:javax.json:1.0.4'
