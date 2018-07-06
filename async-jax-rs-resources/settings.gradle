@@ -1,0 +1,3 @@
+rootProject.name = 'async-jax-rs-resources'
+enableFeaturePreview 'STABLE_PUBLISHING'
+include 'docs'

@@ -1,0 +1,34 @@
+allprojects {
+
+  apply plugin: 'java'
+
+  version = '0.0.1'
+  group = 'com.github.daggerok'
+  sourceCompatibility = targetCompatibility = "$javaVersion"
+
+  apply plugin: 'war'
+
+  war {
+    archiveName = "${project.name}.war"
+  }
+
+  defaultTasks 'clean', 'build'
+
+  compileJava.dependsOn(processResources)
+
+  dependencies {
+    implementation 'com.airhacks:porcupine:0.0.4'
+
+    providedCompile "javax:javaee-api:$javaeeVersion"
+    implementation 'javax.json:javax.json-api:1.0'
+    implementation 'org.glassfish:javax.json:1.0.4'
+
+    providedCompile 'com.h2database:h2:1.4.196'
+
+    testImplementation "io.vavr:vavr:$vavrVersion"
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testImplementation "org.slf4j:slf4j-api:$slf4jVersion"
+    testImplementation "org.slf4j:slf4j-jdk14:$slf4jVersion"
+  }
+}
