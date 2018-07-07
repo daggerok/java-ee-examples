@@ -38,6 +38,7 @@ script:
 - ./gradlew -Pprofile=maven composeDown
 - ./gradlew >/dev/null
 - ./gradlew composeUp >/dev/null
+- docker logs aop-logger_gradle-aop-logger-app_1 &
 - http :8080/app/api/
 - http :8080/app/api/health
 - http :8080/app/api/ping
