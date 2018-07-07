@@ -1,0 +1,3 @@
+rootProject.name = 'aop-logger'
+enableFeaturePreview 'STABLE_PUBLISHING'
+include 'docs'

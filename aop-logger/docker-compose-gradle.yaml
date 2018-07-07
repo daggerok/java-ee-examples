@@ -1,0 +1,25 @@
+version: "2.1"
+
+services:
+
+  gradle-aop-logger-app:
+    #mem_limit: 786432000 # container limit: 700Mb (700 * 1024 * 1024)
+    build:
+      context: .
+      dockerfile: gradle/Dockerfile
+    volumes: ["gradle-aop-logger-app-data:/home"]
+    ports:
+    - "5005:5005"
+    - "8080:8080"
+    - "9990:9990"
+    networks:
+      public-net:
+        aliases:
+        - app
+
+volumes:
+  gradle-aop-logger-app-data:
+
+networks:
+  public-net:
+    driver: bridge
