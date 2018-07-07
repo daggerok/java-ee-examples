@@ -12,7 +12,8 @@
 http :8080/app/api/ping
 http :8080/app/api/pong
 
-docker logs aop-logger_gradle-aop-logger-app_1
+# to see aop logger logs
+docker logs -f aop-logger_gradle-aop-logger-app_1
 
 ./gradlew composeDown
 ----
