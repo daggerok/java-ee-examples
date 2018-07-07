@@ -1,0 +1,3 @@
+rootProject.name = 'jax-rs-hateoas-links'
+enableFeaturePreview 'STABLE_PUBLISHING'
+include 'docs'
