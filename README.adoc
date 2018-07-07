@@ -6,6 +6,7 @@ This repository contains simple JavaEE examples (including Docker, different Mic
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+- link:./jax-rs-hateoas-links[JAX-RS HATEOS Link]
 - link:./aop-logger[JavaEE API interceptor example]
 - link:./porcupine-bulkhead-jee8[More async resources: Bulkhead pattern in JavaEE 8 by using porcupine library]
 - link:./async-jax-rs-resources[Async JAX-RS resources]
