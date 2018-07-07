@@ -9,7 +9,7 @@
 </imageobject>
 <textobject><phrase>Build Status</phrase></textobject>
 </inlinemediaobject></title>
-<date>2018-07-07 13:11:14 UTC</date>
+<date>2018-07-07 15:02:42 UTC</date>
 <author>
 <personname>
 <firstname>Maksim</firstname>
@@ -21,7 +21,7 @@
 <revhistory>
 <revision>
 <revnumber>0.0.1</revnumber>
-<date>2018-07-07 13:11:14 UTC</date>
+<date>2018-07-07 15:02:42 UTC</date>
 <authorinitials>MK</authorinitials>
 </revision>
 </revhistory>
@@ -43,7 +43,8 @@ It&#8217;s contains some JavaEE Micro-profile playground projects</simpara>
 http :8080/app/api/ping
 http :8080/app/api/pong
 
-docker logs aop-logger_gradle-aop-logger-app_1
+# to see aop logger logs
+docker logs -f aop-logger_gradle-aop-logger-app_1
 
 ./gradlew composeDown</programlisting>
 </para>
