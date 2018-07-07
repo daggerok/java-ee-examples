@@ -552,7 +552,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-07-07 12:49:07 UTC</span>
+<span id="revdate">2018-07-07 13:07:30 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -736,11 +736,27 @@ docker logs aop-logger_gradle-aop-logger-app_1
 <div class="sect2">
 <h3 id="jax-rs-regex-path"><a class="anchor" href="#jax-rs-regex-path"></a>2. jax-rs-regex-path</h3>
 <div class="listingblock">
-<div class="title">build</div>
+<div class="title">example, how to handle <code>ping</code>, <code>pong</code> and <code>health</code> paths by single resource method</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@ApplicationScoped</span>
-<span class="annotation">@ApplicationPath</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
-<span class="directive">public</span> <span class="type">class</span> <span class="class">App</span> <span class="directive">extends</span> Application { }</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Stateless</span>
+<span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">api</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@Produces</span>(APPLICATION_JSON)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">HealthResource</span> {
+
+  <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>, <span class="predefined-type">String</span>&gt; pingPongMap
+      = <span class="predefined-type">HashMap</span>.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">ping</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">pong</span><span class="delimiter">&quot;</span></span>,
+                   <span class="string"><span class="delimiter">&quot;</span><span class="content">pong</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">ping</span><span class="delimiter">&quot;</span></span>)
+               .toJavaMap();
+
+  <span class="annotation">@GET</span>
+  <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{path: (health|ping|pong)}</span><span class="delimiter">&quot;</span></span>)
+  <span class="directive">public</span> Response health(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path) {
+    <span class="keyword">return</span> Response.ok(Json.createObjectBuilder()
+                           .add(<span class="string"><span class="delimiter">&quot;</span><span class="content">status</span><span class="delimiter">&quot;</span></span>, pingPongMap.getOrDefault(path, <span class="string"><span class="delimiter">&quot;</span><span class="content">UP</span><span class="delimiter">&quot;</span></span>))
+                           .build())
+                   .build();
+  }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2471,7 +2487,7 @@ docker-compose down -v</pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-07-07 12:49:07 UTC
+Last updated 2018-07-07 13:07:30 UTC
 </div>
 </div>
 </body>
