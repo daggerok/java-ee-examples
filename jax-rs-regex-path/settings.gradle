@@ -1,0 +1,3 @@
+rootProject.name = 'jax-rs-regex-path'
+enableFeaturePreview 'STABLE_PUBLISHING'
+include 'docs'

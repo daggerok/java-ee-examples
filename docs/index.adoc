@@ -14,11 +14,14 @@ Maksim Kostromin <daggerok@gmail.com>
 == Introduction
 include::includes/Introduction.adoc[]
 
-== async
+include::../aop-logger/README.adoc[tags=content]
+include::../jax-rs-regex-path/README.adoc[tags=content]
+
+== Async
 include::../async-jax-rs-resources/README.adoc[tags=content]
 include::../porcupine-bulkhead-jee8/README.adoc[tags=content]
 
-== micro-profile
+== Micro Profile
 
 ._MicroProfile 1.0 (CDI + JAX-RS + JSON-P)_
 ----
