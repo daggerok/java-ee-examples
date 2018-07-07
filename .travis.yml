@@ -27,21 +27,38 @@ before_install:
 script:
 - export parent=$(pwd)
 
+# aop-logger
+- cd ${parent}/aop-logger
+- ./mvnw >/dev/null
+- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+- http :8080/app/api/
+- http :8080/app/api/health
+- http :8080/app/api/ping
+- http :8080/app/api/pong
+- ./gradlew -Pprofile=maven composeDown
+- ./gradlew >/dev/null
+- ./gradlew composeUp >/dev/null
+- http :8080/app/api/
+- http :8080/app/api/health
+- http :8080/app/api/ping
+- http :8080/app/api/pong
+- ./gradlew composeDown
+
 # jax-rs-regex-path
 - cd ${parent}/jax-rs-regex-path
 - ./mvnw >/dev/null
 - ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
-- http :8080/app/api/health
 - http :8080/app/api/
-- http :8080/app/ping
-- http :8080/app/pong
+- http :8080/app/api/health
+- http :8080/app/api/ping
+- http :8080/app/api/pong
 - ./gradlew -Pprofile=maven composeDown
 - ./gradlew >/dev/null
 - ./gradlew composeUp >/dev/null
-- http :8080/app/api/health
 - http :8080/app/api/
-- http :8080/app/ping
-- http :8080/app/pong
+- http :8080/app/api/health
+- http :8080/app/api/ping
+- http :8080/app/api/pong
 - ./gradlew composeDown
 
 # porcupine-bulkhead-jee8
