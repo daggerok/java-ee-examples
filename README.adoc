@@ -2,7 +2,7 @@
 
 //tag::content[]
 
-This repository contains simple JavaEE examples (including Docker and different Micro-Profiles).
+This repository contains simple JavaEE examples (including Docker, different Micro-Profiles, etc).
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
