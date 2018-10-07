@@ -105,6 +105,10 @@ include::../kumuluzee-config/README.adoc[tags=content]
 == Kumuluzee MicroProfile 2.0 (JAX-WS)
 include::../kumuluzee-mp-2.0-jax-ws/README.adoc[tags=content]
 
+== TODO
+
+- link:https://www.youtube.com/watch?v=gwEciQ8vMjo[JBoss / JMS / MDB]
+
 == links
 include::includes/Links.adoc[]
 
