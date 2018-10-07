@@ -9,7 +9,7 @@
 </imageobject>
 <textobject><phrase>Build Status</phrase></textobject>
 </inlinemediaobject></title>
-<date>2018-07-07 17:52:47 UTC</date>
+<date>2018-10-07 02:27:51 UTC</date>
 <author>
 <personname>
 <firstname>Maksim</firstname>
@@ -21,7 +21,7 @@
 <revhistory>
 <revision>
 <revnumber>0.0.1</revnumber>
-<date>2018-07-07 17:52:47 UTC</date>
+<date>2018-10-07 02:27:51 UTC</date>
 <authorinitials>MK</authorinitials>
 </revision>
 </revhistory>
@@ -1663,6 +1663,14 @@ docker-compose down -v</screen>
 </para>
 </formalpara>
 </section>
+</chapter>
+<chapter xml:id="todo">
+<title>TODO</title>
+<itemizedlist>
+<listitem>
+<simpara><link xl:href="https://www.youtube.com/watch?v=gwEciQ8vMjo">JBoss / JMS / MDB</link></simpara>
+</listitem>
+</itemizedlist>
 </chapter>
 <chapter xml:id="links">
 <title>links</title>
