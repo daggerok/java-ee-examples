@@ -6,6 +6,9 @@ This repository contains simple JavaEE examples (including Docker, different Mic
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+- link:https://github.com/daggerok/java-se-cdi-ratpack[GitHub: daggerok/java-se-cdi-ratpack]
+//- link:https://github.com/daggerok/java-ee-es-cqrs[JavaEE ES/CQRS]
+- link:https://github.com/daggerok/wildfly-swarm-microservice[GitHub: daggerok/wildfly-swarm-microservice WildFly Swarm Micro-Service - Eeventsourcing and CQRS]
 - link:./jax-rs-hateoas-links[JAX-RS HATEOS Link]
 - link:./aop-logger[JavaEE API interceptor example]
 - link:./porcupine-bulkhead-jee8[More async resources: Bulkhead pattern in JavaEE 8 by using porcupine library]
