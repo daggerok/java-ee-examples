@@ -6,6 +6,7 @@ This repository contains simple JavaEE examples (including Docker, different Mic
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+- link:https://travis-ci.org/daggerok/payara-micro-example[Payara Micro (using gradle included!)]
 - link:https://github.com/daggerok/java-se-cdi-ratpack[GitHub: daggerok/java-se-cdi-ratpack]
 //- link:https://github.com/daggerok/java-ee-es-cqrs[JavaEE ES/CQRS]
 - link:https://github.com/daggerok/wildfly-swarm-microservice[GitHub: daggerok/wildfly-swarm-microservice WildFly Swarm Micro-Service - Eeventsourcing and CQRS]
