@@ -119,13 +119,13 @@ script:
 - cd ${parent}/kumuluzee-mp-2.0-jax-ws
 - bash mvnw clean package >/dev/null 2>&1
 - java -jar ./target/*.jar &
-- wait_for 8000
-- sleep 5
+#- wait_for 8000
+- sleep 15
 - http :8000/
 - http :8000/api/v1/ws
 - http :8000/api/v1/ws\?wsdl
 - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
-- stop_any 8000
+- stop_any 80 8000
 - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
 - docker-compose up &
 - sleep 35
@@ -137,6 +137,7 @@ script:
 - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
 - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
 - docker-compose down -v >/dev/null 2>&1
+- stop_any 80 8000
 
 ## spring-faces gradle
 #- cd ${parent}/spring-faces
@@ -424,25 +425,23 @@ script:
     docker-compose down -v >/dev/null 2>&1
   done
 
-# ext.js
-- >
-  for path in \
-    tomee-ext.js \
-    glassfish-ext.js \
-    jboss-eap-ext.js \
-  ; do
-
-    cd ${parent}/${path}
-    bash mvnw clean package -U -T 4 >/dev/null 2>&1
-    stop_any 8080
-    docker-compose build --force-rm --pull --no-cache >/dev/null 2>&1
-    docker-compose up -d --build --remove-orphans >/dev/null 2>&1
-    sleep 30
-    http :8080/ui/
-    http :8080/rest-api/health
-    docker-compose down -v >/dev/null 2>&1
-
-  done
+## ext.js
+#- >
+#  for path in \
+#    tomee-ext.js \
+#    glassfish-ext.js \
+#    jboss-eap-ext.js \
+#  ; do
+#    cd ${parent}/${path}
+#    bash mvnw clean package -U -T 4 >/dev/null 2>&1
+#    stop_any 8080
+#    docker-compose build --force-rm --pull --no-cache >/dev/null 2>&1
+#    docker-compose up -d --build --remove-orphans >/dev/null 2>&1
+#    sleep 30
+#    http :8080/ui/
+#    http :8080/rest-api/health
+#    docker-compose down -v >/dev/null 2>&1
+#  done
 
 ## forge-javaee-6-ws
 #- cd ${parent}/forge-javaee-6-ws
