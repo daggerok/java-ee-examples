@@ -9,7 +9,7 @@
 </imageobject>
 <textobject><phrase>Build Status</phrase></textobject>
 </inlinemediaobject></title>
-<date>2018-12-01 03:49:44 UTC</date>
+<date>2018-12-01 03:55:43 UTC</date>
 <author>
 <personname>
 <firstname>Maksim</firstname>
@@ -21,7 +21,7 @@
 <revhistory>
 <revision>
 <revnumber>0.0.1</revnumber>
-<date>2018-12-01 03:49:44 UTC</date>
+<date>2018-12-01 03:55:43 UTC</date>
 <authorinitials>MK</authorinitials>
 </revision>
 </revhistory>
@@ -174,19 +174,19 @@ public class CDIEntityManagerProducer {
   @Produces
   @Dependent
   @PersistenceUnit(unitName = "")
-  EntityManagerFactory entityManagerFactory;
+  EntityManagerFactory emf;
 
   @Produces
   @RequestScoped
-  public EntityManager createEntityManager() {
-    final EntityManager entityManager = entityManagerFactory.createEntityManager();
-    log.debug("hi {}", entityManager);
-    return entityManager;
+  public EntityManager em() {
+    final EntityManager em = emf.createEntityManager();
+    log.debug("hi {}", em);
+    return em;
   }
 
-  public void close(@Disposes EntityManager entityManager) {
-    log.debug("bye {}", entityManager);
-    entityManager.close();
+  public void close(@Disposes EntityManager em) {
+    log.debug("bye {}", em);
+    em.close();
   }
 }</programlisting>
 </para>
