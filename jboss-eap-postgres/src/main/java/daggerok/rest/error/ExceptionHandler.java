@@ -16,12 +16,11 @@ public class ExceptionHandler implements ExceptionMapper<Throwable> {
 
   @Override
   public Response toResponse(Throwable error) {
-    final String message = error.getLocalizedMessage();
-    log.error("fallback error: '{}'", message, error);
+    log.error("handle fallback error on: '{}'", error.getLocalizedMessage(), error);
     return Response.status(Response.Status.BAD_REQUEST)
                    .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-                   .entity(singletonMap("error", message))
+                   .entity(singletonMap("error", error.getLocalizedMessage()))
                    .build();
   }
 }
