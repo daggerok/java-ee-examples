@@ -27,16 +27,30 @@ before_install:
 script:
 - export parent=$(pwd)
 
-# jax-rs-hateoas-links
-- cd ${parent}/jax-rs-hateoas-links
-- ./mvnw >/dev/null
-- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+# ./jboss-eap-postgres/
+- cd ${parent}/jboss-eap-postgres/
+- ./mvnw
+- ./mvnw -Pdocker docker-compose:up
+- ./mvnw -Pdocker docker-compose:down
+- ./mvnw -Pdocker docker-compose:up &
+- wait_for 8080
+- sleep 15s
 - http :8080/app/
-- ./gradlew -Pprofile=maven composeDown
-- ./gradlew >/dev/null
-- ./gradlew composeUp >/dev/null
+- http :8080/app/ data=ololo
+- http :8080/app/ data=trololo
 - http :8080/app/
-- ./gradlew composeDown
+- ./mvnw -Pdocker docker-compose:down
+
+## jax-rs-hateoas-links
+#- cd ${parent}/jax-rs-hateoas-links
+#- ./mvnw >/dev/null
+#- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+#- http :8080/app/
+#- ./gradlew -Pprofile=maven composeDown
+#- ./gradlew >/dev/null
+#- ./gradlew composeUp >/dev/null
+#- http :8080/app/
+#- ./gradlew composeDown
 
 # aop-logger
 - cd ${parent}/aop-logger
