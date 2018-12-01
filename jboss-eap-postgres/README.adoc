@@ -1,6 +1,6 @@
-= jboss-eap-postgres
-
 //tag::content[]
+
+== jboss-eap-postgres
 
 .jboss-eap-6.4/standalone/configuration/standalone.xml
 [source,xml]
