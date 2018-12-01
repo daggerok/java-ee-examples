@@ -22,19 +22,19 @@ public class CDIEntityManagerProducer {
   @Produces
   @Dependent
   @PersistenceUnit(unitName = "")
-  EntityManagerFactory entityManagerFactory;
+  EntityManagerFactory emf;
 
   @Produces
   @RequestScoped
-  public EntityManager createEntityManager() {
-    final EntityManager entityManager = entityManagerFactory.createEntityManager();
-    log.debug("hi {}", entityManager);
-    return entityManager;
+  public EntityManager em() {
+    final EntityManager em = emf.createEntityManager();
+    log.debug("hi {}", em);
+    return em;
   }
 
-  public void close(@Disposes EntityManager entityManager) {
-    log.debug("bye {}", entityManager);
-    entityManager.close();
+  public void close(@Disposes EntityManager em) {
+    log.debug("bye {}", em);
+    em.close();
   }
 }
 //end::content[]
