@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
+//tag::content[]
 /**
  * see https://stackoverflow.com/questions/51756761/jboss-eap-7-1-spring-data-jpa-cdi-extension
  */
@@ -36,3 +37,4 @@ public class CDIEntityManagerProducer {
     entityManager.close();
   }
 }
+//end::content[]

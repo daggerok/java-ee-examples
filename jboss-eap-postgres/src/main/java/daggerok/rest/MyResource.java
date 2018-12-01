@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import static daggerok.data.MyEntity.FIND_ALL;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
@@ -55,7 +56,7 @@ public class MyResource {
   @GET
   @Path("")
   public List<MyEntity> getAll(@QueryParam("q") final String q) {
-    return em.createQuery("SELECT me FROM MyEntity me", MyEntity.class)
+    return em.createNamedQuery(FIND_ALL, MyEntity.class)
              .setMaxResults(100)
              .getResultList();
   }

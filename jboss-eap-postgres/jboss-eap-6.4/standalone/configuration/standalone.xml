@@ -24,6 +24,8 @@
         <extension module="org.jboss.as.web"/>
         <extension module="org.jboss.as.webservices"/>
         <extension module="org.jboss.as.weld"/>
+        <!-- tag::content[] -->
+        <!-- ... -->
     </extensions>
     <!-- TODO: CHANGE ME: https://access.redhat.com/solutions/3442891 -->
     <system-properties>
@@ -32,6 +34,8 @@
     </system-properties>
     <!-- TODO: CHANGE ME END -->
     <management>
+        <!-- ... -->
+        <!-- end::content[] -->
         <security-realms>
             <security-realm name="ManagementRealm">
                 <authentication>
@@ -131,6 +135,8 @@
                 <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
             </formatter>
         </subsystem>
+        <!-- tag::content[] -->
+        <!-- ... -->
         <subsystem xmlns="urn:jboss:domain:datasources:1.2">
             <datasources>
                 <!-- TODO:
@@ -152,6 +158,8 @@
                 <!-- TODO: CHANGE ME END -->
             </datasources>
         </subsystem>
+        <!-- ... -->
+        <!-- end::content[] -->
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:1.1">
             <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000"/>
         </subsystem>

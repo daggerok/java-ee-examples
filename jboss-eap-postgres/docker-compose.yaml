@@ -1,19 +1,13 @@
 version: '2.1'
 services:
   postgres:
-    #volumes: ["postgres-data:/var/lib/postgresql/data"]
     image: healthcheck/postgres:alpine
+    restart: unless-stopped
     ports: ["5432:5432"]
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-#    healthcheck:
-#      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "5432", "-d", "$$POSTGRES_DB", "-U", "$$POSTGRES_USER"]
-#      #test: pg_isready --host=127.0.0.1 --port=5432 --dbname=$$POSTGRES_DB --username=$$POSTGRES_USER
-#      timeout: 3s
-#      retries: 33
-#      interval: 30s
     networks:
       my-app.com:
         aliases:
@@ -21,13 +15,12 @@ services:
           - postgres
           - db.my-app.com
           - postgres.my-app.com
-    restart: unless-stopped
   jboss:
     depends_on:
       postgres:
         condition: service_healthy
-    #volumes: ['jboss-eap-postgres-data:/home']
     build: .
+    restart: unless-stopped
     ports:
       - '5005:5005'
       - '8080:8080'
@@ -41,8 +34,9 @@ services:
       my-app.com:
         aliases:
           - app
+          - jboss
           - app.my-app.com
-    restart: unless-stopped
+          - jboss.my-app.com
 networks:
   my-app.com:
     driver: bridge

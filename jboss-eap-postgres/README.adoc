@@ -2,7 +2,37 @@
 
 //tag::content[]
 
-.build
+.jboss-eap-6.4/standalone/configuration/standalone.xml
+[source,xml]
+----
+include::./jboss-eap-6.4/standalone/configuration/standalone.xml[tags=content]
+----
+
+.jboss-eap-6.4/modules/org/postgresql/main/module.xml
+[source,xml]
+----
+include::./jboss-eap-6.4/modules/org/postgresql/main/module.xml[]
+----
+
+.persistence.xml
+[source,xml]
+----
+include::./src/main/resources/META-INF/persistence.xml[]
+----
+
+.Entity
+[source,java]
+----
+include::./src/main/java/daggerok/data/MyEntity.java[tags=content]
+----
+
+.JPA EntityManager CDI integration
+[source,java]
+----
+include::./src/main/java/daggerok/data/CDIEntityManagerProducer.java[tags=content]
+----
+
+.build, run and test
 [source,bash]
 ----
 ./mvnw ; ./mvnw -Pdocker docker-compose:up

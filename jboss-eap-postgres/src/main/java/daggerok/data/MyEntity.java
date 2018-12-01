@@ -13,6 +13,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
+//tag::content[]
 @Data
 @Entity
 @Table(name = "my_entities")
@@ -28,11 +29,6 @@ public class MyEntity implements Serializable {
   public static final String COUNT = "MyEntity.count";
   public static final String FIND_ALL = "MyEntity.findAll";
   public static final String FIND_ANY = "MyEntity.findAny";
-
-//  @Id
-//  @Setter(PRIVATE)
-//  @GeneratedValue(strategy = GenerationType.IDENTITY)
-//  private Long id;
 
   @Id
   @Setter(PRIVATE)
@@ -64,3 +60,4 @@ public class MyEntity implements Serializable {
     updatedAt = new Date(time);
   }
 }
+//end::content[]
