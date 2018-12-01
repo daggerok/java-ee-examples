@@ -552,7 +552,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-12-01 03:19:34 UTC</span>
+<span id="revdate">2018-12-01 03:45:06 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -662,7 +662,163 @@ table.CodeRay td.code>pre{padding:0}
 It&#8217;s contains some JavaEE playground projects</p>
 </div>
 <div class="listingblock">
-<div class="title">build</div>
+<div class="title">jboss-eap-6.4/standalone/configuration/standalone.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">        <span class="comment">&lt;!-- ... --&gt;</span>
+    <span class="tag">&lt;/extensions&gt;</span>
+    <span class="comment">&lt;!-- TODO: CHANGE ME: https://access.redhat.com/solutions/3442891 --&gt;</span>
+    <span class="tag">&lt;system-properties&gt;</span>
+        <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jackson.deserialization.whitelist.packages</span><span class="delimiter">&quot;</span></span>
+                  <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.kie,org.drools,daggerok</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/system-properties&gt;</span>
+    <span class="comment">&lt;!-- TODO: CHANGE ME END --&gt;</span>
+    <span class="tag">&lt;management&gt;</span>
+        <span class="comment">&lt;!-- ... --&gt;</span>
+        <span class="comment">&lt;!-- ... --&gt;</span>
+        <span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:datasources:1.2</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+            <span class="tag">&lt;datasources&gt;</span>
+                <span class="comment">&lt;!-- TODO:
+                        CHANGE ME: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/administration_and_configuration_guide/#sect-Example_Datasources
+                                   https://www.redhat.com/cms/managed-files/eap_msa_ose3_0.pdf --&gt;</span>
+                <span class="tag">&lt;datasource</span> <span class="attribute-name">jndi-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:jboss/datasources/ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pool-name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ExampleDS</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">enabled</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">jta</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use-java-context</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">use-ccm</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                    <span class="tag">&lt;connection-url&gt;</span>jdbc:postgresql://${env.POSTGRES_HOST:postgres.my-app.com}:${env.POSTGRES_PORT:5432}/${env.POSTGRES_DB:db}<span class="tag">&lt;/connection-url&gt;</span>
+                    <span class="tag">&lt;driver&gt;</span>postgresql<span class="tag">&lt;/driver&gt;</span>
+                    <span class="tag">&lt;security&gt;</span>
+                        <span class="tag">&lt;user-name&gt;</span>${env.POSTGRES_USER:user}<span class="tag">&lt;/user-name&gt;</span>
+                        <span class="tag">&lt;password&gt;</span>${env.POSTGRES_PASSWORD:password}<span class="tag">&lt;/password&gt;</span>
+                    <span class="tag">&lt;/security&gt;</span>
+                <span class="tag">&lt;/datasource&gt;</span>
+                <span class="tag">&lt;drivers&gt;</span>
+                    <span class="tag">&lt;driver</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">postgresql</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">module</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.postgresql</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                        <span class="tag">&lt;xa-datasource-class&gt;</span>org.postgresql.xa.PGXADataSource<span class="tag">&lt;/xa-datasource-class&gt;</span>
+                    <span class="tag">&lt;/driver&gt;</span>
+                <span class="tag">&lt;/drivers&gt;</span>
+                <span class="comment">&lt;!-- TODO: CHANGE ME END --&gt;</span>
+            <span class="tag">&lt;/datasources&gt;</span>
+        <span class="tag">&lt;/subsystem&gt;</span>
+        <span class="comment">&lt;!-- ... --&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">jboss-eap-6.4/modules/org/postgresql/main/module.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;module</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:module:1.1</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.postgresql</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;resources&gt;</span>
+    <span class="tag">&lt;resource-root</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">postgresql-9.4-1206-jdbc4.jar</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/resources&gt;</span>
+  <span class="tag">&lt;dependencies&gt;</span>
+    <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.api</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.transaction.api</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.servlet.api</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">optional</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/dependencies&gt;</span>
+<span class="tag">&lt;/module&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">persistence.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;persistence</span> <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.0</span><span class="delimiter">&quot;</span></span>
+             <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://java.sun.com/xml/ns/persistence</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">&quot;</span></span>
+             <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;persistence-unit</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">transaction-type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">JTA</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;jta-data-source&gt;</span>java:jboss/datasources/ExampleDS<span class="tag">&lt;/jta-data-source&gt;</span>
+    <span class="tag">&lt;properties&gt;</span>
+      <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">hibernate.hbm2ddl.auto</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">create</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">hibernate.show_sql</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">hibernate.format_sql</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+      <span class="comment">&lt;!-- optionals: --&gt;</span>
+      <span class="comment">&lt;!--&lt;property name=&quot;hibernate.dialect&quot; value=&quot;org.hibernate.dialect.PostgreSQL82Dialect&quot;/&gt;--&gt;</span>
+    <span class="tag">&lt;/properties&gt;</span>
+    <span class="comment">&lt;!--&lt;provider&gt;org.hibernate.ejb.HibernatePersistence&lt;/provider&gt;--&gt;</span>
+  <span class="tag">&lt;/persistence-unit&gt;</span>
+<span class="tag">&lt;/persistence&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Entity</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Data</span>
+<span class="annotation">@Entity</span>
+<span class="annotation">@Table</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">my_entities</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@NoArgsConstructor</span>(access = PROTECTED)
+<span class="annotation">@RequiredArgsConstructor</span>(staticName = <span class="string"><span class="delimiter">&quot;</span><span class="content">of</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@NamedQueries</span>({
+    <span class="annotation">@NamedQuery</span>(name = FIND_ANY, query = <span class="string"><span class="delimiter">&quot;</span><span class="content">SELECT me FROM MyEntity me WHERE LOWER(me.data) LIKE LOWER(CONCAT('%',:q,'%'))</span><span class="delimiter">&quot;</span></span>),
+    <span class="annotation">@NamedQuery</span>(name = FIND_ALL, query = <span class="string"><span class="delimiter">&quot;</span><span class="content">SELECT me FROM MyEntity me ORDER BY me.createdAt DESC</span><span class="delimiter">&quot;</span></span>),
+    <span class="annotation">@NamedQuery</span>(name = COUNT, query = <span class="string"><span class="delimiter">&quot;</span><span class="content">SELECT COUNT(me) FROM MyEntity me</span><span class="delimiter">&quot;</span></span>)
+})
+<span class="directive">public</span> <span class="type">class</span> <span class="class">MyEntity</span> <span class="directive">implements</span> <span class="predefined-type">Serializable</span> {
+
+  <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> COUNT = <span class="string"><span class="delimiter">&quot;</span><span class="content">MyEntity.count</span><span class="delimiter">&quot;</span></span>;
+  <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> FIND_ALL = <span class="string"><span class="delimiter">&quot;</span><span class="content">MyEntity.findAll</span><span class="delimiter">&quot;</span></span>;
+  <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> FIND_ANY = <span class="string"><span class="delimiter">&quot;</span><span class="content">MyEntity.findAny</span><span class="delimiter">&quot;</span></span>;
+
+  <span class="annotation">@Id</span>
+  <span class="annotation">@Setter</span>(PRIVATE)
+  <span class="annotation">@GeneratedValue</span>(generator = <span class="string"><span class="delimiter">&quot;</span><span class="content">UUID2</span><span class="delimiter">&quot;</span></span>)
+  <span class="annotation">@GenericGenerator</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">UUID2</span><span class="delimiter">&quot;</span></span>, strategy = <span class="string"><span class="delimiter">&quot;</span><span class="content">org.hibernate.id.UUIDGenerator</span><span class="delimiter">&quot;</span></span>)
+  <span class="directive">private</span> <span class="predefined-type">UUID</span> id;
+
+  <span class="annotation">@Column</span>
+  <span class="annotation">@NonNull</span>
+  <span class="predefined-type">String</span> data;
+
+  <span class="annotation">@Temporal</span>(TIMESTAMP)
+  <span class="annotation">@Column</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">created</span><span class="delimiter">&quot;</span></span>)
+  <span class="predefined-type">Date</span> createdAt;
+
+  <span class="annotation">@Temporal</span>(TIMESTAMP)
+  <span class="annotation">@Column</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">updated</span><span class="delimiter">&quot;</span></span>)
+  <span class="predefined-type">Date</span> updatedAt;
+
+  <span class="annotation">@PrePersist</span>
+  <span class="directive">public</span> <span class="type">void</span> onCreate() {
+    createdAt = <span class="keyword">new</span> <span class="predefined-type">Date</span>();
+  }
+
+  <span class="annotation">@PreUpdate</span>
+  <span class="directive">public</span> <span class="type">void</span> onMerge() {
+    <span class="directive">final</span> <span class="type">long</span> time = <span class="keyword">new</span> <span class="predefined-type">Date</span>().getTime();
+    createdAt = <span class="keyword">new</span> <span class="predefined-type">Date</span>(time);
+    updatedAt = <span class="keyword">new</span> <span class="predefined-type">Date</span>(time);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">JPA EntityManager CDI integration</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+ * see https://stackoverflow.com/questions/51756761/jboss-eap-7-1-spring-data-jpa-cdi-extension
+ */</span>
+<span class="annotation">@Slf4j</span>
+<span class="annotation">@ApplicationScoped</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">CDIEntityManagerProducer</span> {
+
+  <span class="annotation">@Produces</span>
+  <span class="annotation">@Dependent</span>
+  <span class="annotation">@PersistenceUnit</span>(unitName = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
+  EntityManagerFactory entityManagerFactory;
+
+  <span class="annotation">@Produces</span>
+  <span class="annotation">@RequestScoped</span>
+  <span class="directive">public</span> EntityManager createEntityManager() {
+    <span class="directive">final</span> EntityManager entityManager = entityManagerFactory.createEntityManager();
+    log.debug(<span class="string"><span class="delimiter">&quot;</span><span class="content">hi {}</span><span class="delimiter">&quot;</span></span>, entityManager);
+    <span class="keyword">return</span> entityManager;
+  }
+
+  <span class="directive">public</span> <span class="type">void</span> close(<span class="annotation">@Disposes</span> EntityManager entityManager) {
+    log.debug(<span class="string"><span class="delimiter">&quot;</span><span class="content">bye {}</span><span class="delimiter">&quot;</span></span>, entityManager);
+    entityManager.close();
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build, run and test</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">./mvnw ; ./mvnw -Pdocker docker-compose:up
 
@@ -2549,7 +2705,7 @@ docker-compose down -v</pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-12-01 03:19:34 UTC
+Last updated 2018-12-01 03:45:06 UTC
 </div>
 </div>
 </body>

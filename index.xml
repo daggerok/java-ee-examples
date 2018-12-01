@@ -9,7 +9,7 @@
 </imageobject>
 <textobject><phrase>Build Status</phrase></textobject>
 </inlinemediaobject></title>
-<date>2018-12-01 03:19:34 UTC</date>
+<date>2018-12-01 03:45:06 UTC</date>
 <author>
 <personname>
 <firstname>Maksim</firstname>
@@ -21,7 +21,7 @@
 <revhistory>
 <revision>
 <revnumber>0.0.1</revnumber>
-<date>2018-12-01 03:19:34 UTC</date>
+<date>2018-12-01 03:45:06 UTC</date>
 <authorinitials>MK</authorinitials>
 </revision>
 </revhistory>
@@ -33,7 +33,163 @@
 <link xl:href="https://github.com/daggerok/java-ee-examples">examples from java-ee-examples repository</link>.
 It&#8217;s contains some JavaEE playground projects</simpara>
 <formalpara>
-<title>build</title>
+<title>jboss-eap-6.4/standalone/configuration/standalone.xml</title>
+<para>
+<programlisting language="xml" linenumbering="unnumbered">        &lt;!-- ... --&gt;
+    &lt;/extensions&gt;
+    &lt;!-- TODO: CHANGE ME: https://access.redhat.com/solutions/3442891 --&gt;
+    &lt;system-properties&gt;
+        &lt;property name="jackson.deserialization.whitelist.packages"
+                  value="org.kie,org.drools,daggerok"/&gt;
+    &lt;/system-properties&gt;
+    &lt;!-- TODO: CHANGE ME END --&gt;
+    &lt;management&gt;
+        &lt;!-- ... --&gt;
+        &lt;!-- ... --&gt;
+        &lt;subsystem xmlns="urn:jboss:domain:datasources:1.2"&gt;
+            &lt;datasources&gt;
+                &lt;!-- TODO:
+                        CHANGE ME: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/administration_and_configuration_guide/#sect-Example_Datasources
+                                   https://www.redhat.com/cms/managed-files/eap_msa_ose3_0.pdf --&gt;
+                &lt;datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" jta="true" use-java-context="true" use-ccm="false"&gt;
+                    &lt;connection-url&gt;jdbc:postgresql://${env.POSTGRES_HOST:postgres.my-app.com}:${env.POSTGRES_PORT:5432}/${env.POSTGRES_DB:db}&lt;/connection-url&gt;
+                    &lt;driver&gt;postgresql&lt;/driver&gt;
+                    &lt;security&gt;
+                        &lt;user-name&gt;${env.POSTGRES_USER:user}&lt;/user-name&gt;
+                        &lt;password&gt;${env.POSTGRES_PASSWORD:password}&lt;/password&gt;
+                    &lt;/security&gt;
+                &lt;/datasource&gt;
+                &lt;drivers&gt;
+                    &lt;driver name="postgresql" module="org.postgresql"&gt;
+                        &lt;xa-datasource-class&gt;org.postgresql.xa.PGXADataSource&lt;/xa-datasource-class&gt;
+                    &lt;/driver&gt;
+                &lt;/drivers&gt;
+                &lt;!-- TODO: CHANGE ME END --&gt;
+            &lt;/datasources&gt;
+        &lt;/subsystem&gt;
+        &lt;!-- ... --&gt;</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>jboss-eap-6.4/modules/org/postgresql/main/module.xml</title>
+<para>
+<programlisting language="xml" linenumbering="unnumbered">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;module xmlns="urn:jboss:module:1.1" name="org.postgresql"&gt;
+  &lt;resources&gt;
+    &lt;resource-root path="postgresql-9.4-1206-jdbc4.jar"/&gt;
+  &lt;/resources&gt;
+  &lt;dependencies&gt;
+    &lt;module name="javax.api"/&gt;
+    &lt;module name="javax.transaction.api"/&gt;
+    &lt;module name="javax.servlet.api" optional="true"/&gt;
+  &lt;/dependencies&gt;
+&lt;/module&gt;</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>persistence.xml</title>
+<para>
+<programlisting language="xml" linenumbering="unnumbered">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"&gt;
+  &lt;persistence-unit name="" transaction-type="JTA"&gt;
+    &lt;jta-data-source&gt;java:jboss/datasources/ExampleDS&lt;/jta-data-source&gt;
+    &lt;properties&gt;
+      &lt;property name="hibernate.hbm2ddl.auto" value="create"/&gt;
+      &lt;property name="hibernate.show_sql" value="true"/&gt;
+      &lt;property name="hibernate.format_sql" value="false"/&gt;
+      &lt;!-- optionals: --&gt;
+      &lt;!--&lt;property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/&gt;--&gt;
+    &lt;/properties&gt;
+    &lt;!--&lt;provider&gt;org.hibernate.ejb.HibernatePersistence&lt;/provider&gt;--&gt;
+  &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>Entity</title>
+<para>
+<programlisting language="java" linenumbering="unnumbered">@Data
+@Entity
+@Table(name = "my_entities")
+@NoArgsConstructor(access = PROTECTED)
+@RequiredArgsConstructor(staticName = "of")
+@NamedQueries({
+    @NamedQuery(name = FIND_ANY, query = "SELECT me FROM MyEntity me WHERE LOWER(me.data) LIKE LOWER(CONCAT('%',:q,'%'))"),
+    @NamedQuery(name = FIND_ALL, query = "SELECT me FROM MyEntity me ORDER BY me.createdAt DESC"),
+    @NamedQuery(name = COUNT, query = "SELECT COUNT(me) FROM MyEntity me")
+})
+public class MyEntity implements Serializable {
+
+  public static final String COUNT = "MyEntity.count";
+  public static final String FIND_ALL = "MyEntity.findAll";
+  public static final String FIND_ANY = "MyEntity.findAny";
+
+  @Id
+  @Setter(PRIVATE)
+  @GeneratedValue(generator = "UUID2")
+  @GenericGenerator(name = "UUID2", strategy = "org.hibernate.id.UUIDGenerator")
+  private UUID id;
+
+  @Column
+  @NonNull
+  String data;
+
+  @Temporal(TIMESTAMP)
+  @Column(name = "created")
+  Date createdAt;
+
+  @Temporal(TIMESTAMP)
+  @Column(name = "updated")
+  Date updatedAt;
+
+  @PrePersist
+  public void onCreate() {
+    createdAt = new Date();
+  }
+
+  @PreUpdate
+  public void onMerge() {
+    final long time = new Date().getTime();
+    createdAt = new Date(time);
+    updatedAt = new Date(time);
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>JPA EntityManager CDI integration</title>
+<para>
+<programlisting language="java" linenumbering="unnumbered">/**
+ * see https://stackoverflow.com/questions/51756761/jboss-eap-7-1-spring-data-jpa-cdi-extension
+ */
+@Slf4j
+@ApplicationScoped
+public class CDIEntityManagerProducer {
+
+  @Produces
+  @Dependent
+  @PersistenceUnit(unitName = "")
+  EntityManagerFactory entityManagerFactory;
+
+  @Produces
+  @RequestScoped
+  public EntityManager createEntityManager() {
+    final EntityManager entityManager = entityManagerFactory.createEntityManager();
+    log.debug("hi {}", entityManager);
+    return entityManager;
+  }
+
+  public void close(@Disposes EntityManager entityManager) {
+    log.debug("bye {}", entityManager);
+    entityManager.close();
+  }
+}</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>build, run and test</title>
 <para>
 <programlisting language="bash" linenumbering="unnumbered">./mvnw ; ./mvnw -Pdocker docker-compose:up
 
