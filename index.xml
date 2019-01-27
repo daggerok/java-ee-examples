@@ -9,7 +9,7 @@
 </imageobject>
 <textobject><phrase>Build Status</phrase></textobject>
 </inlinemediaobject></title>
-<date>2019-01-27 04:29:32 UTC</date>
+<date>2019-01-27 05:01:34 UTC</date>
 <author>
 <personname>
 <firstname>Maksim</firstname>
@@ -21,7 +21,7 @@
 <revhistory>
 <revision>
 <revnumber>0.0.1</revnumber>
-<date>2019-01-27 04:29:32 UTC</date>
+<date>2019-01-27 05:01:34 UTC</date>
 <authorinitials>MK</authorinitials>
 </revision>
 </revhistory>
@@ -32,6 +32,20 @@
 <simpara>This documentation contains some help to
 <link xl:href="https://github.com/daggerok/java-ee-examples">examples from java-ee-examples repository</link>.
 It&#8217;s contains some JavaEE playground projects</simpara>
+<formalpara>
+<title>build run and test</title>
+<para>
+<programlisting language="bash" linenumbering="unnumbered">./gradlew clean build composeUp
+
+http :8080/app/
+http :8080/app/dwr/index.html
+
+./gradlew composeDown
+
+# or just
+./gradlew build ; ./gradlew composeDown ; ./gradlew composeUp ; docker-compose -f docker-compose-gradle.yaml logs -f -t</programlisting>
+</para>
+</formalpara>
 </preface>
 <chapter xml:id="jboss-eap-postgres">
 <title>jboss-eap-postgres</title>

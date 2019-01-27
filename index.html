@@ -552,7 +552,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2019-01-27 04:29:32 UTC</span>
+<span id="revdate">2019-01-27 05:01:34 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -664,6 +664,20 @@ table.CodeRay td.code>pre{padding:0}
 <p>This documentation contains some help to
 <a href="https://github.com/daggerok/java-ee-examples">examples from java-ee-examples repository</a>.
 It&#8217;s contains some JavaEE playground projects</p>
+</div>
+<div class="listingblock">
+<div class="title">build run and test</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">./gradlew clean build composeUp
+
+http :8080/app/
+http :8080/app/dwr/index.html
+
+./gradlew composeDown
+
+# or just
+./gradlew build ; ./gradlew composeDown ; ./gradlew composeUp ; docker-compose -f docker-compose-gradle.yaml logs -f -t</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2714,7 +2728,7 @@ docker-compose down -v</pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2019-01-27 04:29:32 UTC
+Last updated 2019-01-27 05:01:34 UTC
 </div>
 </div>
 </body>
