@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ololo</title>
+</head>
+<body>
+<p id="message">Ololo...</p>
+<p id="date">Ololo...</p>
+<script type="text/javascript" src="dwr/util.js"></script>
+<script type="text/javascript" src="dwr/engine.js"></script>
+<script type="text/javascript" src="dwr/interface/JavaDate.js"></script>
+<script type="text/javascript" src="dwr/interface/JavaMyBean.js"></script>
+<script>
+  (function() {
+    document.addEventListener('DOMContentLoaded', function onLoaded(evt) {
+      JavaMyBean.myMethod(apply('JavaMyBean.myMethod', '#message'));
+      JavaDate.toLocaleString(apply('JavaDate.toLocaleString', '#date'));
+
+      function apply(method, selector) {
+        return {
+          callback: function cb(data) {
+            console.log(method, 'response data', data);
+            document.querySelector(selector).textContent = data;
+          },
+          timeout:1000,
+          errorHandler: function err(error) {
+            console.error('Ouch!', error);
+          }
+        };
+      }
+    }, false);
+  })();
+</script>
+</body>
+</html>

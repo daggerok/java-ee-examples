@@ -1,0 +1,2 @@
+rootProject.name = 'java-ee-dwr-example'
+include 'docs'

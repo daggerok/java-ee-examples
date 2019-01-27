@@ -14,6 +14,7 @@ Maksim Kostromin <daggerok@gmail.com>
 == Introduction
 include::includes/Introduction.adoc[]
 
+include::../java-ee-dwr-example/README.adoc[tags=content]
 include::../jboss-eap-postgres/README.adoc[tags=content]
 
 include::../jax-rs-hateoas-links/README.adoc[tags=content]

@@ -1,0 +1,8 @@
+String gradleDir = "$rootDir/gradle"
+
+allprojects {
+  buildscript {
+    apply from: "$gradleDir/repositories-config.gradle"
+  }
+  apply from: "$gradleDir/repositories-config.gradle"
+}

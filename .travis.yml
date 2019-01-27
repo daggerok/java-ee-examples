@@ -8,7 +8,6 @@ jdk: oraclejdk8
 
 addons:
   apt:
-    update: true
     packages:
     - wget
     - bash
@@ -27,19 +26,26 @@ before_install:
 script:
 - export parent=$(pwd)
 
-# ./jboss-eap-postgres/
-- cd ${parent}/jboss-eap-postgres/
-- ./mvnw
-- ./mvnw -Pdocker docker-compose:up
-- ./mvnw -Pdocker docker-compose:down
-- ./mvnw -Pdocker docker-compose:up &
-- wait_for 8080
-- sleep 15s
+- cd ${parent}/java-ee-dwr-example/
+- ./mvnw >/dev/null
+- ./gradlew composeUp >/dev/null
 - http :8080/app/
-- http :8080/app/ data=ololo
-- http :8080/app/ data=trololo
-- http :8080/app/
-- ./mvnw -Pdocker docker-compose:down
+- http :8080/app/dwr/index.html
+- ./gradlew composeDown
+
+## ./jboss-eap-postgres/
+#- cd ${parent}/jboss-eap-postgres/
+#- ./mvnw
+#- ./mvnw -Pdocker docker-compose:up
+#- ./mvnw -Pdocker docker-compose:down
+#- ./mvnw -Pdocker docker-compose:up &
+#- wait_for 8080
+#- sleep 15s
+#- http :8080/app/
+#- http :8080/app/ data=ololo
+#- http :8080/app/ data=trololo
+#- http :8080/app/
+#- ./mvnw -Pdocker docker-compose:down
 
 ## jax-rs-hateoas-links
 #- cd ${parent}/jax-rs-hateoas-links
