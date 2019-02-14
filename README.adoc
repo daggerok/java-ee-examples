@@ -6,6 +6,7 @@ This repository contains simple JavaEE examples (including Docker, different Mic
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+- link:https://github.com/daggerok/spring-security-java-ee-microprofile[JavaEE Spring Security integration]
 - link:./java-ee-dwr-example/[DWR + JavaEE CDI integration]
 - link:./jboss-eap-postgres/[JBoss EAP + postgres]
 - link:https://github.com/daggerok/payara-micro-example[Payara Micro (using gradle included!)]
