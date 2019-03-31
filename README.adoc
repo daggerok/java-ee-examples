@@ -66,6 +66,7 @@ TODO:
 
 links:
 
+- ;ink:https://eclipse-ee4j.github.io/jakartaee-tutorial/toc.html[JakartaEE tutorial]
 - link:https://microprofile.io/[Eclipse MicroProfile]
 - link:http://wildfly-swarm.io/posts/microprofile-with-wildfly-swarm/[Wildfly Swarm Micro-Profile]
 - link:https://howto.wildfly-swarm.io/[Wildfly Swarm Book]
