@@ -6,7 +6,8 @@ This repository contains simple JavaEE examples (including Docker, different Mic
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
-- link:https://github.com/daggerok/spring-security-java-ee[JavaEE Spring Security integration]
+- link:https://github.com/daggerok/microprofile-examples[GitHub: daggerok/microprofile-examples - JakartaEE / MicroProfile examples]
+//- link:https://github.com/daggerok/spring-security-java-ee[JavaEE Spring Security integration] // this shit is not working...
 - link:./java-ee-dwr-example/[DWR + JavaEE CDI integration]
 - link:./jboss-eap-postgres/[JBoss EAP + postgres]
 - link:https://github.com/daggerok/payara-micro-example[Payara Micro (using gradle included!)]
@@ -66,7 +67,7 @@ TODO:
 
 links:
 
-- ;ink:https://eclipse-ee4j.github.io/jakartaee-tutorial/toc.html[JakartaEE tutorial]
+- link:https://eclipse-ee4j.github.io/jakartaee-tutorial/toc.html[JakartaEE tutorial]
 - link:https://microprofile.io/[Eclipse MicroProfile]
 - link:http://wildfly-swarm.io/posts/microprofile-with-wildfly-swarm/[Wildfly Swarm Micro-Profile]
 - link:https://howto.wildfly-swarm.io/[Wildfly Swarm Book]
