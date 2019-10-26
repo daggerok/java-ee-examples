@@ -2,37 +2,58 @@ env:
   global:
   - TERM=dumb
   - secure: uBVw9ouBYZOBGwUoeotrvMYLbJbj3qL5VwYfAZvny2Cc5f9G4kUlSEEh6eMysGxnhPfftRV29GUfzTkuKeAGUa93+TqutkgoRbI6Lkyjd3Tmzj0xcjSFWWTYPXNJ1jf0LDIZhxYnchFtCNfd1AtldiC4Cx/vrXV35LY0FYpoy8cHE+lxjLQYhd4YiTL+j7wAznvjJiSO1mJ+Kswj00wCD7x9XfX9nEnp/bgsPua/s+iCX+PKk4R2YQKAqGlZ1xV7+rQHG8x0zqwX83yV3gh0QMd33CeMdNnt+258bEVj5/CtlnT+EjbjhH+eXSTnWDJObcrWO8d9dfZlwUHyeAhMy039ANRUmdrL6wurAHvcTUYbRZHRVbTEJkx0wWPmvtQ90OIz0cO3ckWZ7VSLq/XZcKBv+6UPEXXE/qmevIQinf8Y+sdexgXOYQbJKpmUjoyNvTUh683LeP1MjgmAYqbOGFuL6WUuIEtF6nZP5TY6LBYxcnSphg6rjPtpwUF/VFoRAR+oFoqdCqjoxK9RHT7GPHOltOun0I2dL0CVfWSLM84B3tBQzwIEz+hhgYty21cT2eltZpR1suAh9YW5HSWY6VF/kNtNLMlCO/rB1RwJh9IUSNeWnJesRy5i0h8J3HkD8/ivGYkqn2KtWaVlOSTbUj8afVMt0/jeWe+9pewipJc=
-
-language: java
-jdk: oraclejdk8
-
+notifications:
+  email: false
+git:
+  quiet: true
+  depth: false
+jdk: openjdk8
+node_js: lts/*
+python: 3.7
+matrix:
+  include:
+  - python: 3.7
+services: docker
 addons:
   apt:
+    update: true
     packages:
-    - wget
-    - bash
+    - docker-ce
+    - libxml2-utils
+    - python3-setuptools
+    - python3-pip
+    #- sudo
+    #- lsof
     - curl
     - jq
-    - libxml2-utils
-    - docker-ce
-    - python-pip
-
 install: true
 before_install:
-- sudo pip install docker-compose httpie >/dev/null 2>&1
-- source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
-- stop_any 5432 5672 27017 8080 80
-
+- |
+  if [ ! -f ${HOME}/.local/daggerok/bash-functions/master/main.bash ] ; then
+    mkdir -p ${HOME}/.local/daggerok/bash-functions/master ;
+    curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash > ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
+  fi
+  source ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
+- stop_any 5432 5672 27017 8080 80 5432 8080 8081 8082 8083 8084 8085 8086 8087 8088
+#
+- export PATH=$HOME/.local/bin:$PATH
+- docker-compose version
+- pip -V
+- pip3 install --user --upgrade pip
+- pip install --user --upgrade docker-compose httpie
+- http --version --debug
+- docker-compose version
+- pip -V
 script:
 - export parent=$(pwd)
-
+#
 - cd ${parent}/java-ee-dwr-example/
 - ./mvnw >/dev/null
 - ./gradlew composeUp >/dev/null
 - http :8080/app/
 - http :8080/app/dwr/index.html
 - ./gradlew composeDown
-
+#
 ## ./jboss-eap-postgres/
 #- cd ${parent}/jboss-eap-postgres/
 #- ./mvnw
@@ -46,7 +67,6 @@ script:
 #- http :8080/app/ data=trololo
 #- http :8080/app/
 #- ./mvnw -Pdocker docker-compose:down
-
 ## jax-rs-hateoas-links
 #- cd ${parent}/jax-rs-hateoas-links
 #- ./mvnw >/dev/null
@@ -57,7 +77,6 @@ script:
 #- ./gradlew composeUp >/dev/null
 #- http :8080/app/
 #- ./gradlew composeDown
-
 # aop-logger
 - cd ${parent}/aop-logger
 #- ./mvnw >/dev/null
@@ -75,7 +94,6 @@ script:
 - http :8080/app/api/ping
 - http :8080/app/api/pong
 - ./gradlew composeDown
-
 ## jax-rs-regex-path
 #- cd ${parent}/jax-rs-regex-path
 #- ./mvnw >/dev/null
@@ -92,7 +110,6 @@ script:
 #- http :8080/app/api/ping
 #- http :8080/app/api/pong
 #- ./gradlew composeDown
-
 # porcupine-bulkhead-jee8
 - cd ${parent}/porcupine-bulkhead-jee8
 #- ./mvnw >/dev/null
@@ -113,7 +130,6 @@ script:
 - http :8080/app/async-items/read2
 - http :8080/app/async-items/read2/3 || true
 - ./gradlew composeDown
-
 # async-jax-rs-resources
 - cd ${parent}/async-jax-rs-resources
 #- ./mvnw >/dev/null
@@ -134,7 +150,6 @@ script:
 - http :8080/app/items/2
 - http :8080/app/items/3 || true
 - ./gradlew composeDown
-
 # kumuluzee-mp-2.0-jax-ws
 - cd ${parent}/kumuluzee-mp-2.0-jax-ws
 - bash mvnw clean package >/dev/null 2>&1
@@ -158,14 +173,12 @@ script:
 - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
 - docker-compose down -v >/dev/null 2>&1
 - stop_any 80 8000
-
 ## spring-faces gradle
 #- cd ${parent}/spring-faces
 #- bash ./gradlew >/dev/null 2>&1
 #- bash ./gradlew composeUp >/dev/null 2>&1
 #- http :8080/app/
 #- bash ./gradlew composeDown
-
 # faces maven
 - cd ${parent}/spring-faces
 - bash ./mvnw >/dev/null
@@ -174,7 +187,6 @@ script:
 - sleep 40
 - http :8080/app/
 - bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
-
 ## faces gradle
 #- cd ${parent}/faces
 #- bash ./gradlew >/dev/null 2>&1
@@ -188,7 +200,6 @@ script:
 #- sleep 40
 #- http :8080/app/
 #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
-
 ## facelets-example gradle
 #- cd ${parent}/facelets-example
 #- bash ./gradlew >/dev/null 2>&1
@@ -203,7 +214,6 @@ script:
 #- http :8080/app/
 #- http :8080/app/faces/index.xhtml
 #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
-
 #- cd ${parent}/jboss-4-jax-rs
 #- bash ./gradlew >/dev/null 2>&1
 #- bash ./gradlew composeUp
@@ -217,7 +227,6 @@ script:
 #- http :8080/app/
 #- http :8080/app/api/
 #- ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
-
 # kotlin-kafka
 - cd ${parent}/kotlin-kafka
 - wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/embedded-kafka-0.0.3-all.jar
@@ -239,7 +248,6 @@ script:
 - http :8080/kafka/produce
 - stop_any 8080 8080 9092 2181 80
 - sudo killall -9 java
-
 # kotlin-swarm
 - cd ${parent}/kotlin-swarm
 - bash mvnw >/dev/null 2>&1
@@ -269,7 +277,6 @@ script:
 - http :8080/health
 - docker-compose -f docker-compose-maven.yaml down -v >/dev/null 2>&1
 - stop_any 8080 80
-
 ## kotlin-javaee-cdi-h2
 #- cd ${parent}/kotlin-javaee-cdi-h2
 #- bash mvnw
@@ -286,7 +293,6 @@ script:
 #- http post :8081/kotlin-ee/save-some
 #- http get  :8081/kotlin-ee/get-all
 #- docker-compose down -v
-
 ## plain-http-servlet
 #- cd ${parent}/plain-http-servlet
 #- bash mvnw clean package
@@ -297,14 +303,12 @@ script:
 #- http :8081/plain-http-servlet/
 #- http :8082/plain-http-servlet/
 #- docker-compose down -v
-
 # jboss-eap-h2-ejb, jboss-eap-h2-cdi
 - >
   for path in \
     jboss-eap-h2-cdi \
     jboss-eap-h2-ejb \
   ; do
-
     cd ${parent}/${path}
     bash mvnw >/dev/null 2>&1
     docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
@@ -317,9 +321,7 @@ script:
     http post :8080/client/update/max\?remove=true
     http :8080/client/
     docker-compose down -v >/dev/null 2>&1
-
   done;
-
 # ejb-stateful-singleton
 - cd ${parent}/ejb-stateful-singleton
 - bash mvnw >/dev/null 2>&1
@@ -337,7 +339,6 @@ script:
 - http :8080/client/get\?key=EJB
 - http post :8080/client/reset
 - docker-compose down -v >/dev/null 2>&1
-
 ## ejb-3-starter
 #- cd ${parent}/ejb-3-starter
 #- bash mvnw
@@ -361,14 +362,12 @@ script:
 #- http :8080/client/haked-by
 #- http :8080/client
 #- docker-compose down -v
-#
 ## ejb-3-java-ee-7, timer-async-ejb
 #- >
 #  for path in \
 #    ejb-3-java-ee-7 \
 #    timer-async-ejb \
 #  ; do
-#
 #    cd ${parent}/${path}
 #    bash mvnw
 #    docker-compose build --force-rm --no-cache --pull
@@ -382,7 +381,6 @@ script:
 #    http :8080/client/haked-by
 #    http :8080/client
 #    docker-compose down -v
-#
 #  done
 #
 ## timer
@@ -428,14 +426,12 @@ script:
 #- http :8080/module-3/
 #- http :8080/module-4/
 #- docker-compose down -v
-
 # xmlrpc, kumuluzee-config
 - >
   for path in \
     xmlrpc \
     kumuluzee-config \
   ; do
-
     cd ${parent}/${path}
     bash mvnw clean package -U -T 4 >/dev/null 2>&1
     docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
@@ -444,7 +440,6 @@ script:
     http :8080/client/v1/greet/Max
     docker-compose down -v >/dev/null 2>&1
   done
-
 ## ext.js
 #- >
 #  for path in \
@@ -462,7 +457,6 @@ script:
 #    http :8080/rest-api/health
 #    docker-compose down -v >/dev/null 2>&1
 #  done
-
 ## forge-javaee-6-ws
 #- cd ${parent}/forge-javaee-6-ws
 #- bash mvnw clean package -U -T 2
@@ -472,7 +466,6 @@ script:
 #- http :8080/app/AppEndpoint\?wsdl
 #- curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xml" -d @request.xml | xmllint --format -
 #- docker-compose down -v
-
 # forge-ws
 - cd ${parent}/forge-ws
 - bash mvnw clean package -U >/dev/null 2>&1
@@ -484,7 +477,6 @@ script:
 - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @./src/test/resources/empty-request.xml | xmllint --format -
 - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
 - docker-compose down -v >/dev/null 2>&1
-
 ## java-ee-7-docker-jboss-eap-6.4-quickstart
 #- cd ${parent}/java-ee-7-docker-jboss-eap-6.4-quickstart
 #- bash mvnw -U
@@ -492,7 +484,6 @@ script:
 #- sleep 20
 #- curl -sS localhost:8080/app/
 #- docker-compose down -v
-
 ## kumuluzee-microprofile-1.0
 #- cd ${parent}/kumuluzee-microprofile-1.0
 #- bash mvnw clean install
@@ -500,7 +491,6 @@ script:
 #- sleep 15
 #- http :8080/
 #- docker-compose down -v
-
 ## kotlin-java-ee-payara-docker
 #- cd ${parent}/kotlin-java-ee-payara-docker
 #- bash gradlew clean war
@@ -540,7 +530,6 @@ script:
 #- http :8080/hi
 #- http :8080/max
 #- docker-compose down -v
-
 # kotlin-java-ee
 - cd ${parent}/kotlin-java-ee
 - bash gradlew clean build >/dev/null 2>&1
@@ -549,7 +538,6 @@ script:
 - http :8080
 - http :8080/max
 - stop_any 8080 8080 8080
-
 # wildfly-swarm-maven
 - >
   cd ${parent}/wildfly-swarm-maven
@@ -565,11 +553,9 @@ script:
   # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
   bash docker/bin/test-stack-deploy.bash
   bash gradlew clean build wildfly-swarm-package >/dev/null 2>&1
-
 before_deploy:
 - cd ${parent}/
 - ./mvnw
-
 deploy:
   provider: pages
   skip-cleanup: true
@@ -580,12 +566,10 @@ deploy:
     branch: master
   local-dir: target/generated-docs
   target_branch: gh-pages
-
 before_cache:
 - sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
 - sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
 - sudo rm -rf $HOME/.gradle/caches/modules-2/modules-2.lock
-
 cache:
   directories:
   - $HOME/.m2
