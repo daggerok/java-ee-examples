@@ -19,7 +19,7 @@ link:https://daggerok.github.io/java-ee-examples[Documentation]
 - link:https://github.com/daggerok/deltaspike-exception-handler-example[GitHub: daggerok/deltaspike-exception-handler-example]
 - link:https://github.com/daggerok/jersey-netty-cdi-jackson-file-eventstore[GitHub: daggerok/jersey-netty-cdi-jackson-file-eventstore]
 - link:https://github.com/daggerok/jakarta-se-nosql-examples[GitHub: daggerok/jakarta-se-nosql-examples]
-- link:https://github.com/https://github.com/daggerok/quarkus-examples[GitHub: daggerok/quarkus-examples]
+- link:https://github.com/daggerok/quarkus-examples[GitHub: daggerok/quarkus-examples]
 - link:https://github.com/daggerok/fabric8-maven-plugin-examples[GitHub: daggerok/fabric8-maven-plugin-examples]
 - link:https://github.com/daggerok/microprofile-examples[GitHub: daggerok/microprofile-examples - JakartaEE / MicroProfile examples]
 //- link:https://github.com/daggerok/spring-security-java-ee[JavaEE Spring Security integration] // this shit is not working...
