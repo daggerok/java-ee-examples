@@ -6,13 +6,12 @@ This repository contains simple JavaEE examples (including Docker, different Mic
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
-* link:https://github.com/daggerok/kotlin-payara-micro-profile[GitHub: daggerok/daggerok/kotlin-payara-micro-profile]
-* link:https://github.com/daggerok/payara-micro-gradle-no-plugin[GitHub: daggerok/payara-micro-gradle-no-plugin]
-* link:https://github.com/daggerok/payara-micro-gradle-plugin-build-script[GitHub: daggerok/payara-micro-gradle-plugin-build-script]
-* link:https://github.com/daggerok/maven-java-projects[GitHub: daggerok/maven-java-projects]
-* link:https://github.com/daggerok/generator-jvm[GitHub: daggerok/generator-jvm]
-* link:https://github.com/daggerok/microprofile-examples[GitHub: daggerok/microprofile-examples]
-
+- link:https://github.com/daggerok/kotlin-payara-micro-profile[GitHub: daggerok/daggerok/kotlin-payara-micro-profile]
+- link:https://github.com/daggerok/payara-micro-gradle-no-plugin[GitHub: daggerok/payara-micro-gradle-no-plugin]
+- link:https://github.com/daggerok/payara-micro-gradle-plugin-build-script[GitHub: daggerok/payara-micro-gradle-plugin-build-script]
+- link:https://github.com/daggerok/maven-java-projects[GitHub: daggerok/maven-java-projects]
+- link:https://github.com/daggerok/generator-jvm[GitHub: daggerok/generator-jvm]
+- link:https://github.com/daggerok/microprofile-examples[GitHub: daggerok/microprofile-examples]
 - link:https://github.com/daggerok/java-mp-smallrye-example[GitHub: daggerok/java-mp-smallrye-example]
 - link:https://github.com/daggerok/microprofile-coffee-shop[GitHub: daggerok/microprofile-coffee-shop]
 - link:https://github.com/daggerok/java-mp-smallrye-kafka-example[GitHub: ]
