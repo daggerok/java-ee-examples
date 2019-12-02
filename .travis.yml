@@ -10,9 +10,6 @@ git:
 jdk: openjdk8
 node_js: lts/*
 python: 3.7
-matrix:
-  include:
-  - python: 3.7
 services: docker
 addons:
   apt:
