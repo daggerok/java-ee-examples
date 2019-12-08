@@ -564,11 +564,11 @@ deploy:
   local-dir: target/generated-docs
   target_branch: gh-pages
 before_cache:
-- sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
-- sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
-- sudo rm -rf $HOME/.gradle/caches/modules-2/modules-2.lock
+  - sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
+  - find ~/.gradle -name "fileHashes.bin" -print0 | xargs -0 rm -rfv '{}'
+  - for item in $(find ~/.gradle -name "*.lock") ; do rm -rfv $item ; done
 cache:
   directories:
-  - $HOME/.m2
-  - $HOME/.gradle
-  - $HOME/.docker
+  - ~/.m2
+  - ~/.gradle
+  - ~/.docker
