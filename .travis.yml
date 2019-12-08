@@ -17,7 +17,6 @@ addons:
     packages:
     - docker-ce
     - libxml2-utils
-    - python3-setuptools
     - python3-pip
     #- sudo
     #- lsof
@@ -33,536 +32,582 @@ before_install:
   source ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
 - stop_any 5432 5672 27017 8080 80 5432 8080 8081 8082 8083 8084 8085 8086 8087 8088
 #
+- docker-compose version
 - export PATH=$HOME/.local/bin:$PATH
-- docker-compose version
-- pip -V
-- pip3 install --user --upgrade pip
+- pip3 install --user --upgrade pip setuptools
 - pip install --user --upgrade docker-compose httpie
-- http --version --debug
 - docker-compose version
-- pip -V
-script:
 - export parent=$(pwd)
-#
-- cd ${parent}/java-ee-dwr-example/
-- ./mvnw >/dev/null
-- ./gradlew composeUp >/dev/null
-- http :8080/app/
-- http :8080/app/dwr/index.html
-- ./gradlew composeDown
-#
-## ./jboss-eap-postgres/
-#- cd ${parent}/jboss-eap-postgres/
-#- ./mvnw
-#- ./mvnw -Pdocker docker-compose:up
-#- ./mvnw -Pdocker docker-compose:down
-#- ./mvnw -Pdocker docker-compose:up &
-#- wait_for 8080
-#- sleep 15s
-#- http :8080/app/
-#- http :8080/app/ data=ololo
-#- http :8080/app/ data=trololo
-#- http :8080/app/
-#- ./mvnw -Pdocker docker-compose:down
-## jax-rs-hateoas-links
-#- cd ${parent}/jax-rs-hateoas-links
-#- ./mvnw >/dev/null
-#- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
-#- http :8080/app/
-#- ./gradlew -Pprofile=maven composeDown
-#- ./gradlew >/dev/null
-#- ./gradlew composeUp >/dev/null
-#- http :8080/app/
-#- ./gradlew composeDown
-# aop-logger
-- cd ${parent}/aop-logger
-#- ./mvnw >/dev/null
-#- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
-#- http :8080/app/api/
-#- http :8080/app/api/health
-#- http :8080/app/api/ping
-#- http :8080/app/api/pong
-#- ./gradlew -Pprofile=maven composeDown
-- ./gradlew >/dev/null
-- ./gradlew composeUp >/dev/null
-- docker logs -f aop-logger_gradle-aop-logger-app_1 &
-- http :8080/app/api/
-- http :8080/app/api/health
-- http :8080/app/api/ping
-- http :8080/app/api/pong
-- ./gradlew composeDown
-## jax-rs-regex-path
-#- cd ${parent}/jax-rs-regex-path
-#- ./mvnw >/dev/null
-#- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
-#- http :8080/app/api/
-#- http :8080/app/api/health
-#- http :8080/app/api/ping
-#- http :8080/app/api/pong
-#- ./gradlew -Pprofile=maven composeDown
-#- ./gradlew >/dev/null
-#- ./gradlew composeUp >/dev/null
-#- http :8080/app/api/
-#- http :8080/app/api/health
-#- http :8080/app/api/ping
-#- http :8080/app/api/pong
-#- ./gradlew composeDown
-# porcupine-bulkhead-jee8
-- cd ${parent}/porcupine-bulkhead-jee8
-#- ./mvnw >/dev/null
-#- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
-#- http :8080/app/async-items/write1 value=ololo
-#- http :8080/app/async-items/write2 value=trololo
-#- http :8080/app/async-items/read1
-#- http :8080/app/async-items/read1/1
-#- http :8080/app/async-items/read2
-#- http :8080/app/async-items/read2/3 || true
-#- ./gradlew -Pprofile=maven composeDown
-- ./gradlew >/dev/null
-- ./gradlew composeUp >/dev/null
-- http :8080/app/async-items/write1 value=ololo
-- http :8080/app/async-items/write2 value=trololo
-- http :8080/app/async-items/read1
-- http :8080/app/async-items/read1/1
-- http :8080/app/async-items/read2
-- http :8080/app/async-items/read2/3 || true
-- ./gradlew composeDown
-# async-jax-rs-resources
-- cd ${parent}/async-jax-rs-resources
-#- ./mvnw >/dev/null
-#- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
-#- http :8080/app/items value=ololo
-#- http :8080/app/items value=trololo
-#- http :8080/app/items/
-#- http :8080/app/items/1
-#- http :8080/app/items/2
-#- http :8080/app/items/3 || true
-#- ./gradlew -Pprofile=maven composeDown
-- ./gradlew >/dev/null
-- ./gradlew composeUp >/dev/null
-- http :8080/app/items value=ololo
-- http :8080/app/items value=trololo
-- http :8080/app/items/
-- http :8080/app/items/1
-- http :8080/app/items/2
-- http :8080/app/items/3 || true
-- ./gradlew composeDown
-# kumuluzee-mp-2.0-jax-ws
-- cd ${parent}/kumuluzee-mp-2.0-jax-ws
-- bash mvnw clean package >/dev/null 2>&1
-- java -jar ./target/*.jar &
-#- wait_for 8000
-- sleep 15
-- http :8000/
-- http :8000/api/v1/ws
-- http :8000/api/v1/ws\?wsdl
-- curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
-- stop_any 80 8000
-- docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
-- docker-compose up &
-- sleep 35
-- http :8000
-- curl -sS 127.0.0.1:8000/api/v1/ws | xmllint --format -
-- curl -sS "127.0.0.1:8000/api/v1/ws?WSDL" | xmllint --format -
-- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
-- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-- curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-- docker-compose down -v >/dev/null 2>&1
-- stop_any 80 8000
-## spring-faces gradle
-#- cd ${parent}/spring-faces
-#- bash ./gradlew >/dev/null 2>&1
-#- bash ./gradlew composeUp >/dev/null 2>&1
-#- http :8080/app/
-#- bash ./gradlew composeDown
-# faces maven
-- cd ${parent}/spring-faces
-- bash ./mvnw >/dev/null
-- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
-- docker logs -f springfaces_maven-spring-faces-app_1 &
-- sleep 40
-- http :8080/app/
-- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
-## faces gradle
-#- cd ${parent}/faces
-#- bash ./gradlew >/dev/null 2>&1
-#- bash ./gradlew composeUp >/dev/null 2>&1
-#- http :8080/app/
-#- bash ./gradlew composeDown >/dev/null 2>&1
-## faces maven
-#- bash ./mvnw >/dev/null 2>&1
-#- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
-#- docker logs -f faces_maven-faces-app_1 &
-#- sleep 40
-#- http :8080/app/
-#- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
-## facelets-example gradle
-#- cd ${parent}/facelets-example
-#- bash ./gradlew >/dev/null 2>&1
-#- bash ./gradlew composeUp >/dev/null 2>&1
-#- http :8080/app/
-#- http :8080/app/faces/index.xhtml
-#- bash ./gradlew composeDown
-## facelets-example maven
-#- bash ./mvnw >/dev/null 2>&1
-#- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
-#- sleep 40
-#- http :8080/app/
-#- http :8080/app/faces/index.xhtml
-#- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
-#- cd ${parent}/jboss-4-jax-rs
-#- bash ./gradlew >/dev/null 2>&1
-#- bash ./gradlew composeUp
-#- sleep 10
-#- http :8080/app/
-#- http :8080/app/api/
-#- bash ./gradlew composeDown
-#- bash ./mvnw >/dev/null 2>&1
-#- ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
-#- sleep 40
-#- http :8080/app/
-#- http :8080/app/api/
-#- ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
-# kotlin-kafka
-- cd ${parent}/kotlin-kafka
-- wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/embedded-kafka-0.0.3-all.jar
-- >
-  java -jar kafka.jar \
-            --zookeeperPort=2181 \
-            --zookeeperDir=/tmp \
-            --kafkaPort=9092 \
-            --kafkaTopics=topic1,topic2 \
-            --httpPort=8080 \
-            --httpContext=/ &
-- bash mvnw >/dev/null 2>&1
-- bash gradlew
-- bash build/libs/*-swarm.jar -Djava.net.preferIPv4Stack=true &
-- wait_for 8080
-- sleep 15
-- http :8080/kafka/query
-- http :8080/kafka/produce
-- http :8080/kafka/produce
-- stop_any 8080 8080 9092 2181 80
-- sudo killall -9 java
-# kotlin-swarm
-- cd ${parent}/kotlin-swarm
-- bash mvnw >/dev/null 2>&1
-#- sudo bash mvnw wildfly-swarm:run &
-#- java -jar target/*.jar &
-- bash gradlew >/dev/null 2>&1
-- bash build/libs/*-swarm.jar -Djava.net.preferIPv4Stack=true &
-- wait_for 8080
-- sleep 5
-- http :8080
-- http :8080/health
-- stop_any 8080
-- bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
-- sleep 25
-- http :8080
-- http :8080/health
-- bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
-- bash gradlew composeUp >/dev/null 2>&1 || true
-- sleep 25
-- http :8080
-- http :8080/health
-- bash gradlew composeDown >/dev/null 2>&1 || true
-- docker-compose -f docker-compose-maven.yaml build >/dev/null 2>&1
-- docker-compose -f docker-compose-maven.yaml up & >/dev/null 2>&1
-- sleep 40
-- http :8080
-- http :8080/health
-- docker-compose -f docker-compose-maven.yaml down -v >/dev/null 2>&1
-- stop_any 8080 80
-## kotlin-javaee-cdi-h2
-#- cd ${parent}/kotlin-javaee-cdi-h2
-#- bash mvnw
-#- bash gradlew
-#- docker-compose build --force-rm --no-cache --pull
-#- docker-compose up --force-recreate --remove-orphans &
-#- sleep 30
-#- http get  :8080/kotlin-ee/
-#- http get  :8080/kotlin-ee/get-all
-#- http post :8080/kotlin-ee/save-some
-#- http get  :8080/kotlin-ee/get-all
-#- http get  :8081/kotlin-ee/
-#- http get  :8081/kotlin-ee/get-all
-#- http post :8081/kotlin-ee/save-some
-#- http get  :8081/kotlin-ee/get-all
-#- docker-compose down -v
-## plain-http-servlet
-#- cd ${parent}/plain-http-servlet
-#- bash mvnw clean package
-#- bash gradlew clean build
-#- docker-compose build --force-rm --no-cache --pull
-#- docker-compose up --force-recreate --remove-orphans &
-#- sleep 20
-#- http :8081/plain-http-servlet/
-#- http :8082/plain-http-servlet/
-#- docker-compose down -v
-# jboss-eap-h2-ejb, jboss-eap-h2-cdi
-- >
-  for path in \
-    jboss-eap-h2-cdi \
-    jboss-eap-h2-ejb \
-  ; do
-    cd ${parent}/${path}
-    bash mvnw >/dev/null 2>&1
-    docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
-    docker-compose up --force-recreate --remove-orphans &
-    sleep 20
-    http post :8080/client/update/max
-    http post :8080/client/update/maxp
-    http post :8080/client/update/amaxp
-    http :8080/client/
-    http post :8080/client/update/max\?remove=true
-    http :8080/client/
-    docker-compose down -v >/dev/null 2>&1
-  done;
-# ejb-stateful-singleton
-- cd ${parent}/ejb-stateful-singleton
-- bash mvnw >/dev/null 2>&1
-- docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
-- docker-compose up --force-recreate --remove-orphans &
-- sleep 20
-- http :8080/client/
-- http :8080/client/get\?key=EJB
-- http :8080/client/set\?key=EJB\&value=some-value
-- http :8080/client/get\?key=EJB
-- http post :8080/client/counter/incr
-- http post :8080/client/counter/increment
-- http post :8080/client/counter/decr
-- http post :8080/client/counter/incr
-- http :8080/client/get\?key=EJB
-- http post :8080/client/reset
-- docker-compose down -v >/dev/null 2>&1
-## ejb-3-starter
-#- cd ${parent}/ejb-3-starter
-#- bash mvnw
-#- docker-compose build --force-rm --no-cache --pull
-#- docker-compose up --force-recreate --remove-orphans &
-#- sleep 20
-#- http :8080/client/
-#- http :8080/client/v1/api/hello
-#- docker-compose down -v
-#
-#- cd ${parent}/ejb-3-java-ee-7
-#- bash mvnw
-#- docker-compose build --force-rm --no-cache --pull
-#- docker-compose up --force-recreate --remove-orphans &
-#- sleep 20
-#- http :8080/client/start
-#- sleep 3
-#- http :8080/client/stop
-#- sleep 5
-#- http :8080/client/was\?name=max
-#- http :8080/client/haked-by
-#- http :8080/client
-#- docker-compose down -v
-## ejb-3-java-ee-7, timer-async-ejb
-#- >
-#  for path in \
-#    ejb-3-java-ee-7 \
-#    timer-async-ejb \
-#  ; do
-#    cd ${parent}/${path}
-#    bash mvnw
-#    docker-compose build --force-rm --no-cache --pull
-#    docker-compose up --force-recreate --remove-orphans &
-#    sleep 20
-#    http :8080/client/start
-#    sleep 3
-#    http :8080/client/stop
-#    sleep 5
-#    http :8080/client/was\?name=max
-#    http :8080/client/haked-by
-#    http :8080/client
-#    docker-compose down -v
-#  done
-#
-## timer
-#- cd ${parent}/timer
-#- bash mvnw
-#- docker-compose build --force-rm --no-cache --pull
-#- docker-compose up --force-recreate --remove-orphans -d
-#- sleep 20
-#- http :8080/client/start
-#- sleep 5
-#- http :8080/client/stop
-#- sleep 2
-#- docker-compose down -v
-#
-## ejb-2-starter
-#- cd ${parent}/ejb-2-starter
-#- bash mvnw
-#- docker-compose build --force-rm --no-cache --pull
-#- docker-compose up --force-recreate --remove-orphans -d
-#- sleep 20
-#- http :8080/client/
-#- docker-compose down -v
-#
-## ejb-2
-#- cd ${parent}/ejb-2
-#- bash mvnw clean package -U -T 4
-#- docker-compose build --force-rm --no-cache --pull
-#- docker-compose up --force-recreate --remove-orphans -d
-#- sleep 20
-#- http :8080/greeter-remote-client/
-#- http :8080/remote-only-client/
-#- http :8080/goodbyer-local-client/
-#- docker-compose down -v
-#
-## ear
-#- cd ${parent}/ear
-#- bash mvnw clean package -U -T 4
-#- docker-compose build --force-rm --no-cache --pull
-#- docker-compose up --force-recreate --remove-orphans -d
-#- sleep 20
-#- http :8080/module-1/
-#- http :8080/module-2/
-#- http :8080/module-3/
-#- http :8080/module-4/
-#- docker-compose down -v
-# xmlrpc, kumuluzee-config
-- >
-  for path in \
-    xmlrpc \
-    kumuluzee-config \
-  ; do
-    cd ${parent}/${path}
-    bash mvnw clean package -U -T 4 >/dev/null 2>&1
-    docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
-    docker-compose up --force-recreate --remove-orphans & >/dev/null 2>&1
-    sleep 30
-    http :8080/client/v1/greet/Max
-    docker-compose down -v >/dev/null 2>&1
-  done
-## ext.js
-#- >
-#  for path in \
-#    tomee-ext.js \
-#    glassfish-ext.js \
-#    jboss-eap-ext.js \
-#  ; do
-#    cd ${parent}/${path}
-#    bash mvnw clean package -U -T 4 >/dev/null 2>&1
-#    stop_any 8080
-#    docker-compose build --force-rm --pull --no-cache >/dev/null 2>&1
-#    docker-compose up -d --build --remove-orphans >/dev/null 2>&1
-#    sleep 30
-#    http :8080/ui/
-#    http :8080/rest-api/health
-#    docker-compose down -v >/dev/null 2>&1
-#  done
-## forge-javaee-6-ws
-#- cd ${parent}/forge-javaee-6-ws
-#- bash mvnw clean package -U -T 2
-#- docker-compose up --build --force-recreate --remove-orphans -d
-#- sleep 20
-#- http :8080/app/health
-#- http :8080/app/AppEndpoint\?wsdl
-#- curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xml" -d @request.xml | xmllint --format -
-#- docker-compose down -v
-# forge-ws
-- cd ${parent}/forge-ws
-- bash mvnw clean package -U >/dev/null 2>&1
-- bash gradlew clean build >/dev/null 2>&1
-- docker-compose up --build --force-recreate --remove-orphans -d >/dev/null 2>&1
-- sleep 20
-- http :8080/app/v1/api
-- http ":8080/app/UserService?wsdl"
-- curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @./src/test/resources/empty-request.xml | xmllint --format -
-- curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
-- docker-compose down -v >/dev/null 2>&1
-## java-ee-7-docker-jboss-eap-6.4-quickstart
-#- cd ${parent}/java-ee-7-docker-jboss-eap-6.4-quickstart
-#- bash mvnw -U
-#- docker-compose up -d --build
-#- sleep 20
-#- curl -sS localhost:8080/app/
-#- docker-compose down -v
-## kumuluzee-microprofile-1.0
-#- cd ${parent}/kumuluzee-microprofile-1.0
-#- bash mvnw clean install
-#- docker-compose up -d --build
-#- sleep 15
-#- http :8080/
-#- docker-compose down -v
-## kotlin-java-ee-payara-docker
-#- cd ${parent}/kotlin-java-ee-payara-docker
-#- bash gradlew clean war
-#- stop_any 8080
-#- docker-compose up --force-recreate -d --build --remove-orphans
-#- sleep 30
-#- http :8080/payara-app/
-#- http :8080/payara-app/max
-#- docker-compose down -v
-#
-## main-swarm-rest-api
-#- cd ${parent}/main-swarm-rest-api
-#- bash mvnw clean package
-#- docker-compose up --force-recreate -d --build --remove-orphans
-#- sleep 30
-#- http :8080
-#- http :8080/api
-#- http :8080/api/max
-#- echo '{"users":{"username":"Max"}}' | http :8080/api/jsonp/json-pointer
-#- http post :8080/api/cors max=max
-#- docker-compose down -v
-#
-## main-swarm-static-content
-#- cd ${parent}/main-swarm-static-content
-#- bash gradlew clean build
-#- docker-compose up --force-recreate -d --build --remove-orphans
-#- sleep 30
-#- http :8080
-#- docker-compose down -v
-#
-## kotlin-plugins-java-ee
-#- cd ${parent}/kotlin-plugins-java-ee
-#- bash gradlew clean build
-#- docker-compose up --force-recreate -d --build --remove-orphans
-#- sleep 30
-#- http :8080
-#- http :8080/hi
-#- http :8080/max
-#- docker-compose down -v
-# kotlin-java-ee
-- cd ${parent}/kotlin-java-ee
-- bash gradlew clean build >/dev/null 2>&1
-- java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-- sleep 30
-- http :8080
-- http :8080/max
-- stop_any 8080 8080 8080
-# wildfly-swarm-maven
-- >
-  cd ${parent}/wildfly-swarm-maven
-  bash mvnw clean install
-  #bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
-  java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
-  sleep 30
-  http :8080
-  sleep 1
-  stop_any 8080
-  bash docker/bin/test-dockerfile.bash
-  bash docker/bin/test-docker-compose.bash
-  # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
-  bash docker/bin/test-stack-deploy.bash
-  bash gradlew clean build wildfly-swarm-package >/dev/null 2>&1
-before_deploy:
-- cd ${parent}/
-- ./mvnw
-deploy:
-  provider: pages
-  skip-cleanup: true
-  # travis encrypt GITHUB_TOKEN=<your github repo token> --add
-  github-token: "$GITHUB_TOKEN"
-  keep-history: true
-  on:
-    branch: master
-  local-dir: target/generated-docs
-  target_branch: gh-pages
+jobs:
+  includes:
+    - stage: test
+      name: java-ee-dwr-example
+      script:
+      #
+      - cd ${parent}/java-ee-dwr-example/
+      - ./mvnw >/dev/null
+      - ./gradlew composeUp >/dev/null
+      - http :8080/app/
+      - http :8080/app/dwr/index.html
+      - ./gradlew composeDown
+      #
+      ## ./jboss-eap-postgres/
+      #- cd ${parent}/jboss-eap-postgres/
+      #- ./mvnw
+      #- ./mvnw -Pdocker docker-compose:up
+      #- ./mvnw -Pdocker docker-compose:down
+      #- ./mvnw -Pdocker docker-compose:up &
+      #- wait_for 8080
+      #- sleep 15s
+      #- http :8080/app/
+      #- http :8080/app/ data=ololo
+      #- http :8080/app/ data=trololo
+      #- http :8080/app/
+      #- ./mvnw -Pdocker docker-compose:down
+      ## jax-rs-hateoas-links
+      #- cd ${parent}/jax-rs-hateoas-links
+      #- ./mvnw >/dev/null
+      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- http :8080/app/
+      #- ./gradlew -Pprofile=maven composeDown
+      #- ./gradlew >/dev/null
+      #- ./gradlew composeUp >/dev/null
+      #- http :8080/app/
+      #- ./gradlew composeDown
+    - stage: test
+      name: aop-logger
+      script:
+      #
+      - cd ${parent}/aop-logger
+      #- ./mvnw >/dev/null
+      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- http :8080/app/api/
+      #- http :8080/app/api/health
+      #- http :8080/app/api/ping
+      #- http :8080/app/api/pong
+      #- ./gradlew -Pprofile=maven composeDown
+      - ./gradlew >/dev/null
+      - ./gradlew composeUp >/dev/null
+      - docker logs -f aop-logger_gradle-aop-logger-app_1 &
+      - http :8080/app/api/
+      - http :8080/app/api/health
+      - http :8080/app/api/ping
+      - http :8080/app/api/pong
+      - ./gradlew composeDown
+      ## jax-rs-regex-path
+      #- cd ${parent}/jax-rs-regex-path
+      #- ./mvnw >/dev/null
+      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- http :8080/app/api/
+      #- http :8080/app/api/health
+      #- http :8080/app/api/ping
+      #- http :8080/app/api/pong
+      #- ./gradlew -Pprofile=maven composeDown
+      #- ./gradlew >/dev/null
+      #- ./gradlew composeUp >/dev/null
+      #- http :8080/app/api/
+      #- http :8080/app/api/health
+      #- http :8080/app/api/ping
+      #- http :8080/app/api/pong
+      #- ./gradlew composeDown
+    - stage: test
+      name: porcupine-bulkhead-jee8
+      script:
+      #
+      - cd ${parent}/porcupine-bulkhead-jee8
+      #- ./mvnw >/dev/null
+      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- http :8080/app/async-items/write1 value=ololo
+      #- http :8080/app/async-items/write2 value=trololo
+      #- http :8080/app/async-items/read1
+      #- http :8080/app/async-items/read1/1
+      #- http :8080/app/async-items/read2
+      #- http :8080/app/async-items/read2/3 || true
+      #- ./gradlew -Pprofile=maven composeDown
+      - ./gradlew >/dev/null
+      - ./gradlew composeUp >/dev/null
+      - http :8080/app/async-items/write1 value=ololo
+      - http :8080/app/async-items/write2 value=trololo
+      - http :8080/app/async-items/read1
+      - http :8080/app/async-items/read1/1
+      - http :8080/app/async-items/read2
+      - http :8080/app/async-items/read2/3 || true
+      - ./gradlew composeDown
+    - stage: test
+      name: async-jax-rs-resources
+      script:
+      - cd ${parent}/async-jax-rs-resources
+      #- ./mvnw >/dev/null
+      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- http :8080/app/items value=ololo
+      #- http :8080/app/items value=trololo
+      #- http :8080/app/items/
+      #- http :8080/app/items/1
+      #- http :8080/app/items/2
+      #- http :8080/app/items/3 || true
+      #- ./gradlew -Pprofile=maven composeDown
+      - ./gradlew >/dev/null
+      - ./gradlew composeUp >/dev/null
+      - http :8080/app/items value=ololo
+      - http :8080/app/items value=trololo
+      - http :8080/app/items/
+      - http :8080/app/items/1
+      - http :8080/app/items/2
+      - http :8080/app/items/3 || true
+      - ./gradlew composeDown
+    - stage: test
+      name: kumuluzee-mp-2.0-jax-ws
+      script:
+      - cd ${parent}/kumuluzee-mp-2.0-jax-ws
+      - bash mvnw clean package >/dev/null 2>&1
+      - java -jar ./target/*.jar &
+      #- wait_for 8000
+      - sleep 15
+      - http :8000/
+      - http :8000/api/v1/ws
+      - http :8000/api/v1/ws\?wsdl
+      - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
+      - stop_any 80 8000
+      - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
+      - docker-compose up &
+      - sleep 35
+      - http :8000
+      - curl -sS 127.0.0.1:8000/api/v1/ws | xmllint --format -
+      - curl -sS "127.0.0.1:8000/api/v1/ws?WSDL" | xmllint --format -
+      - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
+      - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+      - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+      - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
+      - docker-compose down -v >/dev/null 2>&1
+      - stop_any 80 8000
+      ## spring-faces gradle
+      #- cd ${parent}/spring-faces
+      #- bash ./gradlew >/dev/null 2>&1
+      #- bash ./gradlew composeUp >/dev/null 2>&1
+      #- http :8080/app/
+      #- bash ./gradlew composeDown
+    - stage: test
+      name: faces maven
+      script:
+      - cd ${parent}/spring-faces
+      - bash ./mvnw >/dev/null
+      - bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+      - docker logs -f springfaces_maven-spring-faces-app_1 &
+      - sleep 40
+      - http :8080/app/
+      - bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
+      ## faces gradle
+      #- cd ${parent}/faces
+      #- bash ./gradlew >/dev/null 2>&1
+      #- bash ./gradlew composeUp >/dev/null 2>&1
+      #- http :8080/app/
+      #- bash ./gradlew composeDown >/dev/null 2>&1
+      ## faces maven
+      #- bash ./mvnw >/dev/null 2>&1
+      #- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+      #- docker logs -f faces_maven-faces-app_1 &
+      #- sleep 40
+      #- http :8080/app/
+      #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
+      ## facelets-example gradle
+      #- cd ${parent}/facelets-example
+      #- bash ./gradlew >/dev/null 2>&1
+      #- bash ./gradlew composeUp >/dev/null 2>&1
+      #- http :8080/app/
+      #- http :8080/app/faces/index.xhtml
+      #- bash ./gradlew composeDown
+      ## facelets-example maven
+      #- bash ./mvnw >/dev/null 2>&1
+      #- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+      #- sleep 40
+      #- http :8080/app/
+      #- http :8080/app/faces/index.xhtml
+      #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+      #- cd ${parent}/jboss-4-jax-rs
+      #- bash ./gradlew >/dev/null 2>&1
+      #- bash ./gradlew composeUp
+      #- sleep 10
+      #- http :8080/app/
+      #- http :8080/app/api/
+      #- bash ./gradlew composeDown
+      #- bash ./mvnw >/dev/null 2>&1
+      #- ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+      #- sleep 40
+      #- http :8080/app/
+      #- http :8080/app/api/
+      #- ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+    - stage: test
+      name: kotlin-kafka
+      script:
+      - cd ${parent}/kotlin-kafka
+      - wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/embedded-kafka-0.0.3-all.jar
+      - >
+        java -jar kafka.jar \
+                  --zookeeperPort=2181 \
+                  --zookeeperDir=/tmp \
+                  --kafkaPort=9092 \
+                  --kafkaTopics=topic1,topic2 \
+                  --httpPort=8080 \
+                  --httpContext=/ &
+      - bash mvnw >/dev/null 2>&1
+      - bash gradlew
+      - bash build/libs/*-swarm.jar -Djava.net.preferIPv4Stack=true &
+      - wait_for 8080
+      - sleep 15
+      - http :8080/kafka/query
+      - http :8080/kafka/produce
+      - http :8080/kafka/produce
+      - stop_any 8080 8080 9092 2181 80
+      - sudo killall -9 java
+    - stage: test
+      name: kotlin-swarm
+      script:
+      - cd ${parent}/kotlin-swarm
+      - bash mvnw >/dev/null 2>&1
+      #- sudo bash mvnw wildfly-swarm:run &
+      #- java -jar target/*.jar &
+      - bash gradlew >/dev/null 2>&1
+      - bash build/libs/*-swarm.jar -Djava.net.preferIPv4Stack=true &
+      - wait_for 8080
+      - sleep 5
+      - http :8080
+      - http :8080/health
+      - stop_any 8080
+      - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+      - sleep 25
+      - http :8080
+      - http :8080/health
+      - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
+      - bash gradlew composeUp >/dev/null 2>&1 || true
+      - sleep 25
+      - http :8080
+      - http :8080/health
+      - bash gradlew composeDown >/dev/null 2>&1 || true
+      - docker-compose -f docker-compose-maven.yaml build >/dev/null 2>&1
+      - docker-compose -f docker-compose-maven.yaml up & >/dev/null 2>&1
+      - sleep 40
+      - http :8080
+      - http :8080/health
+      - docker-compose -f docker-compose-maven.yaml down -v >/dev/null 2>&1
+      - stop_any 8080 80
+      ## kotlin-javaee-cdi-h2
+      #- cd ${parent}/kotlin-javaee-cdi-h2
+      #- bash mvnw
+      #- bash gradlew
+      #- docker-compose build --force-rm --no-cache --pull
+      #- docker-compose up --force-recreate --remove-orphans &
+      #- sleep 30
+      #- http get  :8080/kotlin-ee/
+      #- http get  :8080/kotlin-ee/get-all
+      #- http post :8080/kotlin-ee/save-some
+      #- http get  :8080/kotlin-ee/get-all
+      #- http get  :8081/kotlin-ee/
+      #- http get  :8081/kotlin-ee/get-all
+      #- http post :8081/kotlin-ee/save-some
+      #- http get  :8081/kotlin-ee/get-all
+      #- docker-compose down -v
+      ## plain-http-servlet
+      #- cd ${parent}/plain-http-servlet
+      #- bash mvnw clean package
+      #- bash gradlew clean build
+      #- docker-compose build --force-rm --no-cache --pull
+      #- docker-compose up --force-recreate --remove-orphans &
+      #- sleep 20
+      #- http :8081/plain-http-servlet/
+      #- http :8082/plain-http-servlet/
+      #- docker-compose down -v
+    - stage: test
+      name: jboss-eap-h2-cdi
+      script:
+      - cd ${parent}/jboss-eap-h2-cdi
+      - bash mvnw
+      - docker-compose build --force-rm --no-cache --pull
+      - docker-compose up --force-recreate --remove-orphans &
+      - sleep 20
+      - http post :8080/client/update/max
+      - http post :8080/client/update/maxp
+      - http post :8080/client/update/amaxp
+      - http :8080/client/
+      - http post :8080/client/update/max\?remove=true
+      - http :8080/client/
+      - docker-compose down -v --rmi local
+    - stage: test
+      name: jboss-eap-h2-ejb
+      script:
+      - cd ${parent}/jboss-eap-h2-ejb
+      - bash mvnw
+      - docker-compose build --force-rm --no-cache --pull
+      - docker-compose up --force-recreate --remove-orphans &
+      - sleep 20
+      - http post :8080/client/update/max
+      - http post :8080/client/update/maxp
+      - http post :8080/client/update/amaxp
+      - http :8080/client/
+      - http post :8080/client/update/max\?remove=true
+      - http :8080/client/
+      - docker-compose down -v --rmi local
+    - stage: test
+      name: ejb-stateful-singleton
+      script:
+      - cd ${parent}/ejb-stateful-singleton
+      - bash mvnw >/dev/null 2>&1
+      - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
+      - docker-compose up --force-recreate --remove-orphans &
+      - sleep 20
+      - http :8080/client/
+      - http :8080/client/get\?key=EJB
+      - http :8080/client/set\?key=EJB\&value=some-value
+      - http :8080/client/get\?key=EJB
+      - http post :8080/client/counter/incr
+      - http post :8080/client/counter/increment
+      - http post :8080/client/counter/decr
+      - http post :8080/client/counter/incr
+      - http :8080/client/get\?key=EJB
+      - http post :8080/client/reset
+      - docker-compose down -v >/dev/null 2>&1
+      ## ejb-3-starter
+      #- cd ${parent}/ejb-3-starter
+      #- bash mvnw
+      #- docker-compose build --force-rm --no-cache --pull
+      #- docker-compose up --force-recreate --remove-orphans &
+      #- sleep 20
+      #- http :8080/client/
+      #- http :8080/client/v1/api/hello
+      #- docker-compose down -v
+      #
+      #- cd ${parent}/ejb-3-java-ee-7
+      #- bash mvnw
+      #- docker-compose build --force-rm --no-cache --pull
+      #- docker-compose up --force-recreate --remove-orphans &
+      #- sleep 20
+      #- http :8080/client/start
+      #- sleep 3
+      #- http :8080/client/stop
+      #- sleep 5
+      #- http :8080/client/was\?name=max
+      #- http :8080/client/haked-by
+      #- http :8080/client
+      #- docker-compose down -v
+      ## ejb-3-java-ee-7, timer-async-ejb
+      #- >
+      #  for path in \
+      #    ejb-3-java-ee-7 \
+      #    timer-async-ejb \
+      #  ; do
+      #    cd ${parent}/${path}
+      #    bash mvnw
+      #    docker-compose build --force-rm --no-cache --pull
+      #    docker-compose up --force-recreate --remove-orphans &
+      #    sleep 20
+      #    http :8080/client/start
+      #    sleep 3
+      #    http :8080/client/stop
+      #    sleep 5
+      #    http :8080/client/was\?name=max
+      #    http :8080/client/haked-by
+      #    http :8080/client
+      #    docker-compose down -v
+      #  done
+      #
+      ## timer
+      #- cd ${parent}/timer
+      #- bash mvnw
+      #- docker-compose build --force-rm --no-cache --pull
+      #- docker-compose up --force-recreate --remove-orphans -d
+      #- sleep 20
+      #- http :8080/client/start
+      #- sleep 5
+      #- http :8080/client/stop
+      #- sleep 2
+      #- docker-compose down -v
+      #
+      ## ejb-2-starter
+      #- cd ${parent}/ejb-2-starter
+      #- bash mvnw
+      #- docker-compose build --force-rm --no-cache --pull
+      #- docker-compose up --force-recreate --remove-orphans -d
+      #- sleep 20
+      #- http :8080/client/
+      #- docker-compose down -v
+      #
+      ## ejb-2
+      #- cd ${parent}/ejb-2
+      #- bash mvnw clean package -U -T 4
+      #- docker-compose build --force-rm --no-cache --pull
+      #- docker-compose up --force-recreate --remove-orphans -d
+      #- sleep 20
+      #- http :8080/greeter-remote-client/
+      #- http :8080/remote-only-client/
+      #- http :8080/goodbyer-local-client/
+      #- docker-compose down -v
+      #
+      ## ear
+      #- cd ${parent}/ear
+      #- bash mvnw clean package -U -T 4
+      #- docker-compose build --force-rm --no-cache --pull
+      #- docker-compose up --force-recreate --remove-orphans -d
+      #- sleep 20
+      #- http :8080/module-1/
+      #- http :8080/module-2/
+      #- http :8080/module-3/
+      #- http :8080/module-4/
+      #- docker-compose down -v
+    - stage: test
+      name: xmlrpc
+      script:
+      - cd ${parent}/xmlrpc
+      - bash mvnw clean package -U -T 4
+      - docker-compose build --force-rm --no-cache --pull
+      - docker-compose up --force-recreate --remove-orphans &
+      - sleep 30
+      - http :8080/client/v1/greet/Max
+      - docker-compose down -v --rmi local
+    - stage: test
+      name: kumuluzee-config
+      script:
+      - cd ${parent}/kumuluzee-config
+      - bash mvnw clean package -U -T 4
+      - docker-compose build --force-rm --no-cache --pull
+      - docker-compose up --force-recreate --remove-orphans &
+      - sleep 30
+      - http :8080/client/v1/greet/Max
+      - docker-compose down -v --rmi local
+      ## ext.js
+      #- >
+      #  for path in \
+      #    tomee-ext.js \
+      #    glassfish-ext.js \
+      #    jboss-eap-ext.js \
+      #  ; do
+      #    cd ${parent}/${path}
+      #    bash mvnw clean package -U -T 4 >/dev/null 2>&1
+      #    stop_any 8080
+      #    docker-compose build --force-rm --pull --no-cache >/dev/null 2>&1
+      #    docker-compose up -d --build --remove-orphans >/dev/null 2>&1
+      #    sleep 30
+      #    http :8080/ui/
+      #    http :8080/rest-api/health
+      #    docker-compose down -v >/dev/null 2>&1
+      #  done
+      ## forge-javaee-6-ws
+      #- cd ${parent}/forge-javaee-6-ws
+      #- bash mvnw clean package -U -T 2
+      #- docker-compose up --build --force-recreate --remove-orphans -d
+      #- sleep 20
+      #- http :8080/app/health
+      #- http :8080/app/AppEndpoint\?wsdl
+      #- curl -XPOST http://localhost:8080/app/AppEndpoint --header "content-type:text/xml" -d @request.xml | xmllint --format -
+      #- docker-compose down -v
+    - stage: test
+      name: forge-ws
+      script:
+      - cd ${parent}/forge-ws
+      - bash mvnw clean package -U >/dev/null 2>&1
+      - bash gradlew clean build >/dev/null 2>&1
+      - docker-compose up --build --force-recreate --remove-orphans -d >/dev/null 2>&1
+      - sleep 20
+      - http :8080/app/v1/api
+      - http ":8080/app/UserService?wsdl"
+      - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @./src/test/resources/empty-request.xml | xmllint --format -
+      - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
+      - docker-compose down -v >/dev/null 2>&1
+      ## java-ee-7-docker-jboss-eap-6.4-quickstart
+      #- cd ${parent}/java-ee-7-docker-jboss-eap-6.4-quickstart
+      #- bash mvnw -U
+      #- docker-compose up -d --build
+      #- sleep 20
+      #- curl -sS localhost:8080/app/
+      #- docker-compose down -v
+      ## kumuluzee-microprofile-1.0
+      #- cd ${parent}/kumuluzee-microprofile-1.0
+      #- bash mvnw clean install
+      #- docker-compose up -d --build
+      #- sleep 15
+      #- http :8080/
+      #- docker-compose down -v
+      ## kotlin-java-ee-payara-docker
+      #- cd ${parent}/kotlin-java-ee-payara-docker
+      #- bash gradlew clean war
+      #- stop_any 8080
+      #- docker-compose up --force-recreate -d --build --remove-orphans
+      #- sleep 30
+      #- http :8080/payara-app/
+      #- http :8080/payara-app/max
+      #- docker-compose down -v
+      #
+      ## main-swarm-rest-api
+      #- cd ${parent}/main-swarm-rest-api
+      #- bash mvnw clean package
+      #- docker-compose up --force-recreate -d --build --remove-orphans
+      #- sleep 30
+      #- http :8080
+      #- http :8080/api
+      #- http :8080/api/max
+      #- echo '{"users":{"username":"Max"}}' | http :8080/api/jsonp/json-pointer
+      #- http post :8080/api/cors max=max
+      #- docker-compose down -v
+      #
+      ## main-swarm-static-content
+      #- cd ${parent}/main-swarm-static-content
+      #- bash gradlew clean build
+      #- docker-compose up --force-recreate -d --build --remove-orphans
+      #- sleep 30
+      #- http :8080
+      #- docker-compose down -v
+      #
+      ## kotlin-plugins-java-ee
+      #- cd ${parent}/kotlin-plugins-java-ee
+      #- bash gradlew clean build
+      #- docker-compose up --force-recreate -d --build --remove-orphans
+      #- sleep 30
+      #- http :8080
+      #- http :8080/hi
+      #- http :8080/max
+      #- docker-compose down -v
+    - stage: test
+      name: kotlin-java-ee
+      script:
+      - cd ${parent}/kotlin-java-ee
+      - bash gradlew clean build >/dev/null 2>&1
+      - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
+      - sleep 30
+      - http :8080
+      - http :8080/max
+      - stop_any 8080 8080 8080
+    - stage: test
+      name: wildfly-swarm-maven
+      script:
+      - cd ${parent}/wildfly-swarm-maven
+      - bash mvnw clean install
+      #- bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
+      - java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
+      - sleep 30
+      - http :8080
+      - sleep 1s
+      - stop_any 8080
+      - bash docker/bin/test-dockerfile.bash
+      - bash docker/bin/test-docker-compose.bash
+      # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
+      - bash docker/bin/test-stack-deploy.bash
+      - bash gradlew clean build wildfly-swarm-package
+    - stage: deploy
+      name: Deploy docs
+      script: skip
+      if: branch = "master" AND type NOT IN (pull_request)
+      before_deploy:
+        - set -e
+        - if [ "$TRAVIS_PULL_REQUEST" != "false" ] || [ ".$TRAVIS_BRANCH" != ".master" ] ; then exit 0 ; fi
+        - cd ${parent && ./mvnw
+      deploy: &pages
+        provider: pages
+        skip-cleanup: true
+        keep-history: true
+        target_branch: gh-pages
+        # travis encrypt GITHUB_TOKEN=<your github repo token>
+        github-token: "$GITHUB_TOKEN"
+        local-dir: target/generated-docs
+        on:
+          branch: master
 before_cache:
   - sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
   - find ~/.gradle -name "fileHashes.bin" -print0 | xargs -0 rm -rfv '{}'
