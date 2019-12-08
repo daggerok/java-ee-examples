@@ -6,6 +6,8 @@ This repository contains simple JavaEE examples (including Docker, different Mic
 
 link:https://daggerok.github.io/java-ee-examples[Documentation]
 
+== projects and repositories:
+
 - link:https://github.com/daggerok/kotlin-payara-micro-profile[GitHub: daggerok/kotlin-payara-micro-profile]
 - link:https://github.com/daggerok/payara-micro-gradle-no-plugin[GitHub: daggerok/payara-micro-gradle-no-plugin]
 - link:https://github.com/daggerok/payara-micro-gradle-plugin-build-script[GitHub: daggerok/payara-micro-gradle-plugin-build-script]
@@ -80,13 +82,10 @@ link:https://daggerok.github.io/java-ee-examples[Documentation]
 - link:https://github.com/daggerok/java-ee-entity-bean[Yet another JavaEE | JPA | CDI | JAX-RS | Docker example]
 - link:https://github.com/daggerok/java-ee-web-services[Yet another JavaEE | JAX-WS | Docker example]
 
-TODO:
+== links
 
-- link: https://www.youtube.com/watch?v=TYgHtZhS1jI[DDD]
-- https://www.youtube.com/watch?v=2ofbA00gsUk
-
-links:
-
+- link:https://www.youtube.com/watch?v=TYgHtZhS1jI[TODO: DDD]
+- link:https://www.youtube.com/watch?v=2ofbA00gsUk[TODO]
 - link:https://eclipse-ee4j.github.io/jakartaee-tutorial/toc.html[JakartaEE tutorial]
 - link:https://microprofile.io/[Eclipse MicroProfile]
 - link:http://wildfly-swarm.io/posts/microprofile-with-wildfly-swarm/[Wildfly Swarm Micro-Profile]
