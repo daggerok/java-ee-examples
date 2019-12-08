@@ -39,7 +39,7 @@ before_install:
 - docker-compose version
 - export parent=$(pwd)
 jobs:
-  includes:
+  include:
     - stage: test
       name: java-ee-dwr-example
       script:
