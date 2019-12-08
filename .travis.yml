@@ -15,13 +15,13 @@ addons:
   apt:
     update: true
     packages:
-    - docker-ce
     - libxml2-utils
     - python3-pip
+    - docker-ce
     #- sudo
     #- lsof
     - curl
-    - jq
+    #- jq
 install: true
 before_install:
 - |
