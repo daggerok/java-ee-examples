@@ -597,7 +597,7 @@ jobs:
       before_deploy:
         - set -e
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ] || [ ".$TRAVIS_BRANCH" != ".master" ] ; then exit 0 ; fi
-        - cd ${parent && ./mvnw
+        - cd ${parent} && ./mvnw
       deploy: &pages
         provider: pages
         skip-cleanup: true
