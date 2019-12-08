@@ -609,11 +609,14 @@ jobs:
         on:
           branch: master
 before_cache:
-  - sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
+  #- sudo rm -rf $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
   - find ~/.gradle -name "fileHashes.bin" -print0 | xargs -0 rm -rfv '{}'
   - for item in $(find ~/.gradle -name "*.lock") ; do rm -rfv $item ; done
 cache:
+  pip: true
+  packages: true
   directories:
   - ~/.m2
   - ~/.gradle
   - ~/.docker
+  - ~/.local/daggerok
