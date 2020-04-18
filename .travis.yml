@@ -9,19 +9,20 @@ git:
   depth: false
 jdk: openjdk8
 node_js: lts/*
-python: 3.7
+python: 3.8
 services: docker
 addons:
   apt:
     update: true
     packages:
-    - libxml2-utils
-    - python3-pip
+    - docker-compose
     - docker-ce
-    #- sudo
-    #- lsof
+    - httpie
+    - bash
+    - sudo
+    - lsof
     - curl
-    #- jq
+    - jq
 install: true
 before_install:
 - |
@@ -33,18 +34,13 @@ before_install:
 - stop_any 5432 5672 27017 8080 80 5432 8080 8081 8082 8083 8084 8085 8086 8087 8088
 #
 - docker-compose version
-- export PATH=$HOME/.local/bin:$PATH
-- pip3 install --user --upgrade pip setuptools
-- pip install --user --upgrade docker-compose httpie
-- docker-compose version
-- export parent=$(pwd)
 jobs:
   include:
     - stage: test
       name: java-ee-dwr-example
       script:
       #
-      - cd ${parent}/java-ee-dwr-example/
+      - cd $TRAVIS_BUILD_DIR/java-ee-dwr-example/
       - ./mvnw >/dev/null
       - ./gradlew composeUp >/dev/null
       - http :8080/app/
@@ -52,7 +48,7 @@ jobs:
       - ./gradlew composeDown
       #
       ## ./jboss-eap-postgres/
-      #- cd ${parent}/jboss-eap-postgres/
+      #- cd $TRAVIS_BUILD_DIR/jboss-eap-postgres/
       #- ./mvnw
       #- ./mvnw -Pdocker docker-compose:up
       #- ./mvnw -Pdocker docker-compose:down
@@ -65,7 +61,7 @@ jobs:
       #- http :8080/app/
       #- ./mvnw -Pdocker docker-compose:down
       ## jax-rs-hateoas-links
-      #- cd ${parent}/jax-rs-hateoas-links
+      #- cd $TRAVIS_BUILD_DIR/jax-rs-hateoas-links
       #- ./mvnw >/dev/null
       #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
       #- http :8080/app/
@@ -78,7 +74,7 @@ jobs:
       name: aop-logger
       script:
       #
-      - cd ${parent}/aop-logger
+      - cd $TRAVIS_BUILD_DIR/aop-logger
       #- ./mvnw >/dev/null
       #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
       #- http :8080/app/api/
@@ -95,7 +91,7 @@ jobs:
       - http :8080/app/api/pong
       - ./gradlew composeDown
       ## jax-rs-regex-path
-      #- cd ${parent}/jax-rs-regex-path
+      #- cd $TRAVIS_BUILD_DIR/jax-rs-regex-path
       #- ./mvnw >/dev/null
       #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
       #- http :8080/app/api/
@@ -114,7 +110,7 @@ jobs:
       name: porcupine-bulkhead-jee8
       script:
       #
-      - cd ${parent}/porcupine-bulkhead-jee8
+      - cd $TRAVIS_BUILD_DIR/porcupine-bulkhead-jee8
       #- ./mvnw >/dev/null
       #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
       #- http :8080/app/async-items/write1 value=ololo
@@ -136,7 +132,7 @@ jobs:
     - stage: test
       name: async-jax-rs-resources
       script:
-      - cd ${parent}/async-jax-rs-resources
+      - cd $TRAVIS_BUILD_DIR/async-jax-rs-resources
       #- ./mvnw >/dev/null
       #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
       #- http :8080/app/items value=ololo
@@ -158,7 +154,7 @@ jobs:
     - stage: test
       name: kumuluzee-mp-2.0-jax-ws
       script:
-      - cd ${parent}/kumuluzee-mp-2.0-jax-ws
+      - cd $TRAVIS_BUILD_DIR/kumuluzee-mp-2.0-jax-ws
       - bash mvnw clean package >/dev/null 2>&1
       - java -jar ./target/*.jar &
       #- wait_for 8000
@@ -181,7 +177,7 @@ jobs:
       - docker-compose down -v >/dev/null 2>&1
       - stop_any 80 8000
       ## spring-faces gradle
-      #- cd ${parent}/spring-faces
+      #- cd $TRAVIS_BUILD_DIR/spring-faces
       #- bash ./gradlew >/dev/null 2>&1
       #- bash ./gradlew composeUp >/dev/null 2>&1
       #- http :8080/app/
@@ -189,7 +185,7 @@ jobs:
     - stage: test
       name: faces maven
       script:
-      - cd ${parent}/spring-faces
+      - cd $TRAVIS_BUILD_DIR/spring-faces
       - bash ./mvnw >/dev/null
       - bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
       - docker logs -f springfaces_maven-spring-faces-app_1 &
@@ -197,7 +193,7 @@ jobs:
       - http :8080/app/
       - bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
       ## faces gradle
-      #- cd ${parent}/faces
+      #- cd $TRAVIS_BUILD_DIR/faces
       #- bash ./gradlew >/dev/null 2>&1
       #- bash ./gradlew composeUp >/dev/null 2>&1
       #- http :8080/app/
@@ -210,7 +206,7 @@ jobs:
       #- http :8080/app/
       #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
       ## facelets-example gradle
-      #- cd ${parent}/facelets-example
+      #- cd $TRAVIS_BUILD_DIR/facelets-example
       #- bash ./gradlew >/dev/null 2>&1
       #- bash ./gradlew composeUp >/dev/null 2>&1
       #- http :8080/app/
@@ -223,7 +219,7 @@ jobs:
       #- http :8080/app/
       #- http :8080/app/faces/index.xhtml
       #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
-      #- cd ${parent}/jboss-4-jax-rs
+      #- cd $TRAVIS_BUILD_DIR/jboss-4-jax-rs
       #- bash ./gradlew >/dev/null 2>&1
       #- bash ./gradlew composeUp
       #- sleep 10
@@ -239,7 +235,7 @@ jobs:
     - stage: test
       name: kotlin-kafka
       script:
-      - cd ${parent}/kotlin-kafka
+      - cd $TRAVIS_BUILD_DIR/kotlin-kafka
       - wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/embedded-kafka-0.0.3-all.jar
       - >
         java -jar kafka.jar \
@@ -262,7 +258,7 @@ jobs:
     - stage: test
       name: kotlin-swarm
       script:
-      - cd ${parent}/kotlin-swarm
+      - cd $TRAVIS_BUILD_DIR/kotlin-swarm
       - bash mvnw >/dev/null 2>&1
       #- sudo bash mvnw wildfly-swarm:run &
       #- java -jar target/*.jar &
@@ -291,7 +287,7 @@ jobs:
       - docker-compose -f docker-compose-maven.yaml down -v >/dev/null 2>&1
       - stop_any 8080 80
       ## kotlin-javaee-cdi-h2
-      #- cd ${parent}/kotlin-javaee-cdi-h2
+      #- cd $TRAVIS_BUILD_DIR/kotlin-javaee-cdi-h2
       #- bash mvnw
       #- bash gradlew
       #- docker-compose build --force-rm --no-cache --pull
@@ -307,7 +303,7 @@ jobs:
       #- http get  :8081/kotlin-ee/get-all
       #- docker-compose down -v
       ## plain-http-servlet
-      #- cd ${parent}/plain-http-servlet
+      #- cd $TRAVIS_BUILD_DIR/plain-http-servlet
       #- bash mvnw clean package
       #- bash gradlew clean build
       #- docker-compose build --force-rm --no-cache --pull
@@ -319,7 +315,7 @@ jobs:
     - stage: test
       name: jboss-eap-h2-cdi
       script:
-      - cd ${parent}/jboss-eap-h2-cdi
+      - cd $TRAVIS_BUILD_DIR/jboss-eap-h2-cdi
       - bash mvnw
       - docker-compose build --force-rm --no-cache --pull
       - docker-compose up --force-recreate --remove-orphans &
@@ -334,7 +330,7 @@ jobs:
     - stage: test
       name: jboss-eap-h2-ejb
       script:
-      - cd ${parent}/jboss-eap-h2-ejb
+      - cd $TRAVIS_BUILD_DIR/jboss-eap-h2-ejb
       - bash mvnw
       - docker-compose build --force-rm --no-cache --pull
       - docker-compose up --force-recreate --remove-orphans &
@@ -349,7 +345,7 @@ jobs:
     - stage: test
       name: ejb-stateful-singleton
       script:
-      - cd ${parent}/ejb-stateful-singleton
+      - cd $TRAVIS_BUILD_DIR/ejb-stateful-singleton
       - bash mvnw >/dev/null 2>&1
       - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
       - docker-compose up --force-recreate --remove-orphans &
@@ -366,7 +362,7 @@ jobs:
       - http post :8080/client/reset
       - docker-compose down -v >/dev/null 2>&1
       ## ejb-3-starter
-      #- cd ${parent}/ejb-3-starter
+      #- cd $TRAVIS_BUILD_DIR/ejb-3-starter
       #- bash mvnw
       #- docker-compose build --force-rm --no-cache --pull
       #- docker-compose up --force-recreate --remove-orphans &
@@ -375,7 +371,7 @@ jobs:
       #- http :8080/client/v1/api/hello
       #- docker-compose down -v
       #
-      #- cd ${parent}/ejb-3-java-ee-7
+      #- cd $TRAVIS_BUILD_DIR/ejb-3-java-ee-7
       #- bash mvnw
       #- docker-compose build --force-rm --no-cache --pull
       #- docker-compose up --force-recreate --remove-orphans &
@@ -394,7 +390,7 @@ jobs:
       #    ejb-3-java-ee-7 \
       #    timer-async-ejb \
       #  ; do
-      #    cd ${parent}/${path}
+      #    cd $TRAVIS_BUILD_DIR/${path}
       #    bash mvnw
       #    docker-compose build --force-rm --no-cache --pull
       #    docker-compose up --force-recreate --remove-orphans &
@@ -410,7 +406,7 @@ jobs:
       #  done
       #
       ## timer
-      #- cd ${parent}/timer
+      #- cd $TRAVIS_BUILD_DIR/timer
       #- bash mvnw
       #- docker-compose build --force-rm --no-cache --pull
       #- docker-compose up --force-recreate --remove-orphans -d
@@ -422,7 +418,7 @@ jobs:
       #- docker-compose down -v
       #
       ## ejb-2-starter
-      #- cd ${parent}/ejb-2-starter
+      #- cd $TRAVIS_BUILD_DIR/ejb-2-starter
       #- bash mvnw
       #- docker-compose build --force-rm --no-cache --pull
       #- docker-compose up --force-recreate --remove-orphans -d
@@ -431,7 +427,7 @@ jobs:
       #- docker-compose down -v
       #
       ## ejb-2
-      #- cd ${parent}/ejb-2
+      #- cd $TRAVIS_BUILD_DIR/ejb-2
       #- bash mvnw clean package -U -T 4
       #- docker-compose build --force-rm --no-cache --pull
       #- docker-compose up --force-recreate --remove-orphans -d
@@ -442,7 +438,7 @@ jobs:
       #- docker-compose down -v
       #
       ## ear
-      #- cd ${parent}/ear
+      #- cd $TRAVIS_BUILD_DIR/ear
       #- bash mvnw clean package -U -T 4
       #- docker-compose build --force-rm --no-cache --pull
       #- docker-compose up --force-recreate --remove-orphans -d
@@ -455,7 +451,7 @@ jobs:
     - stage: test
       name: xmlrpc
       script:
-      - cd ${parent}/xmlrpc
+      - cd $TRAVIS_BUILD_DIR/xmlrpc
       - bash mvnw clean package -U -T 4
       - docker-compose build --force-rm --no-cache --pull
       - docker-compose up --force-recreate --remove-orphans &
@@ -465,7 +461,7 @@ jobs:
     - stage: test
       name: kumuluzee-config
       script:
-      - cd ${parent}/kumuluzee-config
+      - cd $TRAVIS_BUILD_DIR/kumuluzee-config
       - bash mvnw clean package -U -T 4
       - docker-compose build --force-rm --no-cache --pull
       - docker-compose up --force-recreate --remove-orphans &
@@ -479,7 +475,7 @@ jobs:
       #    glassfish-ext.js \
       #    jboss-eap-ext.js \
       #  ; do
-      #    cd ${parent}/${path}
+      #    cd $TRAVIS_BUILD_DIR/${path}
       #    bash mvnw clean package -U -T 4 >/dev/null 2>&1
       #    stop_any 8080
       #    docker-compose build --force-rm --pull --no-cache >/dev/null 2>&1
@@ -490,7 +486,7 @@ jobs:
       #    docker-compose down -v >/dev/null 2>&1
       #  done
       ## forge-javaee-6-ws
-      #- cd ${parent}/forge-javaee-6-ws
+      #- cd $TRAVIS_BUILD_DIR/forge-javaee-6-ws
       #- bash mvnw clean package -U -T 2
       #- docker-compose up --build --force-recreate --remove-orphans -d
       #- sleep 20
@@ -501,7 +497,7 @@ jobs:
     - stage: test
       name: forge-ws
       script:
-      - cd ${parent}/forge-ws
+      - cd $TRAVIS_BUILD_DIR/forge-ws
       - bash mvnw clean package -U >/dev/null 2>&1
       - bash gradlew clean build >/dev/null 2>&1
       - docker-compose up --build --force-recreate --remove-orphans -d >/dev/null 2>&1
@@ -512,21 +508,21 @@ jobs:
       - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
       - docker-compose down -v >/dev/null 2>&1
       ## java-ee-7-docker-jboss-eap-6.4-quickstart
-      #- cd ${parent}/java-ee-7-docker-jboss-eap-6.4-quickstart
+      #- cd $TRAVIS_BUILD_DIR/java-ee-7-docker-jboss-eap-6.4-quickstart
       #- bash mvnw -U
       #- docker-compose up -d --build
       #- sleep 20
       #- curl -sS localhost:8080/app/
       #- docker-compose down -v
       ## kumuluzee-microprofile-1.0
-      #- cd ${parent}/kumuluzee-microprofile-1.0
+      #- cd $TRAVIS_BUILD_DIR/kumuluzee-microprofile-1.0
       #- bash mvnw clean install
       #- docker-compose up -d --build
       #- sleep 15
       #- http :8080/
       #- docker-compose down -v
       ## kotlin-java-ee-payara-docker
-      #- cd ${parent}/kotlin-java-ee-payara-docker
+      #- cd $TRAVIS_BUILD_DIR/kotlin-java-ee-payara-docker
       #- bash gradlew clean war
       #- stop_any 8080
       #- docker-compose up --force-recreate -d --build --remove-orphans
@@ -536,7 +532,7 @@ jobs:
       #- docker-compose down -v
       #
       ## main-swarm-rest-api
-      #- cd ${parent}/main-swarm-rest-api
+      #- cd $TRAVIS_BUILD_DIR/main-swarm-rest-api
       #- bash mvnw clean package
       #- docker-compose up --force-recreate -d --build --remove-orphans
       #- sleep 30
@@ -548,7 +544,7 @@ jobs:
       #- docker-compose down -v
       #
       ## main-swarm-static-content
-      #- cd ${parent}/main-swarm-static-content
+      #- cd $TRAVIS_BUILD_DIR/main-swarm-static-content
       #- bash gradlew clean build
       #- docker-compose up --force-recreate -d --build --remove-orphans
       #- sleep 30
@@ -556,7 +552,7 @@ jobs:
       #- docker-compose down -v
       #
       ## kotlin-plugins-java-ee
-      #- cd ${parent}/kotlin-plugins-java-ee
+      #- cd $TRAVIS_BUILD_DIR/kotlin-plugins-java-ee
       #- bash gradlew clean build
       #- docker-compose up --force-recreate -d --build --remove-orphans
       #- sleep 30
@@ -567,7 +563,7 @@ jobs:
     - stage: test
       name: kotlin-java-ee
       script:
-      - cd ${parent}/kotlin-java-ee
+      - cd $TRAVIS_BUILD_DIR/kotlin-java-ee
       - bash gradlew clean build >/dev/null 2>&1
       - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
       - sleep 30
@@ -577,7 +573,7 @@ jobs:
     - stage: test
       name: wildfly-swarm-maven
       script:
-      - cd ${parent}/wildfly-swarm-maven
+      - cd $TRAVIS_BUILD_DIR/wildfly-swarm-maven
       - bash mvnw clean install
       #- bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
       - java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
@@ -597,7 +593,7 @@ jobs:
       before_deploy:
         - set -e
         - if [ "$TRAVIS_PULL_REQUEST" != "false" ] || [ ".$TRAVIS_BRANCH" != ".master" ] ; then exit 0 ; fi
-        - cd ${parent} && ./mvnw
+        - cd $TRAVIS_BUILD_DIR && ./mvnw
       deploy: &pages
         provider: pages
         skip-cleanup: true
@@ -605,7 +601,7 @@ jobs:
         target_branch: gh-pages
         # travis encrypt GITHUB_TOKEN=<your github repo token>
         github-token: "$GITHUB_TOKEN"
-        local-dir: target/generated-docs
+        local-dir: $TRAVIS_BUILD_DIR/target/generated-docs
         on:
           branch: master
 before_cache:
