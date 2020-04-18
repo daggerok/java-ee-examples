@@ -2,23 +2,23 @@ buildscript {
   ext {
     javaVersion = "1.8"
     javaeeVersion = "8.0"
-    vavrVersion = "0.9.2"
-    slf4jVersion = "1.7.25"
+    vavrVersion = "0.10.2"
+    slf4jVersion = "1.7.30"
     kotlinVersion = "1.2.21"
-    lombokVersion = "1.16.20"
-    junitJupiterVersion = "5.0.2"
-    junitPlatformVersion = "1.0.2"
-    wildflySwarmVersion = "2018.3.3"
+    lombokVersion = "1.18.12"
+    junitJupiterVersion = "5.6.2"
+    wildflySwarmVersion = "2018.5.0"
     hibernateCoreVersion = "4.2.18.Final"
   }
   repositories {
     // mavenLocal()
     mavenCentral()
+    maven { url = "https://maven.repository.redhat.com/ga/" }
+    maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
   }
   dependencies {
-    classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
     classpath("org.wildfly.swarm:wildfly-swarm-gradle-plugin:$wildflySwarmVersion")
-    classpath("io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE")
+    classpath("io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE")
   }
 }
 
@@ -36,7 +36,6 @@ plugins {
 
 apply plugin: "wildfly-swarm"
 apply plugin: "io.spring.dependency-management"
-apply plugin: "org.junit.platform.gradle.plugin"
 
 group = "daggerok"
 version = "0.0.1"
@@ -78,12 +77,6 @@ noArg {
   annotation("javax.enterprise.context.ApplicationScoped")
 }
 
-/*
-ear {
-  archiveName = "${project.name}.ear"
-}
-*/
-
 war {
   archiveName = "${project.name}.war"
 }
@@ -93,10 +86,11 @@ defaultTasks "clean", "build"
 repositories {
   // mavenLocal()
   mavenCentral()
+  maven { url = "https://maven.repository.redhat.com/ga/" }
+  maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
 }
 
 dependencies {
-
   compile("org.apache.kafka:kafka-clients:1.0.0")
 
   compile("org.wildfly.swarm:microprofile")
@@ -123,20 +117,10 @@ dependencies {
   compile "io.vavr:vavr:$vavrVersion"
   compileOnly "org.projectlombok:lombok:$lombokVersion"
 
-  // junit 4
-  testCompile "junit:junit:4.12"
-  // junit 5
-  testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
-  // hamcrest asserts, like: assertThat
+  testCompile "junit:junit:4.13"
+  testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
   testImplementation("org.hamcrest:hamcrest-core:1.3")
-
-  testRuntime("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
-  testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
-  testRuntime("org.junit.vintage:junit-vintage-engine:4.12.3")
-  // IDEA (older bundle):
-  testRuntime("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
-
-  testCompileOnly("org.apiguardian:apiguardian-api:1.0.0")
+  testRuntime("org.junit.vintage:junit-vintage-engine:$junitJupiterVersion")
   testCompileOnly("org.projectlombok:lombok:$lombokVersion")
 }
 
@@ -167,7 +151,7 @@ dockerCompose {
 composeUp.dependsOn assemble
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "4.5.1"
+  gradleVersion = "4.10.3"
   distributionType = "ALL"
 }
 

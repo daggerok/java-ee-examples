@@ -1,12 +1,13 @@
 buildscript {
   ext {
-    kotlinVersion = "1.1.60"
-    wildflySwarmVersion = "2017.10.1"
+    kotlinVersion = "1.1.61"
+    wildflySwarmVersion = "2018.5.0"
   }
   repositories {
     // mavenLocal()
     mavenCentral()
-    maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
+    maven { url = "https://maven.repository.redhat.com/ga/" }
+    maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
   }
   dependencies {
     classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
@@ -55,7 +56,8 @@ compileTestKotlin {
 repositories {
   // mavenLocal()
   mavenCentral()
-  maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
+  maven { url = "https://maven.repository.redhat.com/ga/" }
+  maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
 }
 
 task wrapper(type: Wrapper) {

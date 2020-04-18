@@ -310,6 +310,38 @@ jobs:
         sleep 5s
         http :8080
         http :8080/health
+  kotlin-kafka-maven-build:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} kotlin-kafka maven build
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.n*
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-npm-
+          ${{ runner.os }}-
+    - uses: actions/setup-node@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-mvn-${{ hashFiles('**/mvnw') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-mvn-
+          ${{ runner.os }}-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: npm i -g wait-port
+    - run: sudo apt-get install -y httpie
+    - run: cd $GITHUB_WORKSPACE/kotlin-kafka && ./mvnw clean package
 
 #  wildfly-swarm-maven-docker:
 #    strategy:
@@ -350,3 +382,43 @@ jobs:
 #    - run: bash $GITHUB_WORKSPACE/wildfly-swarm-maven/docker/bin/test-docker-compose.bash
 #    # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
 #    - run: bash $GITHUB_WORKSPACE/wildfly-swarm-maven/docker/bin/test-stack-deploy.bash
+
+#  kotlin-swarm-maven:
+#    strategy:
+#      matrix:
+#        java: [8]
+#        os: [ubuntu-latest]
+#    runs-on: ${{ matrix.os }}
+#    name: java-${{ matrix.java }} kotlin-swarm-maven test
+#    steps:
+#    - uses: actions/checkout@v1
+#    - uses: actions/cache@v1
+#      with:
+#        path: ~/.n*
+#        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+#        restore-keys: |
+#          ${{ runner.os }}-build-
+#          ${{ runner.os }}-npm-
+#          ${{ runner.os }}-
+#    - uses: actions/setup-node@v1
+#    - uses: actions/cache@v1
+#      with:
+#        path: ~/.m2
+#        key: ${{ runner.os }}-maven-${{ hashFiles('**/mnvw') }}
+#        restore-keys: |
+#          ${{ runner.os }}-maven-
+#          ${{ runner.os }}-build-
+#          ${{ runner.os }}-
+#    - uses: actions/setup-java@v1
+#      with:
+#        java-version: ${{ matrix.java }}
+#    - run: npm i -g wait-port
+#    - run: sudo apt-get install -y httpie
+#    - run: cd $GITHUB_WORKSPACE/kotlin-swarm && ./mvnw
+#    - run: |
+#        cd $GITHUB_WORKSPACE/kotlin-swarm
+#        java -jar ./target/*-thorntail.jar &
+#        wait-port 8080
+#        sleep 5s
+#        http :8080
+#        http :8080/health

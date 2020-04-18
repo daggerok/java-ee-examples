@@ -218,18 +218,18 @@ jobs:
       name: kotlin-kafka
       script:
       - cd $TRAVIS_BUILD_DIR/kotlin-kafka
-      - wget -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/embedded-kafka-0.0.3-all.jar
+      - wget -q -O kafka.jar https://github.com/daggerok/embedded-kafka/raw/mvn-repo/embedded-kafka-0.0.3-all.jar
       - >
         java -jar kafka.jar \
                   --zookeeperPort=2181 \
                   --zookeeperDir=/tmp \
                   --kafkaPort=9092 \
                   --kafkaTopics=topic1,topic2 \
-                  --httpPort=8080 \
+                  --httpPort=8081 \
                   --httpContext=/ &
-      - bash mvnw
-      - bash gradlew
-      - bash build/libs/*-swarm.jar -Djava.net.preferIPv4Stack=true &
+      - ./gradlew >/dev/null
+      - wait_for 9092 8081 2181
+      - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
       - wait_for 8080
       - sleep 15
       - http :8080/kafka/query
@@ -239,8 +239,9 @@ jobs:
       - sudo killall -9 java
     - stage: test
       name: kotlin-swarm
+      cache: false
       script:
-      - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./mvnw
+      - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./mvnw >/dev/null
       - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
       - sleep 25
       - http :8080

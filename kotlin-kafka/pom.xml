@@ -1,39 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+  <!--
+    swarm was migrated to thorntail using command:
+      mvn io.thorntail:thorntail-maven-plugin:2.3.0.Final:migrate-from-wildfly-swarm
+  -->
 
+  <modelVersion>4.0.0</modelVersion>
   <groupId>daggerok</groupId>
   <artifactId>kotlin-kafka</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>war</packaging>
 
   <properties>
     <kotlin.version>1.2.21</kotlin.version>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <version.wildfly.swarm>2018.3.3</version.wildfly.swarm>
+    <version.wildfly.swarm>2.3.0.Final</version.wildfly.swarm>
     <wildfly-swarm.useUberJar>true</wildfly-swarm.useUberJar>
     <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <lombok.version>1.16.20</lombok.version>
-    <slf4j.version>1.7.22</slf4j.version>
+    <lombok.version>1.18.12</lombok.version>
+    <slf4j.version>1.7.30</slf4j.version>
     <javaee.version>8.0</javaee.version>
     <h2.version>1.4.196</h2.version>
-    <vavr.version>0.9.2</vavr.version>
-    <junit4.version>4.12</junit4.version>
-    <junit.jupiter.version>5.0.2</junit.jupiter.version>
-    <junit.platform.version>1.0.2</junit.platform.version>
+    <vavr.version>0.10.2</vavr.version>
+    <junit4.version>4.13</junit4.version>
+    <junit.jupiter.version>5.6.2</junit.jupiter.version>
     <hibernate.core.version>4.2.18.Final</hibernate.core.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.wildfly.swarm</groupId>
+        <groupId>io.thorntail</groupId>
         <artifactId>bom-all</artifactId>
         <version>${version.wildfly.swarm}</version>
         <scope>import</scope>
@@ -52,23 +55,23 @@
 
     <!-- wildfly swarm -->
     <dependency>
-      <groupId>org.wildfly.swarm</groupId>
+      <groupId>io.thorntail</groupId>
       <artifactId>microprofile</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.wildfly.swarm</groupId>
+      <groupId>io.thorntail</groupId>
       <artifactId>jaxrs-jsonp</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.wildfly.swarm</groupId>
+      <groupId>io.thorntail</groupId>
       <artifactId>logging</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.wildfly.swarm</groupId>
+      <groupId>io.thorntail</groupId>
       <artifactId>ejb</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.wildfly.swarm</groupId>
+      <groupId>io.thorntail</groupId>
       <artifactId>arquillian</artifactId>
       <scope>test</scope>
     </dependency>
@@ -128,13 +131,6 @@
       <version>${slf4j.version}</version>
     </dependency>
 
-    <!-- JSON
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-json-p-provider</artifactId>
-      <version>3.0.7.Final</version>
-    </dependency>
-    -->
     <dependency>
       <groupId>javax.json</groupId>
       <artifactId>javax.json-api</artifactId>
@@ -153,7 +149,6 @@
       <version>${hibernate.core.version}</version>
     </dependency>
 
-    <!-- junit 4 -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -163,40 +158,14 @@
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
-      <version>${junit4.version}.3</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- junit 5 -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
+      <artifactId>junit-jupiter</artifactId>
       <version>${junit.jupiter.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-launcher</artifactId>
-      <version>${junit.platform.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-runner</artifactId>
-      <version>${junit.platform.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apiguardian</groupId>
-      <artifactId>apiguardian-api</artifactId>
-      <version>1.0.0</version>
-      <scope>test</scope>
-      <optional>true</optional>
     </dependency>
   </dependencies>
 
@@ -217,8 +186,8 @@
 
     <plugins>
       <plugin>
-        <groupId>org.wildfly.swarm</groupId>
-        <artifactId>wildfly-swarm-plugin</artifactId>
+        <groupId>io.thorntail</groupId>
+        <artifactId>thorntail-maven-plugin</artifactId>
         <version>${version.wildfly.swarm}</version>
         <executions>
           <execution>
@@ -236,7 +205,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.3</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <webResources>
@@ -326,14 +295,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.8.1</version>
         <executions>
-          <!-- Replacing default-compile as it is treated specially by maven -->
           <execution>
             <id>default-compile</id>
             <phase>none</phase>
           </execution>
-          <!-- Replacing default-testCompile as it is treated specially by maven -->
           <execution>
             <id>default-testCompile</id>
             <phase>none</phase>
@@ -351,32 +318,12 @@
         </executions>
       </plugin>
 
-      <!-- junit 5 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <!--
-          there are issues with 2.20.1 version
-          The junit-platform-surefire-provider is not compatible with version 2.20 of the maven-surefire-plugin.
-          see https://github.com/junit-team/junit5/issues/809
-        -->
-        <!--<version>2.20.1</version>-->
-        <version>2.19.1</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>${junit.platform.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
-          </dependency>
-        </dependencies>
+        <version>2.22.2</version>
       </plugin>
 
-      <!-- docker -->
       <plugin>
         <groupId>com.dkanejs.maven.plugins</groupId>
         <artifactId>docker-compose-maven-plugin</artifactId>
@@ -384,7 +331,6 @@
         <executions>
           <execution>
             <id>up</id>
-            <!--<phase>process-resources</phase>-->
             <phase>verify</phase>
             <goals>
               <goal>up</goal>
@@ -392,7 +338,6 @@
           </execution>
           <execution>
             <id>down</id>
-            <!--<phase>test</phase>-->
             <phase>verify</phase>
             <goals>
               <goal>down</goal>
@@ -408,5 +353,18 @@
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>redhat-ga</id>
+      <name>redhat-ga</name>
+      <url>https://maven.repository.redhat.com/ga/</url>
+    </repository>
+    <repository>
+      <id>jboss-thirdparty-releases</id>
+      <name>jboss-thirdparty-releases</name>
+      <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
+    </repository>
+  </repositories>
 
 </project>

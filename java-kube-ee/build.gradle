@@ -1,11 +1,13 @@
 buildscript {
   ext {
-    wildflySwarmVersion = "2017.9.5"
+    wildflySwarmVersion = "2018.5.0"
   }
 
   repositories {
     // mavenLocal()
     mavenCentral()
+    maven { url = "https://maven.repository.redhat.com/ga/" }
+    maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
   }
 
   dependencies {
@@ -27,6 +29,8 @@ group = "daggerok"
 repositories {
   // mavenLocal()
   mavenCentral()
+  maven { url = "https://maven.repository.redhat.com/ga/" }
+  maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
 }
 
 dependencyManagement {

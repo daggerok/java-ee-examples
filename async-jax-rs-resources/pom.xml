@@ -15,18 +15,17 @@
   <properties>
     <maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.platform.version>1.2.0</junit.platform.version>
-    <junit.jupiter.version>5.2.0</junit.jupiter.version>
+    <junit.jupiter.version>5.6.2</junit.jupiter.version>
     <jakson-kotlin.version>2.9.6</jakson-kotlin.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <resteasy.version>3.5.0.Final</resteasy.version>
-    <lombok.version>1.16.22</lombok.version>
+    <lombok.version>1.18.12</lombok.version>
     <kotlin.version>1.2.51</kotlin.version>
     <jgiven.version>0.15.3</jgiven.version>
-    <slf4j.version>1.7.25</slf4j.version>
-    <junit4.version>4.12</junit4.version>
+    <slf4j.version>1.7.30</slf4j.version>
+    <junit4.version>4.13</junit4.version>
     <javaee.version>8.0</javaee.version>
-    <vavr.version>0.9.2</vavr.version>
+    <vavr.version>0.10.2</vavr.version>
     <h2.version>1.4.196</h2.version>
   </properties>
 
@@ -116,34 +115,9 @@
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
+      <artifactId>junit-jupiter</artifactId>
       <version>${junit.jupiter.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-launcher</artifactId>
-      <version>${junit.platform.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-runner</artifactId>
-      <version>${junit.platform.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apiguardian</groupId>
-      <artifactId>apiguardian-api</artifactId>
-      <version>1.0.0</version>
-      <scope>test</scope>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>com.tngtech.jgiven</groupId>
@@ -243,7 +217,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.8.1</version>
         <configuration>
           <encoding>${project.build.sourceEncoding}</encoding>
           <source>${maven.compiler.source}</source>
@@ -274,7 +248,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.3</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
@@ -283,7 +257,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-ejb-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <configuration>
           <ejbVersion>3.0</ejbVersion>
           <archive>
@@ -297,19 +271,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.21.0</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>${junit.platform.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
-          </dependency>
-        </dependencies>
+        <version>3.0.0-M4</version>
       </plugin>
 
       <plugin>
@@ -336,7 +298,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.6</version>
+        <version>3.8.2</version>
         <configuration>
           <reportPlugins>
             <plugin>
@@ -359,7 +321,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.9</version>
+        <version>3.0.0</version>
         <configuration>
           <skip>true</skip>
         </configuration>
