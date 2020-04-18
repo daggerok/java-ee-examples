@@ -12,7 +12,7 @@ buildscript {
     hibernateCoreVersion = "4.2.18.Final"
   }
   repositories {
-    mavenLocal()
+    // mavenLocal()
     mavenCentral()
   }
   dependencies {
@@ -91,7 +91,7 @@ war {
 defaultTasks "clean", "build"
 
 repositories {
-  mavenLocal()
+  // mavenLocal()
   mavenCentral()
 }
 

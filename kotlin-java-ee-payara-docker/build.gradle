@@ -4,7 +4,7 @@ buildscript {
     wildflySwarmVersion = "2017.10.1"
   }
   repositories {
-    mavenLocal()
+    // mavenLocal()
     mavenCentral()
     maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
   }
@@ -53,7 +53,7 @@ compileTestKotlin {
 }
 
 repositories {
-  mavenLocal()
+  // mavenLocal()
   mavenCentral()
   maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
 }

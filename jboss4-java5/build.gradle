@@ -32,7 +32,7 @@ war {
 defaultTasks "clean", "build"
 
 repositories {
-  mavenLocal()
+  // mavenLocal()
   mavenCentral()
 }
 

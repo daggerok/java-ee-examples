@@ -5,7 +5,7 @@ buildscript {
   }
 
   repositories {
-    mavenLocal()
+    // mavenLocal()
     mavenCentral()
     maven { url = "https://maven.repository.redhat.com/ga/" }
     maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
@@ -29,7 +29,7 @@ version = "0.0.1"
 group = "daggerok"
 
 repositories {
-  mavenLocal()
+  // mavenLocal()
   mavenCentral()
   maven { url = "https://maven.repository.redhat.com/ga/" }
   maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }

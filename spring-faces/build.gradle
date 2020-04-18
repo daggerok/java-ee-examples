@@ -9,7 +9,7 @@ buildscript {
     junitPlatformVersion = "1.0.2"
   }
   repositories {
-    mavenLocal()
+    // mavenLocal()
     mavenCentral()
   }
   dependencies {
@@ -40,7 +40,7 @@ war {
 defaultTasks "clean", "build"
 
 repositories {
-  mavenLocal()
+  // mavenLocal()
   mavenCentral()
   maven { url "http://repository.primefaces.org" }
 }

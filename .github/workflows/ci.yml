@@ -2,6 +2,7 @@ name: CI
 on: [push]
 env:
   CI: 'true'
+  JAVA_OPTS: -Djava.net.preferIPv4Stack=true
 jobs:
   jboss-eap-postgres:
     strategy:
@@ -159,6 +160,157 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
     - run: cd $GITHUB_WORKSPACE/wildfly-swarm-maven && ./gradlew clean build wildfly-swarm-package
+  kotlin-java-ee:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} kotlin-java-ee test
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.n*
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-npm-
+          ${{ runner.os }}-
+    - uses: actions/setup-node@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradlew') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: npm i -g wait-port
+    - run: sudo apt-get install -y httpie
+    - run: cd $GITHUB_WORKSPACE/kotlin-java-ee && ./gradlew clean build
+    - run: java -Djava.net.preferIPv4Stack=true -jar $GITHUB_WORKSPACE/kotlin-java-ee/build/libs/*-swarm.jar &
+    - run: wait-port 8080
+    - run: sleep 15s
+    - run: http :8080
+    - run: http :8080/max
+  kotlin-swarm-maven:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} kotlin-swarm-maven test
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.n*
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-npm-
+          ${{ runner.os }}-
+    - uses: actions/setup-node@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-naven-${{ hashFiles('**/mvnw') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: npm i -g wait-port
+    - run: sudo apt-get install -y httpie
+    - run: cd $GITHUB_WORKSPACE/kotlin-swarm && ./mvnw
+    #- run: cd $GITHUB_WORKSPACE/kotlin-swarm && sudo bash mvnw wildfly-swarm:run &
+    - run: java -Djava.net.preferIPv4Stack=true -jar $GITHUB_WORKSPACE/kotlin-swarm/target/*.jar &
+    - run: wait-port 8080
+    - run: sleep 5s
+    - run: http :8080
+    - run: http :8080/health
+  java-ee-dwr-example:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} java-ee-dwr-example test
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.docker
+        key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+        restore-keys: |
+          ${{ runner.os }}-docker-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - run: sudo apt-get update -t docker-ce
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradlew') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: sudo npm i -g wait-port
+    - run: sudo apt-get install -y httpie
+    - run: cd $GITHUB_WORKSPACE/java-ee-dwr-example && ./gradlew
+    - run: cd $GITHUB_WORKSPACE/java-ee-dwr-example && ./gradlew composeUp
+    - run: http :8080/app/
+    - run: http :8080/app/dwr/index.html
+    - run: cd $GITHUB_WORKSPACE/java-ee-dwr-example && ./gradlew composeDown
+  kotlin-swarm-gradle:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} kotlin-swarm-gradle test
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.n*
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-npm-
+          ${{ runner.os }}-
+    - uses: actions/setup-node@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradlew') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: npm i -g wait-port
+    - run: sudo apt-get install -y httpie
+    - run: cd $GITHUB_WORKSPACE/kotlin-swarm && ./gradlew
+    - run: |
+        cd $GITHUB_WORKSPACE/kotlin-swarm
+        java -jar ./build/libs/*-swarm.jar &
+        wait-port 8080
+        sleep 5s
+        http :8080
+        http :8080/health
+
 #  wildfly-swarm-maven-docker:
 #    strategy:
 #      matrix:

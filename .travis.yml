@@ -40,13 +40,7 @@ jobs:
     - stage: test
       name: java-ee-dwr-example
       script:
-      #
-      - cd $TRAVIS_BUILD_DIR/java-ee-dwr-example/
-      - ./mvnw
-      - ./gradlew composeUp
-      - http :8080/app/
-      - http :8080/app/dwr/index.html
-      - ./gradlew composeDown
+      - cd $TRAVIS_BUILD_DIR/java-ee-dwr-example && ./mvnw
       #
       ## jax-rs-hateoas-links
       #- cd $TRAVIS_BUILD_DIR/jax-rs-hateoas-links
@@ -246,27 +240,20 @@ jobs:
     - stage: test
       name: kotlin-swarm
       script:
-      - cd $TRAVIS_BUILD_DIR/kotlin-swarm
-      - bash mvnw
-      #- sudo bash mvnw wildfly-swarm:run &
-      #- java -jar target/*.jar &
-      - bash gradlew
-      - bash build/libs/*-swarm.jar -Djava.net.preferIPv4Stack=true &
-      - wait_for 8080
-      - sleep 5
-      - http :8080
-      - http :8080/health
-      - stop_any 8080
-      - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
+      - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./mvnw
+      - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
       - sleep 25
       - http :8080
       - http :8080/health
-      - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
-      - bash gradlew composeUp || true
+      - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+      #
+      - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./gradlew composeUp || true
       - sleep 25
       - http :8080
       - http :8080/health
-      - bash gradlew composeDown || true
+      - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./gradlew composeDown || true
+      #
+      - cd $TRAVIS_BUILD_DIR/kotlin-swarm && ./mvnw
       - docker-compose -f docker-compose-maven.yaml build
       - docker-compose -f docker-compose-maven.yaml up &
       - sleep 40
@@ -538,16 +525,6 @@ jobs:
       #- http :8080/hi
       #- http :8080/max
       #- docker-compose down -v
-    - stage: test
-      name: kotlin-java-ee
-      script:
-      - cd $TRAVIS_BUILD_DIR/kotlin-java-ee
-      - bash gradlew clean build
-      - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
-      - sleep 30
-      - http :8080
-      - http :8080/max
-      - stop_any 8080 8080 8080
     - stage: deploy
       name: Deploy docs
       script: skip
