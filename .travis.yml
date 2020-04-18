@@ -48,19 +48,6 @@ jobs:
       - http :8080/app/dwr/index.html
       - ./gradlew composeDown
       #
-      ## ./jboss-eap-postgres/
-      #- cd $TRAVIS_BUILD_DIR/jboss-eap-postgres/
-      #- ./mvnw
-      #- ./mvnw -Pdocker docker-compose:up
-      #- ./mvnw -Pdocker docker-compose:down
-      #- ./mvnw -Pdocker docker-compose:up &
-      #- wait_for 8080
-      #- sleep 15s
-      #- http :8080/app/
-      #- http :8080/app/ data=ololo
-      #- http :8080/app/ data=trololo
-      #- http :8080/app/
-      #- ./mvnw -Pdocker docker-compose:down
       ## jax-rs-hateoas-links
       #- cd $TRAVIS_BUILD_DIR/jax-rs-hateoas-links
       #- ./mvnw
@@ -459,16 +446,6 @@ jobs:
       - sleep 30
       - http :8080/client/v1/greet/Max
       - docker-compose down -v --rmi local
-    - stage: test
-      name: kumuluzee-config
-      script:
-      - cd $TRAVIS_BUILD_DIR/kumuluzee-config
-      - bash mvnw clean package -U -T 4
-      - docker-compose build --force-rm --no-cache --pull
-      - docker-compose up --force-recreate --remove-orphans &
-      - sleep 30
-      - http :8080/client/v1/greet/Max
-      - docker-compose down -v --rmi local
       ## ext.js
       #- >
       #  for path in \
@@ -571,22 +548,6 @@ jobs:
       - http :8080
       - http :8080/max
       - stop_any 8080 8080 8080
-    - stage: test
-      name: wildfly-swarm-maven
-      script:
-      - cd $TRAVIS_BUILD_DIR/wildfly-swarm-maven
-      - bash mvnw clean install
-      #- bash mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
-      - java -Djava.net.preferIPv4Stack=true -jar target/*-swarm.jar &
-      - sleep 30
-      - http :8080
-      - sleep 1s
-      - stop_any 8080
-      - bash docker/bin/test-dockerfile.bash
-      - bash docker/bin/test-docker-compose.bash
-      # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
-      - bash docker/bin/test-stack-deploy.bash
-      - bash gradlew clean build wildfly-swarm-package
     - stage: deploy
       name: Deploy docs
       script: skip

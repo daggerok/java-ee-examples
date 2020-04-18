@@ -1,9 +1,9 @@
 version: '2.1'
 services:
   postgres:
-    image: healthcheck/postgres:alpine
+    image: postgres:alpine
     restart: unless-stopped
-    ports: ["5432:5432"]
+    #ports: ['5432:5432']
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: user
@@ -15,16 +15,22 @@ services:
           - postgres
           - db.my-app.com
           - postgres.my-app.com
+    healthcheck:
+      test: pg_isready --host=127.0.0.1 --port=5432 --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB
+      timeout: 6s
+      retries: 66
+      interval: 3s
   jboss:
     depends_on:
       postgres:
         condition: service_healthy
     build: .
     restart: unless-stopped
-    ports:
-      - '5005:5005'
-      - '8080:8080'
-      - '9990:9990'
+    ports: ['8080:8080']
+    #ports:
+    #  - '5005:5005'
+    #  - '8080:8080'
+    #  - '9990:9990'
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: user
@@ -37,6 +43,11 @@ services:
           - jboss
           - app.my-app.com
           - jboss.my-app.com
+    healthcheck:
+      test: wget -q --spider http://127.0.0.1:8080/app/health || exit 1
+      timeout: 6s
+      retries: 66
+      interval: 6s
 networks:
   my-app.com:
     driver: bridge

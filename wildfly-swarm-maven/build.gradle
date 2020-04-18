@@ -1,11 +1,14 @@
 buildscript {
   ext {
-    wildflySwarmVersion = "2017.9.5"
+    wildflySwarmVersion = "2018.5.0"
+    // wildflySwarmVersion = "2017.9.5"
   }
 
   repositories {
     mavenLocal()
     mavenCentral()
+    maven { url = "https://maven.repository.redhat.com/ga/" }
+    maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
   }
 
   dependencies {
@@ -17,17 +20,19 @@ plugins {
   id "ear"
   id "war"
   id "java"
-  id "io.spring.dependency-management" version "1.0.3.RELEASE"
+  id "io.spring.dependency-management" version "1.0.9.RELEASE"
 }
 
 apply plugin: "wildfly-swarm"
 
-version = "0.0.0"
+version = "0.0.1"
 group = "daggerok"
 
 repositories {
   mavenLocal()
   mavenCentral()
+  maven { url = "https://maven.repository.redhat.com/ga/" }
+  maven { url = "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/" }
 }
 
 dependencyManagement {
@@ -53,6 +58,6 @@ swarm {
 }
 
 wrapper {
-  gradleVersion = "4.2"
+  gradleVersion = "4.10.3"
   distributionType = "ALL"
 }

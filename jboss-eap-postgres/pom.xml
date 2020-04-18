@@ -206,6 +206,7 @@
             </executions>
             <configuration>
               <composeFile>${project.basedir}/docker-compose.yaml</composeFile>
+              <build>true</build>
               <detachedMode>true</detachedMode>
               <removeImages>true</removeImages>
               <removeImagesType>local</removeImagesType>

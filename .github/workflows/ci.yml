@@ -1,0 +1,182 @@
+name: CI
+on: [push]
+env:
+  CI: 'true'
+jobs:
+  jboss-eap-postgres:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} jboss-eap-postgres test
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.n*
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+    - uses: actions/setup-node@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.docker
+        key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+        restore-keys: |
+          ${{ runner.os }}-docker-
+    - run: sudo apt-get update -t docker-ce
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/mvnw') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: npm i -g wait-port
+    - run: sudo apt-get install -y httpie
+    - run: cd $GITHUB_WORKSPACE/jboss-eap-postgres && ./mvnw
+    - run: cd $GITHUB_WORKSPACE/jboss-eap-postgres && ./mvnw -Pdocker docker-compose:up
+    - run: wait-port 8080
+    - run: sleep 30s
+    - run: http get :8080/app/
+    - run: http --ignore-stdin :8080/app/ data=ololo
+    - run: http --ignore-stdin :8080/app/ data=trololo
+    - run: http get :8080/app/
+    - run: cd $GITHUB_WORKSPACE/jboss-eap-postgres && ./mvnw -Pdocker docker-compose:down
+  kumuluzee-config:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} kumuluzee-config test
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.n*
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+    - uses: actions/setup-node@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.docker
+        key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+        restore-keys: |
+          ${{ runner.os }}-docker-
+    - run: sudo apt-get update -t docker-ce
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/mvnw') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: npm i -g wait-port
+    - run: sudo apt-get install -y httpie
+    - run: cd $GITHUB_WORKSPACE/kumuluzee-config && ./mvnw
+    - run: cd $GITHUB_WORKSPACE/kumuluzee-config && docker-compose up --force-recreate --remove-orphans --build -d
+    - run: cd $GITHUB_WORKSPACE/kumuluzee-config && wait-port 8080
+    - run: cd $GITHUB_WORKSPACE/kumuluzee-config && sleep 30s
+    - run: |
+        cd $GITHUB_WORKSPACE/kumuluzee-config
+        docker-compose logs -f -t &
+        http get :8080/config
+    - run: cd $GITHUB_WORKSPACE/kumuluzee-config && docker-compose down -v --rmi local
+  wildfly-swarm-maven:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} wildfly-swarm-maven test
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.n*
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+    - uses: actions/setup-node@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/mvnw') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: npm i -g wait-port
+    - run: sudo apt-get install -y httpie
+    - run: cd $GITHUB_WORKSPACE/wildfly-swarm-maven && ./mvnw clean install
+    #- run: cd $GITHUB_WORKSPACE/wildfly-swarm-maven && ./mvnw -Djava.net.preferIPv4Stack=true wildfly-swarm:run &
+    - run: java -Djava.net.preferIPv4Stack=true -jar $GITHUB_WORKSPACE/wildfly-swarm-maven/target/*-swarm.jar &
+    - run: wait-port 8080
+    - run: sleep 30s
+    - run: http get :8080
+  wildfly-swarm-maven-with-gradle:
+    strategy:
+      matrix:
+        java: [8]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: java-${{ matrix.java }} gradle wildfly-swarm-maven build
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.gradle
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradlew') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - run: cd $GITHUB_WORKSPACE/wildfly-swarm-maven && ./gradlew clean build wildfly-swarm-package
+#  wildfly-swarm-maven-docker:
+#    strategy:
+#      matrix:
+#        java: [8]
+#        os: [ubuntu-latest]
+#    runs-on: ${{ matrix.os }}
+#    name: java-${{ matrix.java }} wildfly-swarm-maven docker test
+#    steps:
+#    - uses: actions/checkout@v1
+#    - uses: actions/setup-node@v1
+#    - uses: actions/cache@v1
+#      with:
+#        path: ~/.n*
+#        key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+#        restore-keys: |
+#          ${{ runner.os }}-npm-
+#    - run: sudo apt-get update -t docker-ce
+#    - uses: actions/cache@v1
+#      with:
+#        path: ~/.docker
+#        key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+#        restore-keys: |
+#          ${{ runner.os }}-docker-
+#    - uses: actions/setup-java@v1
+#      with:
+#        java-version: ${{ matrix.java }}
+#    - uses: actions/cache@v1
+#      with:
+#        path: ~/.m2
+#        key: ${{ runner.os }}-maven-${{ hashFiles('**/mvnw') }}
+#        restore-keys: |
+#          ${{ runner.os }}-maven-
+#    - run: npm i -g wait-port
+#    - run: sudo apt-get install -y httpie
+#    - run: cd $GITHUB_WORKSPACE/wildfly-swarm-maven && ./mvnw clean install
+#    - run: bash $GITHUB_WORKSPACE/wildfly-swarm-maven/docker/bin/test-docker-file.bash
+#    - run: bash $GITHUB_WORKSPACE/wildfly-swarm-maven/docker/bin/test-docker-compose.bash
+#    # sometimes docker swarm for some reasons not working here as 2nd, 3rd, ...
+#    - run: bash $GITHUB_WORKSPACE/wildfly-swarm-maven/docker/bin/test-stack-deploy.bash

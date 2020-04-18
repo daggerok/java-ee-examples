@@ -1,22 +1,22 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
 
+  <modelVersion>4.0.0</modelVersion>
   <groupId>daggerok</groupId>
   <artifactId>java-ee-examples</artifactId>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <packaging>war</packaging>
-
   <name>java-ee-examples</name>
-  <url>http://maven.apache.org</url>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <version.wildfly.swarm>2017.9.5</version.wildfly.swarm>
     <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencyManagement>
@@ -32,6 +32,8 @@
   </dependencyManagement>
 
   <build>
+    <defaultGoal>clean package</defaultGoal>
+
     <plugins>
       <plugin>
         <groupId>org.wildfly.swarm</groupId>
@@ -68,4 +70,17 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>redhat-ga</id>
+      <name>redhat-ga</name>
+      <url>https://maven.repository.redhat.com/ga/</url>
+    </repository>
+    <repository>
+      <id>jboss-thirdparty-releases</id>
+      <name>jboss-thirdparty-releases</name>
+      <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
+    </repository>
+  </repositories>
 </project>
