@@ -42,8 +42,8 @@ jobs:
     - run: wait-port 8080
     - run: sleep 30s
     - run: http get :8080/app/
-    - run: http --ignore-stdin :8080/app/ data=ololo
-    - run: http --ignore-stdin :8080/app/ data=trololo
+    - run: http post --ignore-stdin :8080/app/ data=ololo
+    - run: http post --ignore-stdin :8080/app/ data=trololo
     - run: http get :8080/app/
     - run: cd $GITHUB_WORKSPACE/jboss-eap-postgres && ./mvnw -Pdocker docker-compose:down
   kumuluzee-config:
