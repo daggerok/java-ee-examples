@@ -16,6 +16,7 @@ addons:
     update: true
     packages:
     - docker-compose
+    - libxml2-utils
     - docker-ce
     - httpie
     - bash
@@ -41,8 +42,8 @@ jobs:
       script:
       #
       - cd $TRAVIS_BUILD_DIR/java-ee-dwr-example/
-      - ./mvnw >/dev/null
-      - ./gradlew composeUp >/dev/null
+      - ./mvnw
+      - ./gradlew composeUp
       - http :8080/app/
       - http :8080/app/dwr/index.html
       - ./gradlew composeDown
@@ -62,12 +63,12 @@ jobs:
       #- ./mvnw -Pdocker docker-compose:down
       ## jax-rs-hateoas-links
       #- cd $TRAVIS_BUILD_DIR/jax-rs-hateoas-links
-      #- ./mvnw >/dev/null
-      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- ./mvnw
+      #- ./gradlew -Pprofile=maven composeUp -x assemble
       #- http :8080/app/
       #- ./gradlew -Pprofile=maven composeDown
-      #- ./gradlew >/dev/null
-      #- ./gradlew composeUp >/dev/null
+      #- ./gradlew
+      #- ./gradlew composeUp
       #- http :8080/app/
       #- ./gradlew composeDown
     - stage: test
@@ -75,15 +76,15 @@ jobs:
       script:
       #
       - cd $TRAVIS_BUILD_DIR/aop-logger
-      #- ./mvnw >/dev/null
-      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- ./mvnw
+      #- ./gradlew -Pprofile=maven composeUp -x assemble
       #- http :8080/app/api/
       #- http :8080/app/api/health
       #- http :8080/app/api/ping
       #- http :8080/app/api/pong
       #- ./gradlew -Pprofile=maven composeDown
-      - ./gradlew >/dev/null
-      - ./gradlew composeUp >/dev/null
+      - ./gradlew
+      - ./gradlew composeUp
       - docker logs -f aop-logger_gradle-aop-logger-app_1 &
       - http :8080/app/api/
       - http :8080/app/api/health
@@ -92,15 +93,15 @@ jobs:
       - ./gradlew composeDown
       ## jax-rs-regex-path
       #- cd $TRAVIS_BUILD_DIR/jax-rs-regex-path
-      #- ./mvnw >/dev/null
-      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- ./mvnw
+      #- ./gradlew -Pprofile=maven composeUp -x assemble
       #- http :8080/app/api/
       #- http :8080/app/api/health
       #- http :8080/app/api/ping
       #- http :8080/app/api/pong
       #- ./gradlew -Pprofile=maven composeDown
-      #- ./gradlew >/dev/null
-      #- ./gradlew composeUp >/dev/null
+      #- ./gradlew
+      #- ./gradlew composeUp
       #- http :8080/app/api/
       #- http :8080/app/api/health
       #- http :8080/app/api/ping
@@ -111,8 +112,8 @@ jobs:
       script:
       #
       - cd $TRAVIS_BUILD_DIR/porcupine-bulkhead-jee8
-      #- ./mvnw >/dev/null
-      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- ./mvnw
+      #- ./gradlew -Pprofile=maven composeUp -x assemble
       #- http :8080/app/async-items/write1 value=ololo
       #- http :8080/app/async-items/write2 value=trololo
       #- http :8080/app/async-items/read1
@@ -120,8 +121,8 @@ jobs:
       #- http :8080/app/async-items/read2
       #- http :8080/app/async-items/read2/3 || true
       #- ./gradlew -Pprofile=maven composeDown
-      - ./gradlew >/dev/null
-      - ./gradlew composeUp >/dev/null
+      - ./gradlew
+      - ./gradlew composeUp
       - http :8080/app/async-items/write1 value=ololo
       - http :8080/app/async-items/write2 value=trololo
       - http :8080/app/async-items/read1
@@ -133,8 +134,8 @@ jobs:
       name: async-jax-rs-resources
       script:
       - cd $TRAVIS_BUILD_DIR/async-jax-rs-resources
-      #- ./mvnw >/dev/null
-      #- ./gradlew -Pprofile=maven composeUp -x assemble >/dev/null
+      #- ./mvnw
+      #- ./gradlew -Pprofile=maven composeUp -x assemble
       #- http :8080/app/items value=ololo
       #- http :8080/app/items value=trololo
       #- http :8080/app/items/
@@ -142,8 +143,8 @@ jobs:
       #- http :8080/app/items/2
       #- http :8080/app/items/3 || true
       #- ./gradlew -Pprofile=maven composeDown
-      - ./gradlew >/dev/null
-      - ./gradlew composeUp >/dev/null
+      - ./gradlew
+      - ./gradlew composeUp
       - http :8080/app/items value=ololo
       - http :8080/app/items value=trololo
       - http :8080/app/items/
@@ -155,7 +156,7 @@ jobs:
       name: kumuluzee-mp-2.0-jax-ws
       script:
       - cd $TRAVIS_BUILD_DIR/kumuluzee-mp-2.0-jax-ws
-      - bash mvnw clean package >/dev/null 2>&1
+      - bash mvnw clean package
       - java -jar ./target/*.jar &
       #- wait_for 8000
       - sleep 15
@@ -164,7 +165,7 @@ jobs:
       - http :8000/api/v1/ws\?wsdl
       - curl -XPOST http://localhost:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format -
       - stop_any 80 8000
-      - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
+      - docker-compose build --force-rm --no-cache --pull
       - docker-compose up &
       - sleep 35
       - http :8000
@@ -174,59 +175,59 @@ jobs:
       - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
       - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
       - curl -XPOST http://127.0.0.1:8000/api/v1/ws --header "content-type:text/xml" -d @./request.xml | xmllint --format - | grep id
-      - docker-compose down -v >/dev/null 2>&1
+      - docker-compose down -v
       - stop_any 80 8000
       ## spring-faces gradle
       #- cd $TRAVIS_BUILD_DIR/spring-faces
-      #- bash ./gradlew >/dev/null 2>&1
-      #- bash ./gradlew composeUp >/dev/null 2>&1
+      #- bash ./gradlew
+      #- bash ./gradlew composeUp
       #- http :8080/app/
       #- bash ./gradlew composeDown
     - stage: test
       name: faces maven
       script:
       - cd $TRAVIS_BUILD_DIR/spring-faces
-      - bash ./mvnw >/dev/null
-      - bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+      - bash ./mvnw
+      - bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
       - docker logs -f springfaces_maven-spring-faces-app_1 &
       - sleep 40
       - http :8080/app/
-      - bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
+      - bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
       ## faces gradle
       #- cd $TRAVIS_BUILD_DIR/faces
-      #- bash ./gradlew >/dev/null 2>&1
-      #- bash ./gradlew composeUp >/dev/null 2>&1
+      #- bash ./gradlew
+      #- bash ./gradlew composeUp
       #- http :8080/app/
-      #- bash ./gradlew composeDown >/dev/null 2>&1
+      #- bash ./gradlew composeDown
       ## faces maven
-      #- bash ./mvnw >/dev/null 2>&1
-      #- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+      #- bash ./mvnw
+      #- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
       #- docker logs -f faces_maven-faces-app_1 &
       #- sleep 40
       #- http :8080/app/
-      #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
+      #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
       ## facelets-example gradle
       #- cd $TRAVIS_BUILD_DIR/facelets-example
-      #- bash ./gradlew >/dev/null 2>&1
-      #- bash ./gradlew composeUp >/dev/null 2>&1
+      #- bash ./gradlew
+      #- bash ./gradlew composeUp
       #- http :8080/app/
       #- http :8080/app/faces/index.xhtml
       #- bash ./gradlew composeDown
       ## facelets-example maven
-      #- bash ./mvnw >/dev/null 2>&1
-      #- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+      #- bash ./mvnw
+      #- bash ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
       #- sleep 40
       #- http :8080/app/
       #- http :8080/app/faces/index.xhtml
       #- bash ./mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
       #- cd $TRAVIS_BUILD_DIR/jboss-4-jax-rs
-      #- bash ./gradlew >/dev/null 2>&1
+      #- bash ./gradlew
       #- bash ./gradlew composeUp
       #- sleep 10
       #- http :8080/app/
       #- http :8080/app/api/
       #- bash ./gradlew composeDown
-      #- bash ./mvnw >/dev/null 2>&1
+      #- bash ./mvnw
       #- ./mvnw clean package com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
       #- sleep 40
       #- http :8080/app/
@@ -245,7 +246,7 @@ jobs:
                   --kafkaTopics=topic1,topic2 \
                   --httpPort=8080 \
                   --httpContext=/ &
-      - bash mvnw >/dev/null 2>&1
+      - bash mvnw
       - bash gradlew
       - bash build/libs/*-swarm.jar -Djava.net.preferIPv4Stack=true &
       - wait_for 8080
@@ -259,32 +260,32 @@ jobs:
       name: kotlin-swarm
       script:
       - cd $TRAVIS_BUILD_DIR/kotlin-swarm
-      - bash mvnw >/dev/null 2>&1
+      - bash mvnw
       #- sudo bash mvnw wildfly-swarm:run &
       #- java -jar target/*.jar &
-      - bash gradlew >/dev/null 2>&1
+      - bash gradlew
       - bash build/libs/*-swarm.jar -Djava.net.preferIPv4Stack=true &
       - wait_for 8080
       - sleep 5
       - http :8080
       - http :8080/health
       - stop_any 8080
-      - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up >/dev/null 2>&1
+      - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:up
       - sleep 25
       - http :8080
       - http :8080/health
-      - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down >/dev/null 2>&1
-      - bash gradlew composeUp >/dev/null 2>&1 || true
+      - bash mvnw com.dkanejs.maven.plugins:docker-compose-maven-plugin:1.0.1:down
+      - bash gradlew composeUp || true
       - sleep 25
       - http :8080
       - http :8080/health
-      - bash gradlew composeDown >/dev/null 2>&1 || true
-      - docker-compose -f docker-compose-maven.yaml build >/dev/null 2>&1
-      - docker-compose -f docker-compose-maven.yaml up & >/dev/null 2>&1
+      - bash gradlew composeDown || true
+      - docker-compose -f docker-compose-maven.yaml build
+      - docker-compose -f docker-compose-maven.yaml up &
       - sleep 40
       - http :8080
       - http :8080/health
-      - docker-compose -f docker-compose-maven.yaml down -v >/dev/null 2>&1
+      - docker-compose -f docker-compose-maven.yaml down -v
       - stop_any 8080 80
       ## kotlin-javaee-cdi-h2
       #- cd $TRAVIS_BUILD_DIR/kotlin-javaee-cdi-h2
@@ -346,8 +347,8 @@ jobs:
       name: ejb-stateful-singleton
       script:
       - cd $TRAVIS_BUILD_DIR/ejb-stateful-singleton
-      - bash mvnw >/dev/null 2>&1
-      - docker-compose build --force-rm --no-cache --pull >/dev/null 2>&1
+      - bash mvnw
+      - docker-compose build --force-rm --no-cache --pull
       - docker-compose up --force-recreate --remove-orphans &
       - sleep 20
       - http :8080/client/
@@ -360,7 +361,7 @@ jobs:
       - http post :8080/client/counter/incr
       - http :8080/client/get\?key=EJB
       - http post :8080/client/reset
-      - docker-compose down -v >/dev/null 2>&1
+      - docker-compose down -v
       ## ejb-3-starter
       #- cd $TRAVIS_BUILD_DIR/ejb-3-starter
       #- bash mvnw
@@ -476,14 +477,14 @@ jobs:
       #    jboss-eap-ext.js \
       #  ; do
       #    cd $TRAVIS_BUILD_DIR/${path}
-      #    bash mvnw clean package -U -T 4 >/dev/null 2>&1
+      #    bash mvnw clean package -U -T 4
       #    stop_any 8080
-      #    docker-compose build --force-rm --pull --no-cache >/dev/null 2>&1
-      #    docker-compose up -d --build --remove-orphans >/dev/null 2>&1
+      #    docker-compose build --force-rm --pull --no-cache
+      #    docker-compose up -d --build --remove-orphans
       #    sleep 30
       #    http :8080/ui/
       #    http :8080/rest-api/health
-      #    docker-compose down -v >/dev/null 2>&1
+      #    docker-compose down -v
       #  done
       ## forge-javaee-6-ws
       #- cd $TRAVIS_BUILD_DIR/forge-javaee-6-ws
@@ -498,15 +499,15 @@ jobs:
       name: forge-ws
       script:
       - cd $TRAVIS_BUILD_DIR/forge-ws
-      - bash mvnw clean package -U >/dev/null 2>&1
-      - bash gradlew clean build >/dev/null 2>&1
-      - docker-compose up --build --force-recreate --remove-orphans -d >/dev/null 2>&1
+      - bash mvnw clean package -U
+      - bash gradlew clean build
+      - docker-compose up --build --force-recreate --remove-orphans -d
       - sleep 20
       - http :8080/app/v1/api
       - http ":8080/app/UserService?wsdl"
       - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @./src/test/resources/empty-request.xml | xmllint --format -
       - curl -XPOST http://localhost:8080/app/User --header "content-type:text/xml" -d @src/test/resources/named-request.xml | xmllint --format -
-      - docker-compose down -v >/dev/null 2>&1
+      - docker-compose down -v
       ## java-ee-7-docker-jboss-eap-6.4-quickstart
       #- cd $TRAVIS_BUILD_DIR/java-ee-7-docker-jboss-eap-6.4-quickstart
       #- bash mvnw -U
@@ -564,7 +565,7 @@ jobs:
       name: kotlin-java-ee
       script:
       - cd $TRAVIS_BUILD_DIR/kotlin-java-ee
-      - bash gradlew clean build >/dev/null 2>&1
+      - bash gradlew clean build
       - java -Djava.net.preferIPv4Stack=true -jar build/libs/*-swarm.jar &
       - sleep 30
       - http :8080
@@ -609,7 +610,6 @@ before_cache:
   - find ~/.gradle -name "fileHashes.bin" -print0 | xargs -0 rm -rfv '{}'
   - for item in $(find ~/.gradle -name "*.lock") ; do rm -rfv $item ; done
 cache:
-  pip: true
   packages: true
   directories:
   - ~/.m2
