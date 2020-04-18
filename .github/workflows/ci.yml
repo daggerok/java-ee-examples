@@ -17,7 +17,9 @@ jobs:
         path: ~/.npm
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
         restore-keys: |
+          ${{ runner.os }}-build-
           ${{ runner.os }}-npm-
+          ${{ runner.os }}-
     - uses: actions/setup-node@v1
     - uses: actions/cache@v1
       with:
@@ -25,13 +27,17 @@ jobs:
         key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
         restore-keys: |
           ${{ runner.os }}-docker-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
     - run: sudo apt-get update -t docker-ce
     - uses: actions/cache@v1
       with:
         path: ~/.m2
         key: ${{ runner.os }}-maven-${{ hashFiles('**/mvnw') }}
         restore-keys: |
+          ${{ runner.os }}-build-
           ${{ runner.os }}-maven-
+          ${{ runner.os }}-
     - uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java }}
@@ -60,7 +66,9 @@ jobs:
         path: ~/.npm
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
         restore-keys: |
+          ${{ runner.os }}-build-
           ${{ runner.os }}-npm-
+          ${{ runner.os }}-
     - uses: actions/setup-node@v1
     - uses: actions/cache@v1
       with:
@@ -68,13 +76,17 @@ jobs:
         key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
         restore-keys: |
           ${{ runner.os }}-docker-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
     - run: sudo apt-get update -t docker-ce
     - uses: actions/cache@v1
       with:
         path: ~/.m2
         key: ${{ runner.os }}-maven-${{ hashFiles('**/mvnw') }}
         restore-keys: |
+          ${{ runner.os }}-build-
           ${{ runner.os }}-maven-
+          ${{ runner.os }}-
     - uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java }}
@@ -103,14 +115,18 @@ jobs:
         path: ~/.n*
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
         restore-keys: |
+          ${{ runner.os }}-build-
           ${{ runner.os }}-npm-
+          ${{ runner.os }}-
     - uses: actions/setup-node@v1
     - uses: actions/cache@v1
       with:
         path: ~/.m2
         key: ${{ runner.os }}-maven-${{ hashFiles('**/mvnw') }}
         restore-keys: |
+          ${{ runner.os }}-build-
           ${{ runner.os }}-maven-
+          ${{ runner.os }}-
     - uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java }}
@@ -137,6 +153,8 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradlew') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
     - uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java }}
