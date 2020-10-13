@@ -23,7 +23,7 @@
     <kotlin.version>1.2.51</kotlin.version>
     <jgiven.version>0.15.3</jgiven.version>
     <slf4j.version>1.7.30</slf4j.version>
-    <junit4.version>4.13</junit4.version>
+    <junit4.version>4.13.1</junit4.version>
     <javaee.version>8.0</javaee.version>
     <vavr.version>0.10.2</vavr.version>
     <h2.version>1.4.196</h2.version>
