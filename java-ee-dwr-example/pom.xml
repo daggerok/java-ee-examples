@@ -21,7 +21,7 @@
     <junit.jupiter.version>5.6.2</junit.jupiter.version>
     <assertj.version>3.11.1</assertj.version>
     <lombok.version>1.18.12</lombok.version>
-    <junit4.version>4.13</junit4.version>
+    <junit4.version>4.13.1</junit4.version>
     <slf4j.version>1.7.30</slf4j.version>
     <javaee.version>8.0</javaee.version>
     <vavr.version>0.10.2</vavr.version>
