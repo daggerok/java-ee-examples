@@ -1,4 +1,6 @@
-= java-ee-examples image:https://github.com/daggerok/java-ee-examples/workflows/CI/badge.svg["CI", link="https://github.com/daggerok/java-ee-examples/actions?query=workflow%3ACI"] image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
+= java-ee-examples image:https://github.com/daggerok/java-ee-examples/workflows/CI/badge.svg["CI", link="https://github.com/daggerok/java-ee-examples/actions?query=workflow%3ACI"]
+
+//image:https://travis-ci.org/daggerok/java-ee-examples.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/java-ee-examples"]
 
 //tag::content[]
 
