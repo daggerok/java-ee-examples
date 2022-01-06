@@ -26,7 +26,7 @@
     <junit4.version>4.13.1</junit4.version>
     <javaee.version>8.0</javaee.version>
     <vavr.version>0.10.2</vavr.version>
-    <h2.version>1.4.196</h2.version>
+    <h2.version>2.0.206</h2.version>
   </properties>
 
   <dependencies>
