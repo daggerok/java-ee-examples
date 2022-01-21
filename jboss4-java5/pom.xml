@@ -16,7 +16,7 @@
     <lombok.version>1.16.20</lombok.version>
     <slf4j.version>1.7.25</slf4j.version>
     <javaee.version>5</javaee.version>
-    <h2.version>1.4.196</h2.version>
+    <h2.version>2.1.210</h2.version>
     <hibernate.core.version>4.2.18.Final</hibernate.core.version>
   </properties>
 
