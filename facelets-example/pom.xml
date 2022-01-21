@@ -16,7 +16,7 @@
     <lombok.version>1.18.12</lombok.version>
     <slf4j.version>1.7.30</slf4j.version>
     <javaee.version>8.0</javaee.version>
-    <h2.version>1.4.196</h2.version>
+    <h2.version>2.1.210</h2.version>
     <vavr.version>0.10.2</vavr.version>
     <junit4.version>4.13.1</junit4.version>
     <junit.jupiter.version>5.6.2</junit.jupiter.version>
