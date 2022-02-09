@@ -14,7 +14,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <hibernate.core.version>4.2.18.Final</hibernate.core.version>
+    <hibernate.core.version>5.4.24.Final</hibernate.core.version>
     <junit.platform.version>1.2.0</junit.platform.version>
     <junit.jupiter.version>5.2.0</junit.jupiter.version>
     <maven.compiler.source>1.8</maven.compiler.source>
