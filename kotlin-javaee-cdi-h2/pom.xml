@@ -13,7 +13,7 @@
     <kotlin.version>1.2.10</kotlin.version>
     <slf4j.version>1.7.25</slf4j.version>
     <h2.version>1.4.196</h2.version>
-    <hibernate.core.version>4.2.18.Final</hibernate.core.version>
+    <hibernate.core.version>5.4.24.Final</hibernate.core.version>
   </properties>
 
   <dependencies>
