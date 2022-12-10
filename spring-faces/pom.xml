@@ -19,7 +19,7 @@
     <faces.version>2.2.16</faces.version>
     <junit4.version>4.13.1</junit4.version>
     <junit.jupiter.version>5.6.2</junit.jupiter.version>
-    <spring.version>4.3.14.RELEASE</spring.version>
+    <spring.version>6.0.0</spring.version>
   </properties>
 
   <repositories>
